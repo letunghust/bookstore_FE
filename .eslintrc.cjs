@@ -19,5 +19,6 @@ module.exports = {
     // ],
     // 'prettier/prettier': ['error', { endOfLine: 'auto' }],
     // 'no-console': 'off',
+    'no-unused-vars': 'off',
   },
 }

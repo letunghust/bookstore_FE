@@ -8,9 +8,7 @@ import { ThemeContext } from '../App';
 const Navbar = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isSticky, setIsSticky ] = useState(false);
-    // const darkTheme = useContext(ThemeContext)
-    const {darkTheme, toggleTheme} = useContext(ThemeContext)
-    console.log(darkTheme)
+    const {darkTheme, toggleTheme} = useContext(ThemeContext);
 
     const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen);
@@ -42,16 +40,16 @@ const Navbar = () => {
     ]
   return (
     <header>
-        <nav className='flex justify-between'>
+        <nav className={`flex justify-between`}>
             <div className='flex gap-5 '>
                 {/* logo */}
-                <Link to="/" className="logo flex items-center text-2xl font-bold text-gray-800">
+                <Link to="/" className="logo flex items-center text-2xl font-bold ">
                     <FaBahtSign className="mr-2" /> Books
                 </Link>
                 <ul className="flex space-x-4">
                     {navItems.map(({ link, path }) => (
                     <li key={path}>
-                        <Link to={path} className="text-gray-800">
+                        <Link to={path} className="">
                         {link}
                         </Link>
                     </li>
@@ -59,8 +57,8 @@ const Navbar = () => {
                 </ul>
             </div>
             <div className='flex'>
-                <FaAffiliatetheme style={{ fontSize: "5rem" }} onClick={toggleTheme} />
-                <FaBoltLightning style={{ fontSize: "5rem" }} onClick={toggleTheme} />
+                <FaAffiliatetheme style={{ fontSize: "2rem" }} onClick={toggleTheme} />
+                {/* <FaBoltLightning style={{ fontSize: "5rem" }} onClick={toggleTheme} /> */}
             </div>
         </nav>
     </header>

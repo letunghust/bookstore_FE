@@ -1,11 +1,10 @@
-import {
-    createBrowserRouter
-  } from "react-router-dom";
+import { createBrowserRouter} from "react-router-dom";
 import App from "../App";
 import Shop from "../shop/Shop";
 import Home from "../home/Home";
 import About from "../components/About";
 import Blog from "../components/Blog";
+// import SingleBookHome from "../shop/SingleBookHome";
   
   const router = createBrowserRouter([
     {
@@ -27,7 +26,12 @@ import Blog from "../components/Blog";
         {
           path: "/blog",
           element: <Blog/>
-        }
+        },
+        // {
+        //   path: "/book/:id",
+        //   element: <SingleBookHome/>
+         
+        // }
       ]
     },
   ]);
