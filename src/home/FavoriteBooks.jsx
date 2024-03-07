@@ -17,6 +17,7 @@ const FavoriteBooks = () => {
         console.error(error);
       }
     }
+    
     useEffect(() => {
       fetchData();
     }, [])
@@ -24,7 +25,7 @@ const FavoriteBooks = () => {
 
   return (
     <div>
-      <BookCard books={books} headline="Best seller books"/>
+      <BookCard books={books} headline="Favorite Books"/>
     </div>
   )
 }

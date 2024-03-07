@@ -1,4 +1,5 @@
 import Banner from '../components/Banner'
+import FavBook from './FavBook'
 import FavoriteBooks from './FavoriteBooks'
 
 
@@ -7,6 +8,7 @@ const Home = () => {
     <div>
      <Banner/>
      <FavoriteBooks/>
+     <FavBook/>
     </div>
   )
 }

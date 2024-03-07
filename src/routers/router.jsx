@@ -4,7 +4,7 @@ import Shop from "../shop/Shop";
 import Home from "../home/Home";
 import About from "../components/About";
 import Blog from "../components/Blog";
-// import SingleBookHome from "../shop/SingleBookHome";
+import SingleBookHome from "../shop/SingleBookHome";
   
   const router = createBrowserRouter([
     {
@@ -27,11 +27,11 @@ import Blog from "../components/Blog";
           path: "/blog",
           element: <Blog/>
         },
-        // {
-        //   path: "/book/:id",
-        //   element: <SingleBookHome/>
+        {
+          path: "/book/:id",
+          element: <SingleBookHome/>
          
-        // }
+        }
       ]
     },
   ]);
