@@ -10,10 +10,6 @@ function App() {
   const toggleTheme = () => {
     setDarkTheme(!darkTheme);
   };
-
-  useEffect(() => {
-    console.log(darkTheme);
-  }, [darkTheme]);
   
   return (
     <ThemeContext.Provider value={{ darkTheme, toggleTheme }}>
