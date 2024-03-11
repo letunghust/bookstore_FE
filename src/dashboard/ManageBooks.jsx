@@ -35,12 +35,7 @@ const handleDelete = (id) => {
       method: 'DELETE',
     })
 
-    if(response.ok) {
-      alert('delete successful')
-    }
-    else{
-      alert('delete failed')
-    }
+    alert('delete successful')
   } catch(error) {
     console.error(error.message);
   }
@@ -142,7 +137,7 @@ const TABLE_ROWS = allBooks;
                   </td>
                   {/* edit */}
                   <td className={`${classes} max-w-[200px] overflow-hidden overflow-ellipsis`}>
-                    <Link to={`/admin/dashboard/edit-books/${_id}`}>
+                    <Link to={`/admin/edit-books/${_id}`}>
                       <FaPencilAlt />
                     </Link>
                   </td>

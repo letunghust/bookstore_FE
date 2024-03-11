@@ -37,23 +37,23 @@ import EditBooks from "../dashboard/EditBooks"
           element: <SingleBookHome/>   
         },
         {
-          path: "/admin/dashboard",
+          path: "/admin",
           element: <DashboardLayout/>,
           children: [
             {
-              path: "/admin/dashboard",
+              path: "/admin",
               element: <Dashboard/>
             },
             {
-              path: "/admin/dashboard/upload",
+              path: "/admin/upload",
               element: <UploadBook/>
             },
             {
-              path: "/admin/dashboard/manage",
+              path: "/admin/manage",
               element: <ManageBooks/>
             },
             {
-              path: "/admin/dashboard/edit-books/:id",
+              path: "/admin/edit-books/:id",
               element: <EditBooks/>
             }
           ]

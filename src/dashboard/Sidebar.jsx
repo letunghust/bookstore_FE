@@ -23,9 +23,9 @@ const Sidebar = () => {
     return (
       <Card className="h-[calc(100vh-2rem)] w-full max-w-[20rem] p-4 shadow-xl shadow-blue-gray-900/5">
       <List> 
-        <SidebarItem to="/admin/dashboard" icon={<PresentationChartBarIcon className="h-5 w-5" />} label="Dashboard" />
-        <SidebarItem to="/admin/dashboard/upload" icon={<IoIosCloudUpload  className="h-5 w-5" />} label="Upload Book" />
-        <SidebarItem to="/admin/dashboard/manage" icon={<InboxIcon className="h-5 w-5" />} label="Manage Books" />
+        <SidebarItem to="/admin" icon={<PresentationChartBarIcon className="h-5 w-5" />} label="Dashboard" />
+        <SidebarItem to="/admin/upload" icon={<IoIosCloudUpload  className="h-5 w-5" />} label="Upload Book" />
+        <SidebarItem to="/admin/manage" icon={<InboxIcon className="h-5 w-5" />} label="Manage Books" />
         {/* <SidebarItem to="/admin/dashboard/profile" icon={<UserCircleIcon className="h-5 w-5" />} label="Profile" />
         <SidebarItem to="/admin/dashboard/settings" icon={<Cog6ToothIcon className="h-5 w-5" />} label="Settings" />
         <SidebarItem to="/admin/dashboard/logout" icon={<PowerIcon className="h-5 w-5" />} label="Log Out" /> */}
