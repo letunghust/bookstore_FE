@@ -7,7 +7,7 @@ const FavoriteBooks = () => {
     // const backend_url = import.meta.env.BACKEND_URL;
     const [books, setBooks] = useState([]);
 
-    // update book 
+    // get all book 
     const fetchData = async () => {
       try{
         const response = await fetch(`${backend_url}/all-books`);

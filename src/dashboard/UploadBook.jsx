@@ -1,5 +1,6 @@
 import { Textarea } from '@material-tailwind/react';
 import React, { useState } from 'react';
+import Button from '../components/Button';
 
 const backend_url = import.meta.env.BACKEND_URL || "http://localhost:3001";
 const UploadBook = () => {
@@ -7,6 +8,10 @@ const UploadBook = () => {
     "History",
     "Thriller",
     "Romance", 
+    "Romantasy",
+    "Fantasy",
+    "Science Fiction",
+    "Horror",
   ]
 
   const [selectedBookCategory, setSelectedBookCategory] = useState(bookCategories[0])
@@ -53,7 +58,7 @@ const UploadBook = () => {
 
   return (
       <div className="mx-auto max-w-screen-lg mt-8">
-        <h2>Upload a book</h2>
+        <h1 className="text-center">Upload a book</h1>
       <form onSubmit={handleBookSubmit} className="w-full  shadow-md rounded px-8 pt-6 pb-8 mb-4">
         {/* first row */}
         <div className="flex flex-wrap -mx-3 mb-6">
@@ -116,9 +121,10 @@ const UploadBook = () => {
         </div>
 
         {/* SUBMIT */}
-        <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full">
+        {/* <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full">
           Submit
-        </button>
+        </button> */}
+        <Button type="submit" label="Submit"/>
       </form>
     </div>
   );

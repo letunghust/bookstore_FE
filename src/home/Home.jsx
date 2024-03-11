@@ -22,4 +22,5 @@ export default Home
  *  - Giải quyết phần css cho bức ảnh để có thể căn chỉnh ra giữa.
  *  - Tạo component cho nút button 
  *  - Thêm các cuốn sách vào database 
+ *  - Làm phần side bar để cho có cái active. (Tìm hiểu về uselocation pathname)
  */
