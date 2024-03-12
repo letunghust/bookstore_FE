@@ -2,6 +2,7 @@ import "./App.css";
 import { Outlet } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import { useState, createContext, useEffect } from "react";
+import Footer from "./components/Footer";
 
 export const ThemeContext = createContext();
 function App() {
@@ -16,6 +17,7 @@ function App() {
       <div className={`${darkTheme ? "light" : "dark"}`}>
         <Navbar />
         <Outlet />
+        <Footer/>
       </div>
     </ThemeContext.Provider>
   );
