@@ -1,9 +1,26 @@
 import { Textarea } from '@material-tailwind/react';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Button from '../components/Button';
+import {  useNavigate } from 'react-router-dom';
 
 const backend_url = import.meta.env.BACKEND_URL || "http://localhost:3001";
 const UploadBook = () => {
+//   const [allBooks, setAllBooks] = useState([]);
+//   const fetchDataAllBook = async () => {
+//     try{
+//       const response = await fetch(`${backend_url}/all-books`);
+//       const data = await response.json();
+//       console.log(data)
+//       setAllBooks(data);
+//     } catch(error) {
+//       console.error(error)
+//     }
+//   }
+// useEffect(() => {
+//   fetchDataAllBook();
+// }, []);
+
+  //danh sach các thể loại sách
   const bookCategories = [
     "History",
     "Thriller",
@@ -16,11 +33,13 @@ const UploadBook = () => {
 
   const [selectedBookCategory, setSelectedBookCategory] = useState(bookCategories[0])
 
+  // lựa chọn thể loại sách
   const handleChangeSelectedValue = (event) => {
-    console.log(event.target.value)
     setSelectedBookCategory(event.target.value);
   }
 
+  // xử lý submit
+  const navigate = useNavigate();
   const handleBookSubmit = async (event) => {
     event.preventDefault();
     const form = event.target;
@@ -48,13 +67,21 @@ const UploadBook = () => {
         throw new Error('Error uploading book');
       }
 
+      // console.log(response)
+      // setAllBooks((preBooks) => [data, ...preBooks]);
+      // allBooks.unshift(bookObj);
+      // console.log(allBooks)
       alert('Book uploaded successfully');
+      navigate('/admin/manage'); // chuyển đến bên manage 
       form.reset();
     } catch(error) {
       console.error(error.massage)
     }
 
   }
+  // useEffect(() => {
+  //   console.log(allBooks)
+  // }, [allBooks])
 
   return (
       <div className="mx-auto max-w-screen-lg mt-8">

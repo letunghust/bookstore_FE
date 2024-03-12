@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
+import Button from '../components/Button';
 
 const SingleBookHome = () => {
   const { id } = useParams();
@@ -60,11 +61,14 @@ const SingleBookHome = () => {
           <div className="w-full">
             <h1 className="text-2xl font-bold mb-4 p-2">{bookInfo.bookTitle}</h1>
             <p className='w-full p-3'>{bookInfo.bookDescription}</p>
+            <a href={bookInfo.bookPDFURL}>
+              <Button type="text" label="Download Now "/>
+            </a>
           </div>
         </div>
       </div>
-      <div className='w-full p-4'>
         {/* hiển thị sách cùng thể loại */}
+      <div className='w-full p-4'>
         <h2 className="text-2xl font-bold mb-4 text-center">Other Books</h2>
         <ul className='flex flex-wrap justify-center gap-5'>
           {relatedBooks.map((relatedBook) => (

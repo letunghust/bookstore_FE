@@ -20,10 +20,12 @@ export default Home
  *  - them 2 nút ấn vào trong phần home. 
  *  - tạo thêm component slider để cho cả 2 phần đều chuyển động được. 
  *  - Giải quyết phần css cho bức ảnh để có thể căn chỉnh ra giữa.
- *  - Tạo component cho nút button 
+ *  - Tạo component cho nút button                                                                     Ͳ
  *  - Thêm các cuốn sách vào database                                             
- *  - Làm phần side bar để cho có cái active. (Tìm hiểu về uselocation pathname)  Ͳ
- *  - khi xóa sẽ tự động cập nhật lại giao diện 
- *  - khi bấm vào nút ok ở cái alert trong phần upload thì sẽ tự động điều hướng sang bên manage books
- *  - breadcrumb
+ *  - Làm phần side bar để cho có cái active. (Tìm hiểu về uselocation pathname)                       Ͳ
+ *  - khi xóa sẽ tự động cập nhật lại giao diện                                                        Ͳ
+ *  - khi bấm vào nút ok ở cái alert trong phần upload thì sẽ tự động điều hướng sang bên manage books Ͳ
+ *  - breadcrumb                                                                                       Ͳ
+ *  - làm phần footer   
+ *  - tạo log in log out 
  */
