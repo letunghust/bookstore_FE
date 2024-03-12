@@ -1,7 +1,7 @@
 import { Textarea } from "@material-tailwind/react";
 import React, { useEffect, useState } from "react";
 import Button from "../components/Button";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 
 const backend_url = import.meta.env.BACKEND_URL || "http://localhost:3001";
@@ -44,6 +44,7 @@ const EditBooks = () => {
     initData();
   }, [id]);
 
+  const navigate = useNavigate();
   const handleBookSubmit = async (event) => {
     event.preventDefault();
     const form = event.target;
@@ -77,6 +78,7 @@ const EditBooks = () => {
       setBookInfo(data);
       console.log(data);
       alert("Update a book sccessfull!");
+      navigate('/admin/manage'); // chuyển lại manage khi đã edit xong 
     } catch (error) {
       console.error(error);
     }
@@ -103,7 +105,7 @@ const EditBooks = () => {
               id="bookTitle"
               type="text"
               placeholder="Book Title"
-              value={bookInfo?.bookTitle }
+              // value={bookInfo?.bookTitle }
             />
           </div>
           <div className="w-full md:w-1/2 px-3">
