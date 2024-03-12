@@ -22,7 +22,7 @@ useEffect(() => {
   fetchDataAllBook();
 }, []);
 
-const handleDelete = (id) => {
+const handleDelete = async (id) => {
   // console.log(id)
   // fetch(`${backend_url}/book/${id}`, {
   //   method: 'DELETE',
@@ -34,12 +34,13 @@ const handleDelete = (id) => {
     const response = fetch(`${backend_url}/book/${id}`, {
       method: 'DELETE',
     })
-
     alert('delete successful')
+    // const data = await response.json();
+    // setAllBooks(data)
   } catch(error) {
     console.error(error.message);
   }
-
+  
 }
 
 const TABLE_HEAD = ["Title", "Author", "image URL", "category", "description", "PDF URL", "", ""];
