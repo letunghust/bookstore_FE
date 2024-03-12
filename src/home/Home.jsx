@@ -23,4 +23,7 @@ export default Home
  *  - Tạo component cho nút button 
  *  - Thêm các cuốn sách vào database                                             
  *  - Làm phần side bar để cho có cái active. (Tìm hiểu về uselocation pathname)  Ͳ
+ *  - khi xóa sẽ tự động cập nhật lại giao diện 
+ *  - khi bấm vào nút ok ở cái alert trong phần upload thì sẽ tự động điều hướng sang bên manage books
+ *  - breadcrumb
  */
