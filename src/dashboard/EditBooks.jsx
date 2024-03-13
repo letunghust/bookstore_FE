@@ -23,6 +23,7 @@ const EditBooks = () => {
     bookCategories[0]
   );
 
+  // lựa chọn thể loại sách 
   const handleChangeSelectedValue = (event) => {
     console.log(event.target.value);
     setSelectedBookCategory(event.target.value);
@@ -44,6 +45,7 @@ const EditBooks = () => {
     initData();
   }, [id]);
 
+  // xử lý ấn nút submit để thay đổi dữ liệu
   const navigate = useNavigate();
   const handleBookSubmit = async (event) => {
     event.preventDefault();
@@ -84,6 +86,14 @@ const EditBooks = () => {
     }
   };
 
+  const handleInputChange = (e) => {
+    const { id, value } = e.target;
+    setBookInfo((prevInfo) => ({
+      ...prevInfo,
+      [id]: value,
+    }));
+  };
+
   return (
     <div className="mx-auto max-w-screen-lg mt-8">
       <h1 className="text-center">Update a book</h1>
@@ -105,7 +115,8 @@ const EditBooks = () => {
               id="bookTitle"
               type="text"
               placeholder="Book Title"
-              // value={bookInfo?.bookTitle }
+              value={bookInfo?.bookTitle }
+              onChange={handleInputChange}
             />
           </div>
           <div className="w-full md:w-1/2 px-3">
@@ -121,6 +132,7 @@ const EditBooks = () => {
               type="text"
               placeholder="Author Name"
               value={bookInfo?.authorName}
+              onChange={handleInputChange}
             />
           </div>
         </div>
@@ -139,6 +151,7 @@ const EditBooks = () => {
               type="text"
               placeholder="Book Image URL"
               value={bookInfo?.imageURL}
+              onChange={handleInputChange}
             />
           </div>
           <div className="w-full md:w-1/2 px-3">
@@ -177,6 +190,7 @@ const EditBooks = () => {
               id="bookDescription"
               placeholder="Write your book ..."
               value={bookInfo?.bookDescription}
+              onChange={handleInputChange}
             />
           </div>
         </div>
@@ -195,6 +209,7 @@ const EditBooks = () => {
               type="text"
               placeholder="Book PDF URL"
               value={bookInfo?.bookPDFURL}
+              onChange={handleInputChange}
             />
           </div>
         </div>
