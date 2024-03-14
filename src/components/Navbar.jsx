@@ -1,17 +1,25 @@
 import React, { useEffect, useState, useContext } from 'react'
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FaBahtSign } from "react-icons/fa6";
 import { FaAffiliatetheme, FaBoltLightning } from "react-icons/fa6";
 import './NavBar.css'
 import { ThemeContext } from '../App';
+import { button } from '@material-tailwind/react';
+import LoginForm from '../pages/LoginForm';
 
 const Navbar = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isSticky, setIsSticky ] = useState(false);
     const {darkTheme, toggleTheme} = useContext(ThemeContext);
-
-    const toggleMenu = () => {
-        setIsMenuOpen(!isMenuOpen);
+    let [isLogedIn, setIsLogedIn] = useState(false);
+    // const toggleMenu = () => {
+    //     setIsMenuOpen(!isMenuOpen);
+    // }
+    const navigate = useNavigate();
+    const handleLogout = () => {
+        setIsLogedIn(false);    
+        localStorage.removeItem('userInfo:')
+        navigate('/');
     }
   
     useEffect(() => {
@@ -36,7 +44,7 @@ const Navbar = () => {
         {link: "About", path: "/about"},
         {link: "Shop", path: "/shop"},
         {link: "Admin", path: "/admin"},
-        {link: "Blog", path: "/blog"}
+        {link: "Blog", path: "/blog"},
     ]
   return (
     <header>
@@ -58,7 +66,14 @@ const Navbar = () => {
             </div>
             <div className='flex'>
                 <FaAffiliatetheme style={{ fontSize: "2rem" }} onClick={toggleTheme} />
-                {/* <FaBoltLightning style={{ fontSize: "5rem" }} onClick={toggleTheme} /> */}
+                {/* <Link to="/login">Login</Link> */}
+                {isLogedIn ? (
+                    <button onClick={handleLogout}> Logout </button>
+                ) : (
+                    // <Link to='/login'>
+                        <LoginForm setIsLogedIn={setIsLogedIn} />
+                    // </Link>
+                )}
             </div>
         </nav>
     </header>

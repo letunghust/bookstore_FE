@@ -34,7 +34,14 @@ const handleDelete = async (id) => {
     console.error(error.message);
   }
 }
-
+// sort lại
+const sortBooksByCreatedAt = () => {
+  setAllBooks((prevBooks) => [...prevBooks].sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)));
+};
+useEffect(() => {
+  fetchDataAllBook();
+  sortBooksByCreatedAt();
+}, []);
 const TABLE_HEAD = ["Title", "Author", "image URL", "category", "description", "PDF URL", "", ""];
   
 const TABLE_ROWS = allBooks;

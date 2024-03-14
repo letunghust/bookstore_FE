@@ -10,6 +10,7 @@ import Dashboard from "../dashboard/Dashboard";
 import UploadBook from "../dashboard/UploadBook";
 import ManageBooks from "../dashboard/ManageBooks";  
 import EditBooks from "../dashboard/EditBooks"
+import LoginForm from "../pages/LoginForm";
 
   const router = createBrowserRouter([
     {
@@ -35,6 +36,10 @@ import EditBooks from "../dashboard/EditBooks"
         {
           path: "/book/:id",
           element: <SingleBookHome/>   
+        },
+        {
+          path: "/login",
+          element: <LoginForm/>
         },
         {
           path: "/admin",
