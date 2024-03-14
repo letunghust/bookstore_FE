@@ -11,6 +11,7 @@ import UploadBook from "../dashboard/UploadBook";
 import ManageBooks from "../dashboard/ManageBooks";  
 import EditBooks from "../dashboard/EditBooks"
 import LoginForm from "../pages/LoginForm";
+import SignUpForm from "../pages/SignUpForm";
 
   const router = createBrowserRouter([
     {
@@ -40,6 +41,10 @@ import LoginForm from "../pages/LoginForm";
         {
           path: "/login",
           element: <LoginForm/>
+        },
+        {
+          path: "/signup",
+          element: <SignUpForm/>
         },
         {
           path: "/admin",
