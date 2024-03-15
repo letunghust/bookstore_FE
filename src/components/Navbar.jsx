@@ -71,8 +71,11 @@ const Navbar = () => {
                     <button onClick={handleLogout}> Logout </button>
                 ) : (
                     // <Link to='/login'>
-                        <LoginForm setIsLogedIn={setIsLogedIn} />
+                        // <LoginForm setIsLogedIn={setIsLogedIn} />
                     // </Link>
+                    <Link to='/login'>
+                        <button onClick={() => setIsLogedIn(true)}>Login</button>
+                    </Link>
                 )}
             </div>
         </nav>

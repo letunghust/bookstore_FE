@@ -27,6 +27,6 @@ export default Home
  *  - khi bấm vào nút ok ở cái alert trong phần upload thì sẽ tự động điều hướng sang bên manage books Ͳ
  *  - breadcrumb                                                                                       Ͳ
  *  - làm phần footer                                                                                  Ͳ
- *  - tạo log in log out 
+ *  - tạo log in log out                                                                               Ͳ
  *  - Làm chức năng search book 
  */
