@@ -30,10 +30,10 @@ const LoginForm = ({ setIsLogedIn }) => {
 
       if (response.ok) {
         alert("Login successfully");
+        navigate("/");
         form.reset();
         localStorage.setItem("userInfo:", JSON.stringify(userInfo));
         setIsLogedIn(true); // cập nhật trạng thái đăng nhập
-        navigate("/");
       } else {
         alert("Invalid email or password");
       }

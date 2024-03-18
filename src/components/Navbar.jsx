@@ -19,7 +19,7 @@ const Navbar = () => {
     const handleLogout = () => {
         setIsLogedIn(false);    
         localStorage.removeItem('userInfo:')
-        navigate('/');
+        navigate('/login');
     }
   
     useEffect(() => {
@@ -70,11 +70,14 @@ const Navbar = () => {
                 {isLogedIn ? (
                     <button onClick={handleLogout}> Logout </button>
                 ) : (
-                    // <Link to='/login'>
+                 
                         // <LoginForm setIsLogedIn={setIsLogedIn} />
-                    // </Link>
+             
                     <Link to='/login'>
-                        <button onClick={() => setIsLogedIn(true)}>Login</button>
+                        <button onClick={() => {
+                            setIsLogedIn(true);
+                            // navigate("/admin");
+                            }}>Login</button>
                     </Link>
                 )}
             </div>
