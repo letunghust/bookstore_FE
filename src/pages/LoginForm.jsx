@@ -28,11 +28,18 @@ const LoginForm = ({ setIsLogedIn }) => {
         body: JSON.stringify(userInfo),
       });
 
-      if (response.ok) {
-        alert("Login successfully");
-        navigate("/");
+      if (response.ok) { 
+        const data = await response.json();
+        const token = data.token;
+        if(token) {
+          localStorage.setItem('token', token)
+          alert("Login successfully");
+          navigate("/");
+        } else{
+          alert('Invalid email or password');
+        }
         form.reset();
-        localStorage.setItem("userInfo:", JSON.stringify(userInfo));
+        // localStorage.setItem("userInfo:", JSON.stringify(userInfo));
         setIsLogedIn(true); // cập nhật trạng thái đăng nhập
       } else {
         alert("Invalid email or password");
