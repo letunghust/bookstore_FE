@@ -36,8 +36,9 @@ const UploadBook = () => {
     const category = form.category.value;
     const bookDescription = form.bookDescription.value;
     const bookPDFURL = form.bookPDFURL.value;
+    const price = form.price.value;
     
-    const bookObj = {bookTitle, authorName, imageURL, category, bookDescription, bookPDFURL }
+    const bookObj = {bookTitle, authorName, imageURL, category, bookDescription, bookPDFURL, price }
     console.log(bookObj)
 
     try {
@@ -122,6 +123,21 @@ const UploadBook = () => {
               id="bookPDFURL"
               type="text"
               placeholder="Book PDF URL"
+            />
+          </div>
+        </div>
+
+        {/* fifth row */}
+        <div className="flex flex-wrap -mx-3 mb-6">
+          <div className="w-full px-3">
+            <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="Price">
+             Price
+            </label>
+            <input
+              className="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+              id="price"
+              type="text"
+              placeholder="example 20$"
             />
           </div>
         </div>

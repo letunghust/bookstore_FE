@@ -42,7 +42,7 @@ useEffect(() => {
   fetchDataAllBook();
   sortBooksByCreatedAt();
 }, []);
-const TABLE_HEAD = ["Title", "Author", "image URL", "category", "description", "PDF URL", "", ""];
+const TABLE_HEAD = ["Title", "Author", "image URL", "category", "description", "PDF URL", "Price",  "", ""];
   
 const TABLE_ROWS = allBooks;
  
@@ -69,7 +69,7 @@ const TABLE_ROWS = allBooks;
             </tr>
           </thead>
           <tbody>
-            {TABLE_ROWS.map(({_id, bookTitle, authorName, imageURL, category, bookDescription, bookPDFURL }, index) => {
+            {TABLE_ROWS.map(({_id, bookTitle, authorName, imageURL, category, bookDescription, bookPDFURL, price }, index) => {
               const isLast = index === TABLE_ROWS.length - 1;
               const classes = isLast ? "p-4" : "p-4 border-b border-blue-gray-50";
         
@@ -133,6 +133,16 @@ const TABLE_ROWS = allBooks;
                       className="font-normal"
                     >
                       {bookPDFURL}
+                    </Typography>
+                  </td>
+                  {/* price */}
+                  <td className={`${classes} max-w-[200px] overflow-hidden overflow-ellipsis`}>
+                    <Typography
+                      variant="small"
+                      color="blue-gray"
+                      className="font-normal"
+                    >
+                      {price}
                     </Typography>
                   </td>
                   {/* edit */}

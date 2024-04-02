@@ -57,6 +57,7 @@ const EditBooks = () => {
     const category = form.category.value;
     const bookDescription = form.bookDescription.value;
     const bookPDFURL = form.bookPDFURL.value;
+    const price = form.price.value;
 
     const bookObj = {
       bookTitle,
@@ -65,6 +66,7 @@ const EditBooks = () => {
       category,
       bookDescription,
       bookPDFURL,
+      price,
     };
 
     try {
@@ -209,6 +211,26 @@ const EditBooks = () => {
               type="text"
               placeholder="Book PDF URL"
               value={bookInfo?.bookPDFURL}
+              onChange={handleInputChange}
+            />
+          </div>
+        </div>
+       
+        {/* fifth row */}
+        <div className="flex flex-wrap -mx-3 mb-6">
+          <div className="w-full px-3">
+            <label
+              className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+              htmlFor="Price"
+            >
+             Price
+            </label>
+            <input
+              className="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+              id="price"
+              type="text"
+              placeholder="Price "
+              value={bookInfo?.price}
               onChange={handleInputChange}
             />
           </div>
