@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import BookCard from '../components/BookCard';
 
 // console.log(import.meta.env.VITE_BACKEND_URL)
-const backend_url = import.meta.env.BACKEND_URL || "http://localhost:3001";
+const backend_url = import.meta.env.VITE_BACKEND_URL || "http://localhost:3001";
 const FavoriteBooks = () => {
     // const backend_url = import.meta.env.BACKEND_URL;
     const [books, setBooks] = useState([]);
