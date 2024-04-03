@@ -50,6 +50,39 @@ const SingleBookHome = () => {
     return <div>Loading...</div>;
   }
 
+  // them sách vào giỏ hàng 
+  const handleAddToCart = async (bookId) => {
+    try{
+      const token = localStorage.getItem('token');
+      const quantity = 1;
+      if(!token) {
+        alert('please log in')
+      } else {
+        console.log(token)
+        // const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/add/${bookId}`, {
+        const response = await fetch(`http://localhost:3001/add/65f15cb88efe0f83a96fd451`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json', 
+            'Authorization': `Bearer ${token}`,
+          },
+          body: JSON.stringify({quantity}),
+        });
+  
+        if(!response.ok) {
+          throw new Error('Error adding book to cart');
+        }
+  
+        const data = await response.json();
+        alert(data.message); 
+      }
+
+    } catch(error) {
+      console.log(error);
+      alert('Error adding book to cart')
+    }
+  }
+
   return (
     <div>
       <div className='flex w-1/3 border-zinc-950'>
@@ -61,9 +94,12 @@ const SingleBookHome = () => {
           <div className="w-full">
             <h1 className="text-2xl font-bold mb-4 p-2">{bookInfo.bookTitle}</h1>
             <p className='w-full p-3'>{bookInfo.bookDescription}</p>
-            <a href={bookInfo.bookPDFURL}>
-              <Button type="text" label="Download Now "/>
-            </a>
+            <div className='flex w-full'>
+              <a href={bookInfo.bookPDFURL}>
+                <Button type="text" label="Download Now "/>
+              </a>
+              <button onClick={() => handleAddToCart(bookInfo._id)}> Add to Cart </button>
+            </div>
           </div>
         </div>
       </div>

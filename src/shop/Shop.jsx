@@ -20,6 +20,7 @@ const Shop = () => {
   useEffect(() => {
     fetchData();
   }, []);
+  //end of get all books 
 
   return (
     <div>
