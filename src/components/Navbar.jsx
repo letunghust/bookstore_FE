@@ -3,8 +3,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { FaBahtSign } from "react-icons/fa6";
 import { FaAffiliatetheme, FaBoltLightning } from "react-icons/fa6";
 import './NavBar.css'
+import { BsCart } from "react-icons/bs";
 import { ThemeContext } from '../App';
-import { button } from '@material-tailwind/react';
 import LoginForm from '../pages/LoginForm';
 
 const Navbar = () => {
@@ -66,7 +66,9 @@ const Navbar = () => {
             </div>
             <div className='flex'>
                 <FaAffiliatetheme style={{ fontSize: "2rem" }} onClick={toggleTheme} />
-                {/* <Link to="/login">Login</Link> */}
+                <Link to="/cart">
+                    <BsCart className='text-2xl' />
+                </Link>
                 {isLogedIn ? (
                     <button onClick={handleLogout}> Logout </button>
                 ) : (

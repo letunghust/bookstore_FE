@@ -17,7 +17,7 @@ const LoginForm = ({ setIsLogedIn }) => {
     const password = form.password.value;
 
     const userInfo = { email, password };
-    console.log(userInfo);
+    // console.log(userInfo);
 
     try {
       const response = await fetch(`${backend_url}/login`, {
@@ -45,7 +45,9 @@ const LoginForm = ({ setIsLogedIn }) => {
         alert("Invalid email or password");
       }
     } catch (error) {
-      throw new Error("Error login");
+      // throw new Error("Error login");
+      console.log(error)
+      alert('Error log in')
     }
   };
 

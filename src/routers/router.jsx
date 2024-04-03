@@ -12,6 +12,7 @@ import ManageBooks from "../dashboard/ManageBooks";
 import EditBooks from "../dashboard/EditBooks"
 import LoginForm from "../pages/LoginForm";
 import SignUpForm from "../pages/SignUpForm";
+import Cart from "../pages/Cart";
 
   const router = createBrowserRouter([
     {
@@ -45,6 +46,10 @@ import SignUpForm from "../pages/SignUpForm";
         {
           path: "/signup",
           element: <SignUpForm/>
+        },
+        {
+          path: "/cart",
+          element: <Cart/>
         },
         {
           path: "/admin",

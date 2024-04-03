@@ -6,6 +6,7 @@ import Button from '../components/Button';
 const SingleBookHome = () => {
   const { id } = useParams();
   const [bookInfo, setBookInfo] = useState(null);
+  const [res1, setResInfo] = useState('');
   const [relatedBooks, setRelatedBooks] = useState([]);
 
   // hiển thị đúng cuốn sách khi bấm vào 1 ảnh 
@@ -15,7 +16,7 @@ const SingleBookHome = () => {
         const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/book/${id}`);
         const data = response.data;
         setBookInfo(data);
-        console.log("res data: ", data);
+        // console.log("res data: ", data);
       } catch (err) {
         console.log(err);
       }
@@ -58,13 +59,15 @@ const SingleBookHome = () => {
       if(!token) {
         alert('please log in')
       } else {
-        console.log(token)
-        // const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/add/${bookId}`, {
-        const response = await fetch(`http://localhost:3001/add/65f15cb88efe0f83a96fd451`, {
+        // console.log(token)
+        const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/add/${bookId}`, {
+        // const response = await fetch(`http://localhost:3001/add/65f15cb88efe0f83a96fd451`, {
           method: 'POST',
           headers: {
-            'Content-Type': 'application/json', 
-            'Authorization': `Bearer ${token}`,
+            'Accept': 'application/json',
+            // 'Content-Type': 'application/json',
+            'Content-Type': 'application/json; charset=UTF-8', 
+            'Authorization': `${token}`,
           },
           body: JSON.stringify({quantity}),
         });
@@ -73,8 +76,12 @@ const SingleBookHome = () => {
           throw new Error('Error adding book to cart');
         }
   
-        const data = await response.json();
-        alert(data.message); 
+        // const res = await response.json();
+        const res = await response.json();
+        console.log(res)
+        // alert(res); 
+        alert(JSON.stringify(res)); 
+     
       }
 
     } catch(error) {
@@ -98,7 +105,8 @@ const SingleBookHome = () => {
               <a href={bookInfo.bookPDFURL}>
                 <Button type="text" label="Download Now "/>
               </a>
-              <button onClick={() => handleAddToCart(bookInfo._id)}> Add to Cart </button>
+              <button onClick={() => {console.log(bookInfo._id);handleAddToCart(bookInfo._id)}}> Add to Cart </button>
+              {/* <button onClick={() => handleAddToCart('65f15cb88efe0f83a96fd451')}> Add to Cart </button> */}
             </div>
           </div>
         </div>
