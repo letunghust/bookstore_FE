@@ -38,31 +38,37 @@ const Cart = () => {
             {cartItems.length === 0 ? (
                 <p className='text-gray-600'>Giỏ hàng của bạn đang trống.</p>
             ) : (
-                <ul className="divide-y divide-gray-200 justify-between"> 
-                     {cartItems.map((item) => (
-                        <li key={item.book._id} className="py-4 flex  items-center">
-                        <img
-                            src={item.book.imageURL}
-                            alt={item.book.bookTitle}
-                            className="w-16 h-20 object-cover mr-4"
-                        />
-                        <div>
-                            <h3 className="text-lg font-semibold">{item.book.bookTitle}</h3>
-                            <p className="text-gray-600">Quantity: {item.quantity}</p>
-                            <p className="text-gray-600">Price: {item.book.price}$</p>
-                        </div>
-                        </li>
-                    ))}
-                    {/* <img 
-                        src={cartItems.imageURL}  
-                        alt={cartItems.bookTitle}
-                        className="w-16 h-20 object-cover mr-4"
-                    />
-                    
-                    <h3 className="text-lg font-semibold">{cartItems.bookTitle}</h3>
-                    <p className='text-gray-600'>{cartItems.quantity}</p>
-                    <p className='text-gray-600'>{cartItems.price}$</p> */}
-                </ul>
+                <>                
+                    <ul className="divide-y divide-gray-200 justify-between"> 
+                        {cartItems.map((item) => (
+                            <li key={item.book._id} className="py-4 flex  items-center">
+                            <img
+                                src={item.book.imageURL}
+                                alt={item.book.bookTitle}
+                                className="w-16 h-20 object-cover mr-4"
+                            />
+                            <div>
+                                <h3 className="text-lg font-semibold">{item.book.bookTitle}</h3>
+                                <p className="text-gray-600">Quantity: {item.quantity}</p>
+                                <p className="text-gray-600">Price: {item.book.price}$</p>
+                                <p className='text-gray-600'>Total price: {item.book.price * item.quantity}$</p>
+                            </div>
+                            </li>
+                        ))}
+                    </ul>
+                    <div className='mt-6 flex justify-between items-center'>
+                        <p className="text-red-600 mt-4 font-semibold text-2xl">
+                            Total Cart Price:  {' '}
+                            {cartItems.reduce(
+                                (total, item) => total += item.book.price * item.quantity, 0
+                            )}
+                            $
+                        </p>
+                        <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-1/10">
+                           Purchase
+                        </button>
+                    </div>
+                </>
             )}
         </div>
     );
