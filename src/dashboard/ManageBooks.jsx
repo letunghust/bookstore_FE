@@ -47,7 +47,7 @@ const TABLE_HEAD = ["Title", "Author", "image URL", "category", "description", "
 const TABLE_ROWS = allBooks;
  
   return (
-    <div>
+    <div className='w-full'>
       <Card className="h-full w-full overflow-scroll">
         <table className="w-full min-w-max table-auto text-left">
           <thead>
@@ -96,7 +96,7 @@ const TABLE_ROWS = allBooks;
                     </Typography>
                   </td>
                   {/* image URL */}
-                  <td className={`${classes} max-w-[200px] overflow-hidden overflow-ellipsis`}>
+                  <td className={`${classes} max-w-[200px] overflow-hidden overflow-ellipsis break-words`}>
                     <Typography
                       variant="small"
                       color="blue-gray"
@@ -126,7 +126,7 @@ const TABLE_ROWS = allBooks;
                     </Typography>
                   </td>
                   {/* pdf url */}
-                  <td className={`${classes} max-w-[200px] overflow-hidden overflow-ellipsis`}>
+                  <td className={`${classes} max-w-[200px] overflow-hidden overflow-ellipsis break-words`}>
                     <Typography
                       variant="small"
                       color="blue-gray"

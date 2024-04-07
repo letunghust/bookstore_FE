@@ -6,7 +6,7 @@ import { IoIosCloudUpload } from "react-icons/io";
 
 const SidebarItem = ({ to, icon, label }) => {
   const location = useLocation();
-  const isActive = location.pathname.startsWith(to);
+  const isActive = location.pathname === to.toString();
 
   return (
     <Link to={to}>
@@ -21,7 +21,7 @@ const SidebarItem = ({ to, icon, label }) => {
 const Sidebar = () => {
   // const listItem = [{key: "dashboard" , path: "/admin/dashboard"}]
     return (
-      <Card className="h-[calc(100vh-2rem)] w-full max-w-[20rem] p-4 shadow-xl shadow-blue-gray-900/5">
+      <Card className="h-[calc(100vh-2rem)] w-64 p-4 shadow-xl shadow-blue-gray-900/5">
       <List> 
         <SidebarItem to="/admin" icon={<PresentationChartBarIcon className="h-5 w-5" />} label="Dashboard" />
         <SidebarItem to="/admin/upload" icon={<IoIosCloudUpload  className="h-5 w-5" />} label="Upload Book" />

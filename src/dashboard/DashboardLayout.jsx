@@ -8,7 +8,7 @@ const DashboardLayout = () => {
     <div className='flex'>
         {/* <BreadCrumbs/> */}
         <Sidebar/>
-        <div>
+        <div className="flex-1 overflow-x-scroll">
           <BreadCrumbs/>
          <Outlet/>
         </div>

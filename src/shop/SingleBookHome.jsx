@@ -95,11 +95,11 @@ const SingleBookHome = () => {
       <div className='flex w-1/3 border-zinc-950'>
       {/* hiển thị ảnh, tiêu đề, mô tả, AI */}
         <div className=''>
-          <div className="w-2/3 items-center bottom-5 border-black text-center">
-            <img src={bookInfo.imageURL} alt={bookInfo.bookTitle} className="w-full h-auto" />
+          <div className="w-full flex justify-center bottom-5 border-black text-center">
+            <img src={bookInfo.imageURL} alt={bookInfo.bookTitle} className="w-2/3 h-auto" />
           </div>
           <div className="w-full">
-            <h1 className="text-2xl font-bold mb-4 p-2">{bookInfo.bookTitle}</h1>
+            <h1 className="text-2xl text-center font-bold mb-4 p-2">{bookInfo.bookTitle}</h1>
             <p className='w-full p-3'>{bookInfo.bookDescription}</p>
             <div className='flex w-full'>
               <a href={bookInfo.bookPDFURL}>
