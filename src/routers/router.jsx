@@ -13,7 +13,9 @@ import EditBooks from "../dashboard/EditBooks"
 import LoginForm from "../pages/LoginForm";
 import SignUpForm from "../pages/SignUpForm";
 import Cart from "../pages/Cart";
-
+import { loadStripe } from "@stripe/stripe-js";
+import { Elements } from "@stripe/react-stripe-js";
+const stripePromise = loadStripe('pk_test_51P1hnME80pxaWCvIsuSE6XO7LLLuoWmZKjvuXDRD99v10auWXzuvCKHKtidf7tLUcSczK806Pvbt2PwRjUL6L3Jk00sNLNslNz');
   const router = createBrowserRouter([
     {
       path: "/",
@@ -49,7 +51,17 @@ import Cart from "../pages/Cart";
         },
         {
           path: "/cart",
-          element: <Cart/>
+          element:
+              <Elements
+      stripe={stripePromise}
+      // options={{
+      //   clientSecret:
+      //     "pi_3P3WUKE80pxaWCvI0rce7moD_secret_wbNwhXJj7LarsJaYScKpdS5GE",
+      //   elements: { cardElement: CardElement },
+      // }}
+    >
+          <Cart/> 
+           </Elements> 
         },
         {
           path: "/admin",

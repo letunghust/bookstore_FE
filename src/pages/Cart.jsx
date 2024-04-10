@@ -1,19 +1,24 @@
 import React, { useState, useEffect } from "react";
-import {loadStripe} from "@stripe/stripe-js";
+import { loadStripe } from "@stripe/stripe-js";
+import {
+  useStripe,
+  useElements,
+  CardElement,
+  // Elements,
+} from "@stripe/react-stripe-js";
+// import { PaymentElement } from '@stripe/react-stripe-js';
 import axios from "axios";
 import ModalCheckout from "../components/ModalCheckout";
-import { CardElement, useStripe } from '@stripe/react-stripe-js';
 
-const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLISH_KEY)
-
-
+// const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLISH_KEY);
+// const clientSecret = 'sk_test_51P1hnME80pxaWCvIBXXXmc9Dt7m54vH7pAuI9GX0DtrNjO5vZdWSEzSTM0DR2o71mETRJYdLv62Ri740wlNPIg0c00h4EX8zgJ';
 const Cart = () => {
   // const [cartItems, setCartItems] = useState([]);
   const [cartItems, setCartItems] = useState("");
   const token = localStorage.getItem("token");
   const [clientSecret, setClientSecret] = useState(null);
-//   const stripe = useStripe();
-//   const elements = useElements();
+  const stripe = useStripe();
+  const elements = useElements();
 
   // get all book in cart
   const fetchCart = async () => {
@@ -29,7 +34,7 @@ const Cart = () => {
         }
       );
 
-    //   console.log("data", response.data.books);
+      //   console.log("data", response.data.books);
       // setCartItems(response.data.books[0].book);
       setCartItems(response.data.books);
       // console.log(cartItems[1].book._id)
@@ -58,12 +63,10 @@ const Cart = () => {
       const cartId = "660adc615136c742451bc6ac";
       const userId = "6604f17c1dfd7a3f4b4de5b0";
 
-      // const response = await axios.post('/create_payment', {
-      //   cartId,
-      //   userId,
-      // });
       const response = await fetch(
-        `${import.meta.env.VITE_BACKEND_URL}/create_payment?cardId=${cartId}&userId=${userId}`,
+        `${
+          import.meta.env.VITE_BACKEND_URL
+        }/create_payment?cardId=${cartId}&userId=${userId}`,
         {
           method: "POST",
           headers: {
@@ -74,47 +77,17 @@ const Cart = () => {
           body: JSON.stringify({ cartId, userId }),
         }
       );
-      console.log(response)
-      if(response.ok) {
+      console.log(response);
+      if (response.ok) {
         const data = await response.json();
-        console.log('data secret: ', data)
-        const {clientSecret} = data;
-        console.log( 'client secret: ',clientSecret)
+        console.log("data secret: ", data);
+        const { clientSecret } = data;
+        console.log("client secret: ", clientSecret);
         setClientSecret(clientSecret);
-        handleOpenModal()
+        handleOpenModal();
       } else {
-        console.log("Error creating payment intent:", response.status)
+        console.log("Error creating payment intent:", response.status);
       }
-    //   const { clientSecret } = response.data;
-    //   setClientSecret(clientSecret);
-     
-    //   const stripe = await stripePromise;
-    //   const {error} = await stripe.confirmCardPayment(clientSecret, {
-    //     payment_method: {
-    //         card: elements.getElement(CardElement),
-    //         billing_details: {
-    //             name: "test", 
-    //         }
-    //     }
-    //   })
-
-    //   if (error) {
-    //     console.error('Error confirming card payment:', error);
-    //   } else {
-    //     // Thanh toán thành công, gửi paymentIntentId đến server
-    //     const paymentIntentId = response.data.paymentIntent.id;
-    //     // const response = await axios.post('/payment_success', { paymentIntentId });
-    //     const successResponse = await fetch(`${import.meta.env.VITE_BACKEND_URL}/payment_success`, {
-    //         method: "POST",
-    //         headers: {
-    //           Accept: "application/json",
-    //           "Content-Type": "application/json; charset=UTF-8",
-    //           Authorization: `${token}`,
-    //         },
-    //         body: JSON.stringify({ paymentIntentId }),
-    //       });
-    //       console.log('Payment successful:', successResponse);
-    //     }
     } catch (error) {
       console.error("Error creating payment intent:", error);
     }
@@ -128,8 +101,85 @@ const Cart = () => {
     setShowModal(false);
   };
 
+  // HANDLE SUBMIT PAYMENT
+  const handleSubmitPayment = async (event) => {
+    event.preventDefault();
+    if (!stripe || !elements || !clientSecret) {
+      return;
+    }
+
+    const cardElement = elements.getElement(CardElement);
+    // if (!cardElement) {
+    //   alert("Thiếu card element");
+    //   return;
+    // } else {
+    //   alert(cardElement);
+    //   console.log(cardElement);
+    // }
+
+    try {
+      const { error, paymentIntent } = await stripe.confirmCardPayment(
+        clientSecret,
+        {
+          payment_method: {
+            card: cardElement,
+            billing_details: {
+              name: name, // Thêm tên người dùng nếu có
+              address: {
+                line1: address, // Thêm địa chỉ người dùng nếu có
+                city: city,
+                country: country,
+                // postal_code: '',
+              },
+            },
+          },
+        }
+      );
+
+      if (error) {
+        console.error("Error confirming card payment:", error);
+      } else {
+        // Xử lý thanh toán thành công
+        if (paymentIntent.status === "succeeded") {
+          console.log("Payment successful:", paymentIntent);
+        } else {
+          console.log("Payment status:", paymentIntent.status);
+        }
+      }
+    } catch (error) {
+      console.error("Error confirming card payment:", error);
+    }
+  };
+
   return (
     <div className="bg-white shadow-md rounded-lg p-4">
+      {/* RENDER CARD ELEMENT */}
+      {/* <div className="mb-4">
+        <CardElement
+          options={{
+            style: {
+              base: {
+                fontSize: "16px",
+                color: "#424770",
+                "::placeholder": {
+                  color: "#aab7c4",
+                },
+              },
+              invalid: {
+                color: "#9e2146",
+              },
+            },
+          }}
+          onChange={(event) => {
+            if (event.error) {
+              console.log("Error:", event.error.message);
+            } else {
+              console.log("Card details:", event.complete);
+            }
+          }}
+        />
+      </div> */}
+
       {/* GIO HANG */}
       <h2 className="text-xl font-bold mb-4">Your Cart</h2>
       {cartItems.length === 0 ? (
@@ -171,6 +221,7 @@ const Cart = () => {
                         </button> */}
             </div>
           </ul>
+
           {/* THANH TOAN */}
           <button
             className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-1/10"
@@ -179,126 +230,106 @@ const Cart = () => {
             Purchase
           </button>
 
-          <ModalCheckout isOpen={showModal} onClose={handleCloseModal}>
-            <form>
+          <ModalCheckout isOpen={showModal} onClose={handleCloseModal} >
+            <form className="max-w-screen-2xl mx-auto">
               {/* Các trường nhập thông tin thanh toán */}
-              {/* name */}
-              <div className="mb-4">
-                <label
-                  htmlFor="name"
-                  className="block text-gray-700 font-bold mb-2"
-                >
-                  Name
-                </label>
-                <input
-                  type="text"
-                  id="name"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                />
-              </div>
-              {/* address */}
-              <div className="mb-4">
-                <label
-                  htmlFor="address"
-                  className="block text-gray-700 font-bold mb-2"
-                >
-                  Address
-                </label>
-                <input
-                  type="text"
-                  id="address"
-                  value={address}
-                  onChange={(e) => setAddress(e.target.value)}
-                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                />
-              </div>
-              {/* city */}
-              <div className="mb-4">
-                <label
-                  htmlFor="city"
-                  className="block text-gray-700 font-bold mb-2"
-                >
-                  City
-                </label>
-                <input
-                  type="text"
-                  id="city"
-                  value={city}
-                  onChange={(e) => setCity(e.target.value)}
-                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                />
-              </div>
-              {/* country */}
-              <div className="mb-4">
-                <label
-                  htmlFor="country"
-                  className="block text-gray-700 font-bold mb-2"
-                >
-                  Country
-                </label>
-                <input
-                  type="text"
-                  id="country"
-                  value={country}
-                  onChange={(e) => setCountry(e.target.value)}
-                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                />
-              </div>
-              {/* cardNumber */}
-              <div className="mb-4">
-                <label
-                  htmlFor="cardNumber"
-                  className="block text-gray-700 font-bold mb-2"
-                >
-                  Card Number
-                </label>
-                <input
-                  type="text"
-                  id="cardNumber"
-                  value={cardNumber}
-                  onChange={(e) => setCardNumber(e.target.value)}
-                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                />
-              </div>
-              {/* expiryDate */}
-              <div className="mb-4">
-                <label
-                  htmlFor="expiryDate"
-                  className="block text-gray-700 font-bold mb-2"
-                >
-                  Expiry Date
-                </label>
-                <input
-                  type="text"
-                  id="expiryDate"
-                  value={expiryDate}
-                  onChange={(e) => setExpiryDate(e.target.value)}
-                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                />
-              </div>
-              {/* cvv */}
-              <div className="mb-4">
-                <label
-                  htmlFor="cvv"
-                  className="block text-gray-700 font-bold mb-2"
-                >
-                  CVV
-                </label>
-                <input
-                  type="text"
-                  id="cvv"
-                  value={cvv}
-                  onChange={(e) => setCvv(e.target.value)}
-                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                />
+              <div>
+                {/* name */}
+                <div className="mb-4">
+                  <label
+                    htmlFor="name"
+                    className="block text-gray-700 font-bold mb-2"
+                  >
+                    Name
+                  </label>
+                  <input
+                    type="text"
+                    id="name"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                  />
+                </div>
+                {/* address */}
+                <div className="mb-4">
+                  <label
+                    htmlFor="address"
+                    className="block text-gray-700 font-bold mb-2"
+                  >
+                    Address
+                  </label>
+                  <input
+                    type="text"
+                    id="address"
+                    value={address}
+                    onChange={(e) => setAddress(e.target.value)}
+                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                  />
+                </div>
+                {/* city */}
+                <div className="mb-4">
+                  <label
+                    htmlFor="city"
+                    className="block text-gray-700 font-bold mb-2"
+                  >
+                    City
+                  </label>
+                  <input
+                    type="text"
+                    id="city"
+                    value={city}
+                    onChange={(e) => setCity(e.target.value)}
+                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                  />
+                </div>
+                {/* country */}
+                <div className="mb-4">
+                  <label
+                    htmlFor="country"
+                    className="block text-gray-700 font-bold mb-2"
+                  >
+                    Country
+                  </label>
+                  <input
+                    type="text"
+                    id="country"
+                    value={country}
+                    onChange={(e) => setCountry(e.target.value)}
+                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                  />
+                </div>
+                {/* Card Element */}
+                <div className="mb-4">
+                  <CardElement
+                    options={{
+                      style: {
+                        base: {
+                          fontSize: "16px",
+                          color: "#424770",
+                          "::placeholder": {
+                            color: "#aab7c4",
+                          },
+                        },
+                        invalid: {
+                          color: "#9e2146",
+                        },
+                      },
+                    }}
+                    onChange={(event) => {
+                      if (event.error) {
+                        console.log("Error:", event.error.message);
+                      } else {
+                        console.log("Card details:", event.complete);
+                      }
+                    }}
+                  />
+                </div>
               </div>
 
               <button
                 type="submit"
                 className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-                // onClick={handleCheckout}
+                onClick={handleSubmitPayment}
               >
                 Complete Checkout
               </button>
