@@ -1,20 +1,16 @@
 import React, { useState, useEffect } from "react";
-import {
-  useStripe,
-  useElements,
-  CardElement,
-} from "@stripe/react-stripe-js";
+import { useStripe, useElements, CardElement } from "@stripe/react-stripe-js";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import {toast } from "react-toastify";
+import { toast } from "react-toastify";
 import ModalCheckout from "../components/ModalCheckout";
 
 // const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLISH_KEY);
 // const clientSecret = 'sk_test_51P1hnME80pxaWCvIBXXXmc9Dt7m54vH7pAuI9GX0DtrNjO5vZdWSEzSTM0DR2o71mETRJYdLv62Ri740wlNPIg0c00h4EX8zgJ';
 const Cart = () => {
   const [cartItems, setCartItems] = useState("");
-  const [cartId, setCartId] = useState('');
-  const [userId, setUserId] = useState('');
+  const [cartId, setCartId] = useState("");
+  const [userId, setUserId] = useState("");
   const token = localStorage.getItem("token");
   const [clientSecret, setClientSecret] = useState(null);
   const stripe = useStripe();
@@ -35,8 +31,8 @@ const Cart = () => {
         }
       );
 
-      console.log('cardId: ', response.data._id)
-      console.log('userId: ', response.data.user)
+      console.log("cardId: ", response.data._id);
+      console.log("userId: ", response.data.user);
       setCartId(response.data._id);
       setUserId(response.data.user);
       setCartItems(response.data.books);
@@ -65,8 +61,8 @@ const Cart = () => {
       );
       if (response.ok) {
         // alert("Delete cart successfully");
-        toast.success('Delete cart successfully', {
-          position: 'top-right',
+        toast.success("Delete cart successfully", {
+          position: "top-right",
           autoClose: 5000,
           hideProgressBar: false,
           closeOnClick: true,
@@ -78,9 +74,16 @@ const Cart = () => {
         console.log("Error when delete cart", response.status);
       }
     } catch (error) {
-      console.log('Error when clearing cart' ,error);
+      console.log("Error when clearing cart", error);
     }
   };
+
+  // handle increase, decrease quantity and remove item from cart
+  const handleDecreaseQuantity = () => {};
+
+  const handleIncreaseQuantity = () => {};
+
+  const handleRemoveItem = () => {};
 
   // handle payment
   const [showModal, setShowModal] = useState(false);
@@ -93,7 +96,6 @@ const Cart = () => {
   const handleCheckout = async (event) => {
     event.preventDefault();
     try {
-
       const response = await fetch(
         `${
           import.meta.env.VITE_BACKEND_URL
@@ -167,8 +169,8 @@ const Cart = () => {
         // Xử lý thanh toán thành công
         if (paymentIntent.status === "succeeded") {
           // alert("Payment successful");
-          toast.success('Payment successful', {
-            position: 'top-right',
+          toast.success("Payment successful", {
+            position: "top-right",
             autoClose: 5000,
             hideProgressBar: false,
             closeOnClick: true,
@@ -183,7 +185,7 @@ const Cart = () => {
         } else {
           // alert("Payment status:", paymentIntent.status);
           toast.info(`Payment status: ${paymentIntent.status}`, {
-            position: 'top-right',
+            position: "top-right",
             autoClose: 5000,
             hideProgressBar: false,
             closeOnClick: true,
@@ -204,10 +206,10 @@ const Cart = () => {
       {/* GIO HANG */}
       <h2 className="text-xl font-bold mb-4">Your Cart</h2>
       {cartItems.length === 0 ? (
-        <p className="text-gray-600">Giỏ hàng của bạn đang trống.</p>
+        <p className="text-gray-600">Your cart is empty</p>
       ) : (
         <>
-          <ul className="divide-y divide-gray-200 justify-between">
+          {/* <ul className="divide-y divide-gray-200 justify-between">
             {cartItems.map((item) => (
               <li key={item.book._id} className="py-4 flex  items-center">
                 <img
@@ -237,15 +239,74 @@ const Cart = () => {
                 )}
                 $
               </p>
-              {/* <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-1/10">
-                           Purchase
-                        </button> */}
             </div>
           </ul>
 
           {/* THANH TOAN */}
-          <button
+          {/* <button
             className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-1/10"
+            onClick={handleCheckout}
+          >
+            Purchase
+          </button> */}
+          <ul className="divide-y divide-gray-200">
+            {cartItems.map((item) => (
+              <li key={item.book._id} className="py-4 flex items-center">
+                <img
+                  src={item.book.imageURL}
+                  alt={item.book.bookTitle}
+                  className="w-16 h-20 object-cover mr-4"
+                />
+                <div className="flex flex-col flex-grow">
+                  <div className="flex items-center justify-between">
+                    <h3 className="text-lg font-semibold">
+                      {item.book.bookTitle}
+                    </h3>
+                    <button
+                      className="text-red-600 hover:text-red-800"
+                      onClick={() => handleRemoveItem(item.book._id)}
+                    >
+                      Remove
+                    </button>
+                  </div>
+                  <p className="text-gray-600">Quantity: {item.quantity}</p>
+                  <p className="text-gray-600">Price: {item.book.price}$</p>
+                  <p className="text-gray-600">
+                    Total price: {item.book.price * item.quantity}$
+                  </p>
+                  <div className="flex items-center mt-2">
+                    <button
+                      className="text-blue-500 hover:text-blue-700 mr-2"
+                      onClick={() => handleDecreaseQuantity(item.book._id)}
+                    >
+                      -
+                    </button>
+                    <p>{item.quantity}</p>
+                    <button
+                      className="text-blue-500 hover:text-blue-700 ml-2"
+                      onClick={() => handleIncreaseQuantity(item.book._id)}
+                    >
+                      +
+                    </button>
+                  </div>
+                </div>
+              </li>
+            ))}
+          </ul>
+
+          <div className="mt-6 flex justify-between items-center">
+            <p className="text-red-600 mt-4 font-semibold text-2xl">
+              Total Cart Price:{" "}
+              {cartItems.reduce(
+                (total, item) => (total += item.book.price * item.quantity),
+                0
+              )}
+              $
+            </p>
+          </div>
+          {/* THANH TOAN */}
+          <button
+            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4"
             onClick={handleCheckout}
           >
             Purchase
