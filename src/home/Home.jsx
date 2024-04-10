@@ -7,10 +7,6 @@ const Home = () => {
     <div>
      <Banner/>
      <FavoriteBooks/>
-     {/* <ToastNotification
-        message="Hello World!"
-        options={{ position: 'top-right', autoClose: 5000 }}
-      /> */}
       <FavBook />
       
     </div>

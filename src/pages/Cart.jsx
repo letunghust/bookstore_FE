@@ -12,8 +12,9 @@ import ModalCheckout from "../components/ModalCheckout";
 // const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLISH_KEY);
 // const clientSecret = 'sk_test_51P1hnME80pxaWCvIBXXXmc9Dt7m54vH7pAuI9GX0DtrNjO5vZdWSEzSTM0DR2o71mETRJYdLv62Ri740wlNPIg0c00h4EX8zgJ';
 const Cart = () => {
-  // const [cartItems, setCartItems] = useState([]);
   const [cartItems, setCartItems] = useState("");
+  const [cartId, setCartId] = useState('');
+  const [userId, setUserId] = useState('');
   const token = localStorage.getItem("token");
   const [clientSecret, setClientSecret] = useState(null);
   const stripe = useStripe();
@@ -34,10 +35,11 @@ const Cart = () => {
         }
       );
 
-      //   console.log("data", response.data.books);
-      // setCartItems(response.data.books[0].book);
+      console.log('cardId: ', response.data._id)
+      console.log('userId: ', response.data.user)
+      setCartId(response.data._id);
+      setUserId(response.data.user);
       setCartItems(response.data.books);
-      // console.log(cartItems[1].book._id)
     } catch (error) {
       console.log("Lỗi khi lấy thông tin giỏ hàng:", error);
     }
@@ -86,16 +88,11 @@ const Cart = () => {
   const [address, setAddress] = useState("");
   const [city, setCity] = useState("");
   const [country, setCountry] = useState("");
-  // const [cardNumber, setCardNumber] = useState("");
-  // const [expiryDate, setExpiryDate] = useState("");
-  // const [cvv, setCvv] = useState("");
 
   // HANDLE WHEN CLICK "PURCHASE"
   const handleCheckout = async (event) => {
     event.preventDefault();
     try {
-      const cartId = "66161576260f558f7bf78154";
-      const userId = "6604f17c1dfd7a3f4b4de5b0";
 
       const response = await fetch(
         `${
