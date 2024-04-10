@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from "react";
-// import { loadStripe } from "@stripe/stripe-js";
 import {
   useStripe,
   useElements,
   CardElement,
-  // Elements,
 } from "@stripe/react-stripe-js";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import {toast } from "react-toastify";
 import ModalCheckout from "../components/ModalCheckout";
 
 // const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLISH_KEY);
@@ -63,7 +62,16 @@ const Cart = () => {
         }
       );
       if (response.ok) {
-        alert("Delete cart successfully");
+        // alert("Delete cart successfully");
+        toast.success('Delete cart successfully', {
+          position: 'top-right',
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
       } else {
         console.log("Error when delete cart", response.status);
       }
@@ -161,28 +169,31 @@ const Cart = () => {
       } else {
         // Xử lý thanh toán thành công
         if (paymentIntent.status === "succeeded") {
-          alert("Payment successful");
+          // alert("Payment successful");
+          toast.success('Payment successful', {
+            position: 'top-right',
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          });
           console.log("Payment successful:", paymentIntent);
 
           // gọi API để xóa giỏ hàng
-          // fetch(`${import.meta.env.VITE_BACKEND_URL}/clear`, {
-          //   method: 'PUT',
-          //   headers: {
-          //     'Content-Type': 'application/json',
-          //     'Authorization': `${token}`,
-          //   },
-          //   body: JSON.stringify({ }),
-          // })
-          //   .then(response => {
-          //     if(response.ok) {
-          //       alert('Delete cart successfully');
-          //     } else {
-          //       console.log('Error when delete cart', response.status);
-          //     }
-          //   })
           await clearCart();
         } else {
-          alert("Payment status:", paymentIntent.status);
+          // alert("Payment status:", paymentIntent.status);
+          toast.info(`Payment status: ${paymentIntent.status}`, {
+            position: 'top-right',
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          });
           console.log("Payment status:", paymentIntent.status);
         }
       }

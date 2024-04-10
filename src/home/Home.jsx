@@ -2,13 +2,17 @@ import Banner from '../components/Banner'
 import FavBook from './FavBook'
 import FavoriteBooks from './FavoriteBooks'
 
-
 const Home = () => {
   return (
     <div>
      <Banner/>
      <FavoriteBooks/>
-     <FavBook/>
+     {/* <ToastNotification
+        message="Hello World!"
+        options={{ position: 'top-right', autoClose: 5000 }}
+      /> */}
+      <FavBook />
+      
     </div>
   )
 }
@@ -18,9 +22,8 @@ export default Home
 /**
  * 8/3: 
  *  - them 2 nút ấn vào trong phần home. 
- *  - tạo thêm component slider để cho cả 2 phần đều chuyển động được. 
- *  - Giải quyết phần css cho bức ảnh để có thể căn chỉnh ra giữa.
- *  - Thêm các cuốn sách vào database                                             
+ *  - Giải quyết phần css cho bức ảnh để có thể căn chỉnh ra giữa.                                     Ͳ
+ *  - Thêm các cuốn sách vào database                                                                  Ͳ
  *  - Tạo component cho nút button                                                                     Ͳ
  *  - Làm phần side bar để cho có cái active. (Tìm hiểu về uselocation pathname)                       Ͳ
  *  - khi xóa sẽ tự động cập nhật lại giao diện                                                        Ͳ
@@ -33,7 +36,7 @@ export default Home
  *  - Xử lý lỗi ở phần chuyển trang trong nút log in                                                   Ͳ
  *  - Xử lý phần bấm nút log in và log out mượt hơn.
  *  - Làm tính năng phân quyền 
- *  - Lưu token vào local storage và đẩy ngược lại token cho phía client 
+ *  - Lưu token vào local storage và đẩy ngược lại token cho phía client                               Ͳ
  *  
  * 
  */
