@@ -1,6 +1,6 @@
 import React from "react";
 
-const ModalCheckout = ({ isOpen, onClose, children }) => {
+const ModalCheckout = ({ isOpen, onClose, onSuccessPayment, children }) => {
   if (!isOpen) return null;
   return (
     <div>

@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { loadStripe } from "@stripe/stripe-js";
+// import { loadStripe } from "@stripe/stripe-js";
 import {
   useStripe,
   useElements,
   CardElement,
   // Elements,
 } from "@stripe/react-stripe-js";
-// import { PaymentElement } from '@stripe/react-stripe-js';
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import ModalCheckout from "../components/ModalCheckout";
 
 // const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLISH_KEY);
@@ -19,6 +19,7 @@ const Cart = () => {
   const [clientSecret, setClientSecret] = useState(null);
   const stripe = useStripe();
   const elements = useElements();
+  const navigate = useNavigate();
 
   // get all book in cart
   const fetchCart = async () => {
@@ -47,20 +48,45 @@ const Cart = () => {
     fetchCart();
   }, []);
 
+  // clear all book when payment successfull in cart
+  const clearCart = async () => {
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_BACKEND_URL}/clear`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `${token}`,
+          },
+          body: JSON.stringify({}),
+        }
+      );
+      if (response.ok) {
+        alert("Delete cart successfully");
+      } else {
+        console.log("Error when delete cart", response.status);
+      }
+    } catch (error) {
+      console.log('Error when clearing cart' ,error);
+    }
+  };
+
   // handle payment
   const [showModal, setShowModal] = useState(false);
   const [name, setName] = useState("");
   const [address, setAddress] = useState("");
   const [city, setCity] = useState("");
   const [country, setCountry] = useState("");
-  const [cardNumber, setCardNumber] = useState("");
-  const [expiryDate, setExpiryDate] = useState("");
-  const [cvv, setCvv] = useState("");
+  // const [cardNumber, setCardNumber] = useState("");
+  // const [expiryDate, setExpiryDate] = useState("");
+  // const [cvv, setCvv] = useState("");
 
+  // HANDLE WHEN CLICK "PURCHASE"
   const handleCheckout = async (event) => {
     event.preventDefault();
     try {
-      const cartId = "660adc615136c742451bc6ac";
+      const cartId = "66161576260f558f7bf78154";
       const userId = "6604f17c1dfd7a3f4b4de5b0";
 
       const response = await fetch(
@@ -109,13 +135,6 @@ const Cart = () => {
     }
 
     const cardElement = elements.getElement(CardElement);
-    // if (!cardElement) {
-    //   alert("Thiếu card element");
-    //   return;
-    // } else {
-    //   alert(cardElement);
-    //   console.log(cardElement);
-    // }
 
     try {
       const { error, paymentIntent } = await stripe.confirmCardPayment(
@@ -137,12 +156,33 @@ const Cart = () => {
       );
 
       if (error) {
+        alert("Error confirming card payment: ", error);
         console.error("Error confirming card payment:", error);
       } else {
         // Xử lý thanh toán thành công
         if (paymentIntent.status === "succeeded") {
+          alert("Payment successful");
           console.log("Payment successful:", paymentIntent);
+
+          // gọi API để xóa giỏ hàng
+          // fetch(`${import.meta.env.VITE_BACKEND_URL}/clear`, {
+          //   method: 'PUT',
+          //   headers: {
+          //     'Content-Type': 'application/json',
+          //     'Authorization': `${token}`,
+          //   },
+          //   body: JSON.stringify({ }),
+          // })
+          //   .then(response => {
+          //     if(response.ok) {
+          //       alert('Delete cart successfully');
+          //     } else {
+          //       console.log('Error when delete cart', response.status);
+          //     }
+          //   })
+          await clearCart();
         } else {
+          alert("Payment status:", paymentIntent.status);
           console.log("Payment status:", paymentIntent.status);
         }
       }
@@ -153,33 +193,6 @@ const Cart = () => {
 
   return (
     <div className="bg-white shadow-md rounded-lg p-4">
-      {/* RENDER CARD ELEMENT */}
-      {/* <div className="mb-4">
-        <CardElement
-          options={{
-            style: {
-              base: {
-                fontSize: "16px",
-                color: "#424770",
-                "::placeholder": {
-                  color: "#aab7c4",
-                },
-              },
-              invalid: {
-                color: "#9e2146",
-              },
-            },
-          }}
-          onChange={(event) => {
-            if (event.error) {
-              console.log("Error:", event.error.message);
-            } else {
-              console.log("Card details:", event.complete);
-            }
-          }}
-        />
-      </div> */}
-
       {/* GIO HANG */}
       <h2 className="text-xl font-bold mb-4">Your Cart</h2>
       {cartItems.length === 0 ? (
@@ -230,7 +243,7 @@ const Cart = () => {
             Purchase
           </button>
 
-          <ModalCheckout isOpen={showModal} onClose={handleCloseModal} >
+          <ModalCheckout isOpen={showModal} onClose={handleCloseModal}>
             <form className="max-w-screen-2xl mx-auto">
               {/* Các trường nhập thông tin thanh toán */}
               <div>
