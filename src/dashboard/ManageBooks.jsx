@@ -5,7 +5,7 @@ import { FaPencilAlt } from "react-icons/fa";
 import { MdDeleteForever } from "react-icons/md";
  
 const backend_url = import.meta.env.BACKEND_URL || "http://localhost:3001";
-
+const token = localStorage.getItem("token");
 const ManageBooks = () => {
   const [allBooks, setAllBooks] = useState([]);
   const fetchDataAllBook = async () => {
@@ -26,6 +26,10 @@ const handleDelete = async (id) => {
   try{
     const response = fetch(`${backend_url}/book/${id}`, {
       method: 'DELETE',
+      headers: {
+        "Content-type" : "application/json",
+        "Authorization": `${token}`,
+      },
     })
     alert('delete successful')
     setAllBooks((prevBooks) => prevBooks.filter((book) => book._id !== id));

@@ -5,7 +5,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 
 const backend_url = import.meta.env.BACKEND_URL || "http://localhost:3001";
-
+const token = localStorage.getItem("token");
 const EditBooks = () => {
   const { id } = useParams();
   const [bookInfo, setBookInfo] = useState(null);
@@ -74,6 +74,7 @@ const EditBooks = () => {
         method: "PATCH",
         headers: {
           "Content-type": "application/json",
+          "Authorization": `${token}`,
         },
         body: JSON.stringify(bookObj),
       });

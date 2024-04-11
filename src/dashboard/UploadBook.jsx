@@ -4,6 +4,7 @@ import Button from '../components/Button';
 import {  useNavigate } from 'react-router-dom';
 
 const backend_url = import.meta.env.BACKEND_URL || "http://localhost:3001";
+const token = localStorage.getItem("token");
 const UploadBook = () => {
 
   //danh sach các thể loại sách
@@ -46,6 +47,7 @@ const UploadBook = () => {
         method: "POST",
         headers: {
           "Content-type" : "application/json",
+          "Authorization": `${token}`,
         },
         body: JSON.stringify(bookObj)
       });
