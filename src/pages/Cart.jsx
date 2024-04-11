@@ -31,8 +31,8 @@ const Cart = () => {
         }
       );
 
-      console.log("cardId: ", response.data._id);
-      console.log("userId: ", response.data.user);
+      // console.log("cardId: ", response.data._id);
+      // console.log("userId: ", response.data.user);
       setCartId(response.data._id);
       setUserId(response.data.user);
       setCartItems(response.data.books);
@@ -79,11 +79,30 @@ const Cart = () => {
   };
 
   // handle increase, decrease quantity and remove item from cart
-  const handleDecreaseQuantity = () => {};
+  const handleDecreaseQuantity = (id) => {
+    const updatedCartItems = cartItems.map((item) => {
+      if(item._id === id) {
+        return {...item, quantity: Math.max(item.quantity - 1, 1)};
+      }
+      return item;
+    });
+    setCartItems(updatedCartItems);
+  };
 
-  const handleIncreaseQuantity = () => {};
+  const handleIncreaseQuantity = (id) => {
+    const updatedCartItems = cartItems.map((item) => {
+      if(item._id === id) {
+        return {...item, quantity: item.quantity + 1};
+      }
+      return item;
+    })
+    setCartItems(updatedCartItems);
+  };
 
-  const handleRemoveItem = () => {};
+  const handleRemoveItem = (id) => {
+    const updatedCartItems = cartItems.filter((item) => item._id !== id);
+    setCartItems(updatedCartItems);
+  };
 
   // handle payment
   const [showModal, setShowModal] = useState(false);
@@ -209,46 +228,6 @@ const Cart = () => {
         <p className="text-gray-600">Your cart is empty</p>
       ) : (
         <>
-          {/* <ul className="divide-y divide-gray-200 justify-between">
-            {cartItems.map((item) => (
-              <li key={item.book._id} className="py-4 flex  items-center">
-                <img
-                  src={item.book.imageURL}
-                  alt={item.book.bookTitle}
-                  className="w-16 h-20 object-cover mr-4"
-                />
-                <div>
-                  <h3 className="text-lg font-semibold">
-                    {item.book.bookTitle}
-                  </h3>
-                  <p className="text-gray-600">Quantity: {item.quantity}</p>
-                  <p className="text-gray-600">Price: {item.book.price}$</p>
-                  <p className="text-gray-600">
-                    Total price: {item.book.price * item.quantity}$
-                  </p>
-                </div>
-              </li>
-            ))}
-
-            <div className="mt-6 flex justify-between items-center">
-              <p className="text-red-600 mt-4 font-semibold text-2xl">
-                Total Cart Price:{" "}
-                {cartItems.reduce(
-                  (total, item) => (total += item.book.price * item.quantity),
-                  0
-                )}
-                $
-              </p>
-            </div>
-          </ul>
-
-          {/* THANH TOAN */}
-          {/* <button
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-1/10"
-            onClick={handleCheckout}
-          >
-            Purchase
-          </button> */}
           <ul className="divide-y divide-gray-200">
             {cartItems.map((item) => (
               <li key={item.book._id} className="py-4 flex items-center">
@@ -264,7 +243,7 @@ const Cart = () => {
                     </h3>
                     <button
                       className="text-red-600 hover:text-red-800"
-                      onClick={() => handleRemoveItem(item.book._id)}
+                      onClick={() => handleRemoveItem(item._id)}
                     >
                       Remove
                     </button>
@@ -277,14 +256,14 @@ const Cart = () => {
                   <div className="flex items-center mt-2">
                     <button
                       className="text-blue-500 hover:text-blue-700 mr-2"
-                      onClick={() => handleDecreaseQuantity(item.book._id)}
+                      onClick={() => handleDecreaseQuantity(item._id)}
                     >
                       -
                     </button>
                     <p>{item.quantity}</p>
                     <button
                       className="text-blue-500 hover:text-blue-700 ml-2"
-                      onClick={() => handleIncreaseQuantity(item.book._id)}
+                      onClick={() => handleIncreaseQuantity(item._id)}
                     >
                       +
                     </button>
