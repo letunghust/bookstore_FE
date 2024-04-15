@@ -5,7 +5,7 @@ import { FaAffiliatetheme, FaBoltLightning } from "react-icons/fa6";
 import "./NavBar.css";
 import { BsCart } from "react-icons/bs";
 import { ThemeContext } from "../App";
-import LoginForm from "../pages/LoginForm";
+// import LoginForm from "../pages/LoginForm";
 import {jwtDecode}  from "jwt-decode";
 import axios from "axios";
 
@@ -26,7 +26,7 @@ const Navbar = () => {
     if (storedToken) {
       try {
         const decodedToken = jwtDecode(storedToken);
-        console.log(decodedToken._id)
+        // console.log(decodedToken._id)
         const userId = decodedToken._id;
 
         const fetchUserData = async () => {
@@ -39,9 +39,6 @@ const Navbar = () => {
                 console.log(error);
             }
         }
-        // const userRole = decodedToken.role; // Lấy quyền từ payload của token
-        // // setIsLoggedIn(true);
-        // setUserRole(userRole);
         fetchUserData();
       } catch (error) {
         console.error("Error decoding token from localStorage:", error);

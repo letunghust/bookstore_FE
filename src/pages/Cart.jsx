@@ -81,8 +81,8 @@ const Cart = () => {
   // handle increase, decrease quantity and remove item from cart
   const handleDecreaseQuantity = (id) => {
     const updatedCartItems = cartItems.map((item) => {
-      if(item._id === id) {
-        return {...item, quantity: Math.max(item.quantity - 1, 1)};
+      if (item._id === id) {
+        return { ...item, quantity: Math.max(item.quantity - 1, 1) };
       }
       return item;
     });
@@ -91,11 +91,11 @@ const Cart = () => {
 
   const handleIncreaseQuantity = (id) => {
     const updatedCartItems = cartItems.map((item) => {
-      if(item._id === id) {
-        return {...item, quantity: item.quantity + 1};
+      if (item._id === id) {
+        return { ...item, quantity: item.quantity + 1 };
       }
       return item;
-    })
+    });
     setCartItems(updatedCartItems);
   };
 
