@@ -28,11 +28,11 @@ export default Home
  *  - làm phần footer                                                                                  Ͳ
  *  - tạo log in log out                                                                               Ͳ
  *  - Ket nối đến đúng database trong mongoDB                                                          Ͳ
- *  - Làm chức năng search book 
  *  - Xử lý lỗi ở phần chuyển trang trong nút log in                                                   Ͳ
- *  - Xử lý phần bấm nút log in và log out mượt hơn.
- *  - Làm tính năng phân quyền 
+ *  - Làm tính năng phân quyền                                                                         Ͳ
  *  - Lưu token vào local storage và đẩy ngược lại token cho phía client                               Ͳ
+ *  - Làm chức năng search book 
+ *  - Xử lý phần bấm nút log in và log out mượt hơn.
  *  
  * 
  */

@@ -38,6 +38,7 @@ const Shop = () => {
           <div>
             <h4 className="text-base font-semibold mb-2">Genres</h4>
             <div className="flex flex-col space-y-2">
+                {/* history */}
               <div>
                 <input
                   type="radio"
@@ -50,6 +51,7 @@ const Shop = () => {
                   History
                 </label>
               </div>
+              {/* thriller */}
               <div>
                 <input
                   type="radio"
@@ -62,6 +64,7 @@ const Shop = () => {
                   Thriller
                 </label>
               </div>
+              {/* romance */}
               <div>
                 <input
                   type="radio"
@@ -74,6 +77,7 @@ const Shop = () => {
                   Romance
                 </label>
               </div>
+              {/* romantasty */}
               <div>
                 <input
                   type="radio"
@@ -86,6 +90,7 @@ const Shop = () => {
                   Romantasy
                 </label>
               </div>
+              {/* fantasty */}
               <div>
                 <input
                   type="radio"
@@ -98,6 +103,7 @@ const Shop = () => {
                   Fantasy
                 </label>
               </div>
+              {/* science fiction */}
               <div>
                 <input
                   type="radio"
@@ -110,6 +116,7 @@ const Shop = () => {
                   Science Fiction
                 </label>
               </div>
+              {/* horror */}
               <div>
                 <input
                   type="radio"
