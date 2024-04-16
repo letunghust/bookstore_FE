@@ -292,11 +292,11 @@ const Cart = () => {
           </button>
 
           <ModalCheckout isOpen={showModal} onClose={handleCloseModal}>
-            <form className="max-w-screen-2xl mx-auto">
+            <form className="max-w-screen-2xl mx-auto p-8 bg-white rounded-lg shadow-lg">
               {/* Các trường nhập thông tin thanh toán */}
-              <div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {/* name */}
-                <div className="mb-4">
+                <div>
                   <label
                     htmlFor="name"
                     className="block text-gray-700 font-bold mb-2"
@@ -312,7 +312,7 @@ const Cart = () => {
                   />
                 </div>
                 {/* address */}
-                <div className="mb-4">
+                <div>
                   <label
                     htmlFor="address"
                     className="block text-gray-700 font-bold mb-2"
@@ -328,7 +328,7 @@ const Cart = () => {
                   />
                 </div>
                 {/* city */}
-                <div className="mb-4">
+                <div>
                   <label
                     htmlFor="city"
                     className="block text-gray-700 font-bold mb-2"
@@ -344,7 +344,7 @@ const Cart = () => {
                   />
                 </div>
                 {/* country */}
-                <div className="mb-4">
+                <div>
                   <label
                     htmlFor="country"
                     className="block text-gray-700 font-bold mb-2"
@@ -359,37 +359,38 @@ const Cart = () => {
                     className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                   />
                 </div>
-                {/* Card Element */}
-                <div className="mb-4">
-                  <CardElement
-                    options={{
-                      style: {
-                        base: {
-                          fontSize: "16px",
-                          color: "#424770",
-                          "::placeholder": {
-                            color: "#aab7c4",
-                          },
-                        },
-                        invalid: {
-                          color: "#9e2146",
+              </div>
+
+              {/* Card Element */}
+              <div className="mb-6">
+                <CardElement
+                  options={{
+                    style: {
+                      base: {
+                        fontSize: "16px",
+                        color: "#424770",
+                        "::placeholder": {
+                          color: "#aab7c4",
                         },
                       },
-                    }}
-                    onChange={(event) => {
-                      if (event.error) {
-                        console.log("Error:", event.error.message);
-                      } else {
-                        console.log("Card details:", event.complete);
-                      }
-                    }}
-                  />
-                </div>
+                      invalid: {
+                        color: "#9e2146",
+                      },
+                    },
+                  }}
+                  onChange={(event) => {
+                    if (event.error) {
+                      console.log("Error:", event.error.message);
+                    } else {
+                      console.log("Card details:", event.complete);
+                    }
+                  }}
+                />
               </div>
 
               <button
                 type="submit"
-                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition-colors duration-300"
                 onClick={handleSubmitPayment}
               >
                 Complete Checkout
