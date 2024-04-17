@@ -53,6 +53,7 @@ const Navbar = () => {
       setIsLogedIn(false);
     }
   }, []);
+  // }, [setIsLogedIn]);
 
   // handle log out
   const handleLogout = () => {
@@ -101,7 +102,7 @@ const Navbar = () => {
           <ul className="flex space-x-4">
             {navItems.map(({ link, path }) => (
               <li key={path}>
-                <Link to={path} className="">
+                <Link to={path} className="hover:text-blue-500 transition-colors duration-300" >
                   {link}
                 </Link>
               </li>
