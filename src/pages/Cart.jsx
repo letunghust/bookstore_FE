@@ -187,31 +187,38 @@ const Cart = () => {
       } else {
         // Xử lý thanh toán thành công
         if (paymentIntent.status === "succeeded") {
-          // alert("Payment successful");
-          toast.success("Payment successful", {
-            position: "top-right",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-          });
+          alert("Payment successful");
+          const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/orders`, {
+            method: "POST",
+            headers: {
+              Accept: "application/json",
+              "Content-Type": "application/json; charset=UTF-8",
+              Authorization: `${token}`,
+            },
+            body: "",
+          })
+          console.log(response)
+          if(response.ok) {
+            alert('Sent mail');
+          } else {
+            alert("Don't send mail")
+          }
+        
           console.log("Payment successful:", paymentIntent);
 
           // gọi API để xóa giỏ hàng
           await clearCart();
         } else {
-          // alert("Payment status:", paymentIntent.status);
-          toast.info(`Payment status: ${paymentIntent.status}`, {
-            position: "top-right",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-          });
+          alert("Payment status:", paymentIntent.status);
+          // toast.info(`Payment status: ${paymentIntent.status}`, {
+          //   position: "top-right",
+          //   autoClose: 5000,
+          //   hideProgressBar: false,
+          //   closeOnClick: true,
+          //   pauseOnHover: true,
+          //   draggable: true,
+          //   progress: undefined,
+          // });
           console.log("Payment status:", paymentIntent.status);
         }
       }
