@@ -8,12 +8,16 @@ const backend_url = import.meta.env.BACKEND_URL || "http://localhost:3001";
 const token = localStorage.getItem("token");
 const ManageBooks = () => {
   const [allBooks, setAllBooks] = useState([]);
+  const [totalPages, setTotalPages] = useState(0);
+
+  // get all book 
   const fetchDataAllBook = async () => {
     try{
       const response = await fetch(`${backend_url}/all-books`);
       const data = await response.json();
-      console.log(data)
-      setAllBooks(data);
+      // console.log(data.docs)
+      setTotalPages(data.totalPages);
+      setAllBooks(data.docs);
     } catch(error) {
       console.error(error)
     }
@@ -22,6 +26,7 @@ useEffect(() => {
   fetchDataAllBook();
 }, []);
 
+// handle delete book 
 const handleDelete = async (id) => {
   try{
     const response = fetch(`${backend_url}/book/${id}`, {
@@ -50,6 +55,18 @@ const TABLE_HEAD = ["Title", "Author", "image URL", "category", "description", "
   
 const TABLE_ROWS = allBooks;
  
+  // get book one page 
+  const fetchDataByPage = async (page) => {
+    try {
+      const response = await fetch(`${backend_url}/all-books?page=${page}`);
+      const data = await response.json();
+      // console.log(data.docs);  
+      setAllBooks(data.docs);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <div className='w-full'>
       <Card className="h-full w-full overflow-scroll">
@@ -169,6 +186,14 @@ const TABLE_ROWS = allBooks;
         </table>
       </Card>
 
+      <p className="text-center">
+        {[...Array(totalPages)].map((_, index) => (
+          <button key={index + 1} onClick={() => fetchDataByPage(index + 1)} className="mr-3">
+            {" "}
+            {index + 1}{" "}
+          </button>
+        ))}
+      </p>
     </div>
   )
 }

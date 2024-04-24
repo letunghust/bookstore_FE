@@ -41,8 +41,9 @@ const SingleBookHome = () => {
           }`
         );
         const data = response.data;
-        setRelatedBooks(data);
-        console.log("related books: ", data);
+        
+        setRelatedBooks(data.docs);
+        // console.log("related books: ", data);
       } catch (err) {
         console.log(err);
       }

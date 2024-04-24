@@ -12,7 +12,7 @@ const Shop = () => {
         `${import.meta.env.VITE_BACKEND_URL}/all-books?category=${selectedGenre}`
       );
       const data = await response.json();
-      setBooks(data);
+      setBooks(data.docs);
     } catch (error) {
       console.log(error);
     }
