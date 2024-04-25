@@ -369,7 +369,7 @@ const Cart = () => {
               </div>
 
               {/* Card Element */}
-              <div className="mb-6">
+              <div className="mb-6 mb-6">
                 <CardElement
                   options={{
                     style: {

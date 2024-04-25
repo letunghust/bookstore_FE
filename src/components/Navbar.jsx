@@ -85,7 +85,7 @@ const Navbar = () => {
 
   const navItems = [
     { link: "Home", path: "/" },
-    { link: "About", path: "/about" },
+    { link: "Recommend", path: "/recommend" },
     { link: "Shop", path: "/shop" },
     { link: "Admin", path: "/admin" },
     { link: "Blog", path: "/blog" },
@@ -99,17 +99,17 @@ const Navbar = () => {
           <Link to="/" className="logo flex items-center text-2xl font-bold ">
             <FaBahtSign className="mr-2" /> Books
           </Link>
-          <ul className="flex space-x-4">
+          <ul className="flex items-center">
             {navItems.map(({ link, path }) => (
-              <li key={path}>
-                <Link to={path} className="hover:text-blue-500 transition-colors duration-300" >
+              <li key={path} className="hover:bg-[#ccc] h-full flex items-center px-2" >
+                <Link to={path} className="hover:text-blue-500 transition-colors duration-300 w-full" >
                   {link}
                 </Link>
               </li>
             ))}
           </ul>
         </div>
-        <div className="flex">
+        <div className="flex gap-x-2 items-center">
           {/* change light and dark theme */}
           <FaAffiliatetheme
             style={{ fontSize: "2rem" }}
