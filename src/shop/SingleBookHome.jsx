@@ -100,21 +100,26 @@ const SingleBookHome = () => {
 
   return (
     <div>
-      <div className="flex w-1/3 border-zinc-950">
+      <div className="flex border-zinc-950">
         {/* hiển thị ảnh, tiêu đề, mô tả, AI */}
-        <div className="">
+        <div className="flex">
           <div className="w-full flex justify-center bottom-5 border-black text-center">
             <img
               src={bookInfo.imageURL}
               alt={bookInfo.bookTitle}
               className="w-2/3 h-auto"
+              // className="w-auto h-2/3"
             />
           </div>
           <div className="w-full">
             <h1 className="text-2xl text-center font-bold mb-4 p-2">
               {bookInfo.bookTitle}
             </h1>
+            <h1 className="text-xl text-center text-blue-400">
+              {bookInfo.price}$
+            </h1>
             <p className="w-full p-3">{bookInfo.bookDescription}</p>
+            <p>Quantity: {bookInfo.quantity}</p>
             <div className="flex w-full">
               <a href={bookInfo.bookPDFURL}>
                 <Button type="text" label="Download Now " />
@@ -159,6 +164,7 @@ const SingleBookHome = () => {
         </ul>
       </div>
     </div>
+
   );
 };
 

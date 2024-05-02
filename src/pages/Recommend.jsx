@@ -43,12 +43,50 @@ const Recommend = () => {
       );
       const data = await response.json();
         console.log(data);
+       
       setBookResult(data);
       //   console.log("book result: ", bookResult);
     } catch (error) {
       console.log(error);
     }
   };
+  // const handleSubmit = async () => {
+  //   const processData = (data) => {
+  //     // Kiểm tra xem data có phải là một mảng không
+  //     if (Array.isArray(data)) {
+  //       // Xử lý từng phần tử trong mảng
+  //       const processedData = data.map(book => {
+  //         // Tạo một bản sao của đối tượng sách với trường updatedAt bị loại bỏ
+  //         const { updatedAt, ...rest } = book;
+  //         return rest;
+  //       });
+  //       // Gửi dữ liệu đã xử lý về frontend
+  //       setBookResult(processedData);
+  //     } else {
+  //       console.log("Dữ liệu trả về từ API không hợp lệ");
+  //     }
+  //   };
+  
+  //   try {
+  //     const response = await fetch(
+  //       `${import.meta.env.VITE_BACKEND_AI}/api/recommend`,
+  //       {
+  //         method: "POST",
+  //         headers: {
+  //           "Content-Type": "application/json",
+  //         },
+  //         body: JSON.stringify({ user_input: searchTerm }),
+  //       }
+  //     );
+  //     const data = await response.json();
+  //     // console.log(data);
+  //     // console.log(data[0].imageURL);
+  //     // Xử lý dữ liệu trước khi đặt vào state
+  //     processData(data);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
 
   return (
     <div>
@@ -86,13 +124,14 @@ const Recommend = () => {
               className="bg-white rounded-lg shadow-md overflow-hidden transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-105"
             >
               <img
-                src={book[2]}
-                alt={book[0]}
+                src={book.imageURL}
+                alt={book.bookTitle}
                 className="w-full h-64 object-cover"
               />
               <div className="p-4">
-                <h3 className="text-lg font-semibold mb-2">{book[0]}</h3>
-                <p className="text-gray-600">Author: {book[1]}</p>
+                <h3 className="text-lg font-semibold mb-2">{book.bookTitle}</h3>
+                {/* <p className="text-gray-600">Author: {book.bookDescription}</p> */}
+                <p className="text-gray-600">{book.price}$</p>
               </div>
             </div>
           ))}
