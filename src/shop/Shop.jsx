@@ -139,7 +139,7 @@ const Shop = () => {
           <div className="grid grid-cols-4 gap-4">
             {books.map((book) => (
               <Link key={book._id} to={`/book/${book._id}`}>
-                <div className="bg-white rounded-lg shadow-md overflow-hidden">
+                <div className="bg-white rounded-lg shadow-md overflow-hidden hover:-translate-y-1 hover:scale-105">
                   <img
                     src={book.imageURL}
                     alt={book.bookTitle}

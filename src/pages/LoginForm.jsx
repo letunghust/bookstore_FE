@@ -35,6 +35,7 @@ const LoginForm = ({ setIsLogedIn }) => {
           localStorage.setItem('token', token)
           alert("Login successfully");
           navigate("/");
+          window.location.reload();
         } else{
           alert('Invalid email or password');
         }

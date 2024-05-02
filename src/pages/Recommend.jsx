@@ -108,7 +108,7 @@ const Recommend = () => {
         </button>
       </div>
       <div>
-        {/* Hiển thị kết quả tìm kiếm */}
+        {/* Hiển thị kết quả tìm kiếm bằng văn bản */}
         {books.map((book) => (
           <div key={book._id}>
             <h3>{book.bookTitle}</h3>
@@ -116,6 +116,7 @@ const Recommend = () => {
           </div>
         ))}
       </div>
+      {/* Hiển thị kết quả khi ấn nút recommend */}
       {bookResult.length > 0 && (
         <div className="grid grid-cols-5 gap-4 my-8">
           {bookResult.slice(0, 10).map((book, index) => (

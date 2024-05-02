@@ -60,6 +60,7 @@ const Navbar = () => {
     setIsLogedIn(false);
     localStorage.removeItem("token");
     navigate("/login");
+    window.location.reload();
   };
 
   // scroll page
