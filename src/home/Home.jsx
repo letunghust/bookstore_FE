@@ -17,7 +17,7 @@ export default Home
 
 /**
  * 8/3: 
- *  - them 2 nút ấn vào trong phần home. 
+ *  - them 2 nút ấn vào trong phần home.                                                               Ͳ
  *  - Giải quyết phần css cho bức ảnh để có thể căn chỉnh ra giữa.                                     Ͳ
  *  - Thêm các cuốn sách vào database                                                                  Ͳ
  *  - Tạo component cho nút button                                                                     Ͳ
@@ -31,8 +31,9 @@ export default Home
  *  - Xử lý lỗi ở phần chuyển trang trong nút log in                                                   Ͳ
  *  - Làm tính năng phân quyền                                                                         Ͳ
  *  - Lưu token vào local storage và đẩy ngược lại token cho phía client                               Ͳ
- *  - Làm chức năng search book 
- *  - Xử lý phần bấm nút log in và log out mượt hơn.
- *  
+ *  - Làm chức năng search book                                                                        Ͳ
+ *  - Xử lý phần bấm nút log in và log out mượt hơn.                                                   Ͳ
+ *  - Mỗi khi mua hàng sẽ giảm quantity đi 
+ *  - Thêm sửa xóa bên giỏ hàng xong thì lưu vào database 
  * 
  */

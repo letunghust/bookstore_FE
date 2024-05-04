@@ -5,8 +5,6 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import ModalCheckout from "../components/ModalCheckout";
 
-// const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLISH_KEY);
-// const clientSecret = 'sk_test_51P1hnME80pxaWCvIBXXXmc9Dt7m54vH7pAuI9GX0DtrNjO5vZdWSEzSTM0DR2o71mETRJYdLv62Ri740wlNPIg0c00h4EX8zgJ';
 const Cart = () => {
   const [cartItems, setCartItems] = useState("");
   const [cartId, setCartId] = useState("");

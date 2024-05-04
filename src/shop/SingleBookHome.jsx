@@ -66,15 +66,18 @@ const SingleBookHome = () => {
       if (!token) {
         alert("please log in");
       } else {
-        // console.log(token)
+        if(bookInfo.quantity === 0) {
+          alert("Out of stock");
+          return;
+        }
+
+        // gọi api để thêm sách vào 
         const response = await fetch(
           `${import.meta.env.VITE_BACKEND_URL}/add/${bookId}`,
           {
-            // const response = await fetch(`http://localhost:3001/add/65f15cb88efe0f83a96fd451`, {
             method: "POST",
             headers: {
               Accept: "application/json",
-              // 'Content-Type': 'application/json',
               "Content-Type": "application/json; charset=UTF-8",
               Authorization: `${token}`,
             },
@@ -86,11 +89,25 @@ const SingleBookHome = () => {
           throw new Error("Error adding book to cart");
         }
 
-        // const res = await response.json();
+        // giảm số lượng sách đi 1 
+        const updateQuantityResponse = await fetch(`${import.meta.env.VITE_BACKEND_URL}/bookquantity/${bookId}`, {
+          method: "PATCH",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json; charset=UTF-8",
+          },
+          body: JSON.stringify({quantity: bookInfo.quantity - 1}),
+        })
+
+        if(!updateQuantityResponse.ok) {
+          throw new Error("Error updating book quantity");
+        }
+
         const res = await response.json();
         console.log(res);
         // alert(res);
         alert(JSON.stringify(res));
+        window.location.reload();
       }
     } catch (error) {
       console.log(error);
@@ -126,7 +143,7 @@ const SingleBookHome = () => {
               </a>
               <button
                 onClick={() => {
-                  console.log(bookInfo._id);
+                  // console.log(bookInfo._id);
                   handleAddToCart(bookInfo._id);
                 }}
               >
