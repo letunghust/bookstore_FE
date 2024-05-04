@@ -132,9 +132,9 @@ const Cart = () => {
       console.log(response);
       if (response.ok) {
         const data = await response.json();
-        console.log("data secret: ", data);
+        // console.log("data secret: ", data);
         const { clientSecret } = data;
-        console.log("client secret: ", clientSecret);
+        // console.log("client secret: ", clientSecret);
         setClientSecret(clientSecret);
         handleOpenModal();
       } else {
@@ -188,23 +188,70 @@ const Cart = () => {
         // Xử lý thanh toán thành công
         if (paymentIntent.status === "succeeded") {
           alert("Payment successful");
-          const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/orders`, {
-            method: "POST",
-            headers: {
-              Accept: "application/json",
-              "Content-Type": "application/json; charset=UTF-8",
-              Authorization: `${token}`,
-            },
-            body: "",
-          })
-          console.log(response)
-          if(response.ok) {
-            alert('Sent mail');
+          // const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/orders`, {
+          //   method: "POST",
+          //   headers: {
+          //     Accept: "application/json",
+          //     "Content-Type": "application/json; charset=UTF-8",
+          //     Authorization: `${token}`,
+          //   },
+          //   body: "",
+          // })
+          // console.log(response)
+          // if(response.ok) {
+          //   alert('Sent mail');
+          // } else {
+          //   alert("Don't send mail")
+          // }
+
+          // console.log("Payment successful:", paymentIntent);
+
+          // Gọi API để xử lý thanh toán thành công và lưu đơn hàng
+          const response = await fetch(
+            `${import.meta.env.VITE_BACKEND_URL}/payment_success`,
+            {
+              method: "POST",
+              headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json; charset=UTF-8",
+                Authorization: `${token}`,
+              },
+              body: JSON.stringify({ paymentIntentId: paymentIntent.id }),
+            }
+          );
+
+          if (response.ok) {
+            // Xử lý sau khi gọi API thành công
+            console.log("Payment success processed");
           } else {
-            alert("Don't send mail")
+            // Xử lý khi gọi API thất bại
+            console.error("Error processing payment success");
           }
-        
+
           console.log("Payment successful:", paymentIntent);
+
+          // Gọi API để gửi email xác nhận đơn hàng (nếu cần)
+          const orderResponse = await fetch(
+            `${import.meta.env.VITE_BACKEND_URL}/orders`,
+            {
+              method: "POST",
+              headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json; charset=UTF-8",
+                Authorization: `${token}`,
+              },
+              body: "",
+            }
+          );
+
+          if (orderResponse.ok) {
+            alert("Sent mail");
+          } else {
+            alert("Don't send mail");
+          }
+          
+          // refresh lại website để ẩn modal
+          window.location.reload();
 
           // gọi API để xóa giỏ hàng
           await clearCart();

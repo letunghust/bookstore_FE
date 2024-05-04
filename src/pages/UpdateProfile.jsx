@@ -47,7 +47,8 @@ const UpdateProfile = () => {
       });
 
       const data = await response.json();
-      console.log(data);
+      // console.log(data);
+      alert(data.message);
       setShowModal(false)
     } catch(error) {
       console.log(error);
