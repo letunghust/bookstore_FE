@@ -58,6 +58,7 @@ const EditBooks = () => {
     const bookDescription = form.bookDescription.value;
     const bookPDFURL = form.bookPDFURL.value;
     const price = form.price.value;
+    const quantity = form.quantity.value;
 
     const bookObj = {
       bookTitle,
@@ -67,6 +68,7 @@ const EditBooks = () => {
       bookDescription,
       bookPDFURL,
       price,
+      quantity,
     };
 
     try {
@@ -232,6 +234,22 @@ const EditBooks = () => {
               type="text"
               placeholder="Price "
               value={bookInfo?.price}
+              onChange={handleInputChange}
+            />
+          </div>
+          <div className="w-full px-3">
+            <label
+              className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+              htmlFor="Quantity"
+            >
+             Quantity
+            </label>
+            <input
+              className="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+              id="quantity"
+              type="text"
+              placeholder="Quantity "
+              value={bookInfo?.quantity}
               onChange={handleInputChange}
             />
           </div>

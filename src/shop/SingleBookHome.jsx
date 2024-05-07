@@ -66,6 +66,7 @@ const SingleBookHome = () => {
       if (!token) {
         alert("please log in");
       } else {
+        // Nếu số lượng sách = 0 thì không mua được 
         if(bookInfo.quantity === 0) {
           alert("Out of stock");
           return;

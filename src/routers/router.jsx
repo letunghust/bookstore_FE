@@ -16,9 +16,7 @@ import Cart from "../pages/Cart";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
 import UpdateProfile from "../pages/UpdateProfile";
-// const stripePromise = loadStripe(
-//   "pk_test_51P1hnME80pxaWCvIsuSE6XO7LLLuoWmZKjvuXDRD99v10auWXzuvCKHKtidf7tLUcSczK806Pvbt2PwRjUL6L3Jk00sNLNslNz"
-// );
+
 const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLISH_KEY);
 const router = createBrowserRouter([
   {
