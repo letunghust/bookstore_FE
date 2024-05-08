@@ -16,6 +16,7 @@ import Cart from "../pages/Cart";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
 import UpdateProfile from "../pages/UpdateProfile";
+// import {MainLayOut} from "../layout/MainLayOut";
 
 const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLISH_KEY);
 const router = createBrowserRouter([
@@ -54,16 +55,14 @@ const router = createBrowserRouter([
       {
         path: "/cart",
         element: (
-          <Elements
-            stripe={stripePromise}
-          >
+          <Elements stripe={stripePromise}>
             <Cart />
           </Elements>
         ),
       },
       {
         path: "/profile",
-        element: <UpdateProfile/> 
+        element: <UpdateProfile />,
       },
       {
         path: "/admin",

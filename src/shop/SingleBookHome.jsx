@@ -1,13 +1,15 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef, useCallback } from "react";
 import { Link, useParams } from "react-router-dom";
 import Button from "../components/Button";
 
 const SingleBookHome = () => {
   const { id } = useParams();
   const [bookInfo, setBookInfo] = useState(null);
-  const [res1, setResInfo] = useState("");
+  // const [res1, setResInfo] = useState("");
   const [relatedBooks, setRelatedBooks] = useState([]);
+  const [pendingQuantityChanges, setPendingQuantityChanges] = useState([]);
+  const updateQuantityTimer = useRef(null);
 
   // hiển thị đúng cuốn sách khi bấm vào 1 ảnh
   useEffect(() => {
@@ -57,6 +59,9 @@ const SingleBookHome = () => {
   if (!id || !bookInfo) {
     return <div>Loading...</div>;
   }
+
+  // xu lý thay đổi số lượng sách
+    
 
   // them sách vào giỏ hàng
   const handleAddToCart = async (bookId) => {

@@ -4,6 +4,8 @@ import Navbar from "./components/Navbar";
 import { useState, createContext, useEffect } from "react";
 import Footer from "./components/Footer";
 import { ToastContainer } from 'react-toastify';
+import {Provider} from 'react-redux';
+import store from "./store/configureStore"
 
 export const ThemeContext = createContext();
 
@@ -15,6 +17,7 @@ function App() {
   };
 
   return (
+    <Provider store={store} >
       <ThemeContext.Provider value={{ darkTheme, toggleTheme }}>
         <div className={`${darkTheme ? "light" : "dark"}`}>
           <Navbar />
@@ -23,6 +26,7 @@ function App() {
         </div>
         <ToastContainer />
       </ThemeContext.Provider>
+    </Provider>
   );
 }
 

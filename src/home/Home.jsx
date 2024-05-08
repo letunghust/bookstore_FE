@@ -33,7 +33,10 @@ export default Home
  *  - Lưu token vào local storage và đẩy ngược lại token cho phía client                               Ͳ
  *  - Làm chức năng search book                                                                        Ͳ
  *  - Xử lý phần bấm nút log in và log out mượt hơn.                                                   Ͳ
- *  - Mỗi khi mua hàng sẽ giảm quantity đi 
+ *  - Mỗi khi mua hàng sẽ giảm quantity đi                                                             Ͳ
  *  - Thêm sửa xóa bên giỏ hàng xong thì lưu vào database 
+ *  - Sửa lại để cho các cuốn sách phổ biến sẽ hiển thị ở bên ngoài trang chủ 
+ *  - Làm cho profile để có thể edit 
+ *  - Upload ảnh với form data
  * 
  */
