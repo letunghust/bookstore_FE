@@ -9,6 +9,7 @@ const Cart = () => {
   const [cartItems, setCartItems] = useState("");
   const [cartId, setCartId] = useState("");
   const [userId, setUserId] = useState("");
+  const [pendingChanges, setPendingChanges] = useState([]);
   const token = localStorage.getItem("token");
   const [clientSecret, setClientSecret] = useState(null);
   const stripe = useStripe();
@@ -77,16 +78,6 @@ const Cart = () => {
   };
 
   // handle increase, decrease quantity and remove item from cart
-  const handleDecreaseQuantity = (id) => {
-    const updatedCartItems = cartItems.map((item) => {
-      if (item._id === id) {
-        return { ...item, quantity: Math.max(item.quantity - 1, 1) };
-      }
-      return item;
-    });
-    setCartItems(updatedCartItems);
-  };
-
   const handleIncreaseQuantity = (id) => {
     const updatedCartItems = cartItems.map((item) => {
       if (item._id === id) {
@@ -95,12 +86,69 @@ const Cart = () => {
       return item;
     });
     setCartItems(updatedCartItems);
+    setPendingChanges((prevChanges) => [
+      ...prevChanges,
+      { type: "increase", itemId: id },
+    ]);
+  };
+
+  const handleDecreaseQuantity = (id) => {
+    const updatedCartItems = cartItems.map((item) => {
+      if (item._id === id) {
+        return { ...item, quantity: Math.max(item.quantity - 1, 1) };
+      }
+      return item;
+    });
+    setCartItems(updatedCartItems);
+    setPendingChanges((prevChanges) => [
+      ...prevChanges,
+      { type: "decrease", itemId: id },
+    ]);
   };
 
   const handleRemoveItem = (id) => {
     const updatedCartItems = cartItems.filter((item) => item._id !== id);
     setCartItems(updatedCartItems);
+    setPendingChanges((prevChanges) => {
+      [...prevChanges, { type: "remove", itemId: id }];
+    });
   };
+
+  // get request to server
+  const sendChangesToserver = async () => {
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_BACKEND_URL}/cart/update`,
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `${token}`,
+          },
+          body: JSON.stringify({ books: cartItems }),
+        }
+      );
+      if (response.ok) {
+        setPendingChanges([]);
+        console.log("Cart updated successfully");
+      }
+    } catch (error) {
+      console.log("Error updating cart: ", error);
+    }
+  };
+
+  useEffect(() => {
+    let timeout;
+    if (pendingChanges.length > 0) {
+      timeout = setTimeout(() => {
+        sendChangesToserver();
+      }, 1000);
+    }
+
+    return () => {
+      clearTimeout(timeout);
+    };
+  }, [pendingChanges]);
 
   // handle payment
   const [showModal, setShowModal] = useState(false);
@@ -247,7 +295,7 @@ const Cart = () => {
           } else {
             alert("Don't send mail");
           }
-          
+
           // refresh lại website để ẩn modal
           window.location.reload();
 
