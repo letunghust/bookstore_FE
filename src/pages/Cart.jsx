@@ -59,16 +59,16 @@ const Cart = () => {
         }
       );
       if (response.ok) {
-        // alert("Delete cart successfully");
-        toast.success("Delete cart successfully", {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-        });
+        alert("Delete cart successfully");
+        // toast.success("Delete cart successfully", {
+        //   position: "top-right",
+        //   autoClose: 5000,
+        //   hideProgressBar: false,
+        //   closeOnClick: true,
+        //   pauseOnHover: true,
+        //   draggable: true,
+        //   progress: undefined,
+        // });
       } else {
         console.log("Error when delete cart", response.status);
       }
@@ -108,10 +108,14 @@ const Cart = () => {
 
   const handleRemoveItem = (id) => {
     const updatedCartItems = cartItems.filter((item) => item._id !== id);
-    setCartItems(updatedCartItems);
-    setPendingChanges((prevChanges) => {
-      [...prevChanges, { type: "remove", itemId: id }];
-    });
+    if(updatedCartItems) {
+    // if(updatedCartItems.length < cartItems.length) {
+      setCartItems(updatedCartItems);
+      setPendingChanges((prevChanges) => {
+        [...prevChanges, { type: "remove", itemId: id }];
+        // console.log(prevChanges);
+      });
+    }
   };
 
   // get request to server
@@ -137,13 +141,24 @@ const Cart = () => {
     }
   };
 
+  // BI LOI O CHO NAY khi remove đi mà f5 lại sẽ bị mất hết 
   useEffect(() => {
     let timeout;
-    if (pendingChanges.length > 0) {
-      timeout = setTimeout(() => {
-        sendChangesToserver();
-      }, 1000);
+    const handlePendingChanges = async () => {
+      if (pendingChanges?.length > 0) {
+        timeout = setTimeout(() => {
+          sendChangesToserver();
+        }, 1000);
+      }
+      else {
+        // await clearCart();
+        // setTimeout(() =>{
+        //   sendChangesToserver();
+        // }, 1000)
+      }
     }
+
+    handlePendingChanges();
 
     return () => {
       clearTimeout(timeout);

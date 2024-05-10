@@ -83,7 +83,7 @@ const EditBooks = () => {
 
       const data = response.data;
       setBookInfo(data);
-      console.log(data);
+      // console.log(data);
       alert("Update a book sccessfull!");
       navigate('/admin/manage'); // chuyển lại manage khi đã edit xong 
     } catch (error) {

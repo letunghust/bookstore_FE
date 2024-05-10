@@ -120,26 +120,13 @@ const Navbar = () => {
           <Link to="/cart">
             <BsCart className="text-2xl" />
           </Link>
-          {/* {isLogedIn ? (
-            <button onClick={handleLogout}> Logout </button>
-          ) : (
-            <Link to="/login">
-              <button
-                onClick={() => {
-                  setIsLogedIn(true);
-                  // navigate("/admin");
-                }}
-              >
-                Login
-              </button>
-            </Link>
-          )} */}
+        
           {isLogedIn ? (
             <div>
               <img src={defaultAvatar} alt="Avatar" onClick={togglePopup}  className="w-10 h-10 rounded-full cursor-pointer"/>
               {showPopup ? (
                <div className="absolute right-0 mt-2 bg-white rounded-md shadow-lg z-10">
-                  <Link to='/profile'  className="block px-4 py-2 text-gray-800 hover:bg-gray-100"> 
+                  <Link to='/profile'  className="block px-4 py-2 text-gray-800 hover:bg-gray-100" onClick={togglePopup}> 
                       Your profile
                   </Link>
                   <button onClick={handleLogout}  className="block w-full text-left px-4 py-2 text-gray-800 hover:bg-gray-100"> Log out </button>

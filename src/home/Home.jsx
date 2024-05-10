@@ -38,5 +38,5 @@ export default Home
  *  - Sửa lại để cho các cuốn sách phổ biến sẽ hiển thị ở bên ngoài trang chủ 
  *  - Làm cho profile để có thể edit 
  *  - Upload ảnh với form data
- * 
+ *  - Sửa tiếp phần edit user 
  */
