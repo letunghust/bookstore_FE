@@ -18,6 +18,7 @@ import { Elements } from "@stripe/react-stripe-js";
 import UpdateProfile from "../pages/UpdateProfile";
 import ForgotPasswordForm from "../pages/ForgotPasswordForm";
 import ResetPasswordForm from "../pages/ResetPasswordForm";
+import MyOrder from "../pages/MyOrder";
 // import {MainLayOut} from "../layout/MainLayOut";
 
 const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLISH_KEY);
@@ -73,6 +74,10 @@ const router = createBrowserRouter([
       {
         path: "/profile",
         element: <UpdateProfile />,
+      },
+      {
+        path: "/my-order",
+        element: <MyOrder/>, 
       },
       {
         path: "/admin",

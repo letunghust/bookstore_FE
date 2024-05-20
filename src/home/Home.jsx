@@ -36,7 +36,7 @@ export default Home
  *  - Mỗi khi mua hàng sẽ giảm quantity đi                                                             Ͳ
  *  - Thêm sửa xóa bên giỏ hàng xong thì lưu vào database 
  *  - Sửa lại để cho các cuốn sách phổ biến sẽ hiển thị ở bên ngoài trang chủ 
- *  - Làm cho profile để có thể edit 
+ *  - Làm cho profile để có thể edit                                                                   Ͳ     
  *  - Upload ảnh với form data
  *  - Sửa tiếp phần edit user 
  */
