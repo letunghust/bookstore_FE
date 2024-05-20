@@ -16,6 +16,8 @@ import Cart from "../pages/Cart";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
 import UpdateProfile from "../pages/UpdateProfile";
+import ForgotPasswordForm from "../pages/ForgotPasswordForm";
+import ResetPasswordForm from "../pages/ResetPasswordForm";
 // import {MainLayOut} from "../layout/MainLayOut";
 
 const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLISH_KEY);
@@ -51,6 +53,14 @@ const router = createBrowserRouter([
       {
         path: "/signup",
         element: <SignUpForm />,
+      },
+      {
+        path: "/forgotpassword",
+        element: <ForgotPasswordForm />,
+      },
+      {
+        path: "/resetpassword/:token",
+        element: <ResetPasswordForm />,
       },
       {
         path: "/cart",

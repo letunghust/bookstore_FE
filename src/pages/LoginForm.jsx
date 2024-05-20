@@ -109,7 +109,7 @@ const LoginForm = ({ setIsLogedIn }) => {
 
                   {/* Forgot password link */}
                   <a
-                    href="#!"
+                    href="/forgotpassword"
                     className="text-primary focus:outline-none dark:text-primary-400"
                   >
                     Forgot password?
