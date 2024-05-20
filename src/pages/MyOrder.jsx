@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 const token = localStorage.getItem("token");
 const MyOrder = () => {
@@ -31,6 +32,9 @@ const MyOrder = () => {
     fetchOrders()
   }, []);
 
+  if(loading) return <div>Loading...</div>
+  if(error) return <div>{error}</div>
+
   return (
     <div className="container mx-auto p-4">
     <h2 className="text-2xl font-bold mb-4">Order History</h2>
@@ -44,13 +48,20 @@ const MyOrder = () => {
           
             <div>
               {order.books.map((item) => (
-                <div key={item.book._id} className="flex items-center space-x-4">
+                // <div key={item.book._id} className="flex items-center space-x-4">
+                //   <img src={item.book.imageURL} alt={item.book.bookTitle} className="w-16 h-16 object-cover" />
+                //   <div>
+                //     <h1>{item.book.bookTitle}</h1>
+                //     <p>Quantity: {item.quantity}</p>
+                //   </div>
+                // </div>
+                <Link key={item.book._id} className="flex items-center space-x-4" to={`/book/${item.book._id}`}>
                   <img src={item.book.imageURL} alt={item.book.bookTitle} className="w-16 h-16 object-cover" />
                   <div>
                     <h1>{item.book.bookTitle}</h1>
                     <p>Quantity: {item.quantity}</p>
                   </div>
-                </div>
+                </Link>
               ))}
             </div>
             <p className="text-2xl">Total Price: ${order.total_price}</p>

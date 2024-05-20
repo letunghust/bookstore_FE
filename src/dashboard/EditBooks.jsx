@@ -92,6 +92,7 @@ const EditBooks = () => {
   };
 
   const handleInputChange = (e) => {
+    e.preventDefault();
     const { id, value } = e.target;
     setBookInfo((prevInfo) => ({
       ...prevInfo,
