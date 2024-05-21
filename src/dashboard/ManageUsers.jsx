@@ -22,20 +22,20 @@ const ManageUsers = () => {
     fetchUsers();
   }, []);
 
-//   const handleToggleBlock = async (userId, isBlocked) => {
-//     try {
-//       await axios.patch(`${import.meta.env.VITE_BACKEND_URL}/users/${userId}/block`, {
-//         isBlocked: !isBlocked,
-//       });
-//       setUsers((prevUsers) =>
-//         prevUsers.map((user) =>
-//           user._id === userId ? { ...user, isBlocked: !isBlocked } : user
-//         )
-//       );
-//     } catch (error) {
-//       console.error("Error updating user block status", error);
-//     }
-//   };
+  const handleToggleBlock = async (userId, isBlocked) => {
+    try {
+      await axios.patch(`${import.meta.env.VITE_BACKEND_URL}/blockuser/${userId}`, {
+        isBlocked: !isBlocked,
+      });
+      setUsers((prevUsers) =>
+        prevUsers.map((user) =>
+          user._id === userId ? { ...user, isBlocked: !isBlocked } : user
+        )
+      );
+    } catch (error) {
+      console.error("Error updating user block status", error);
+    }
+  };
 
   if (loading) return <div>Loading...</div>;
   if (error) return <div>{error}</div>;
@@ -65,7 +65,7 @@ const ManageUsers = () => {
               <td className="py-2 px-4 text-center">
                 <Switch
                   checked={user.isBlocked}
-                //   onChange={() => handleToggleBlock(user._id, user.isBlocked)}
+                  onChange={() => handleToggleBlock(user._id, user.isBlocked)}
                   onColor="#86d3ff"
                   onHandleColor="#2693e6"
                   handleDiameter={30}

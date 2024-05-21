@@ -4,10 +4,6 @@ import { Link, useNavigate } from "react-router-dom";
 
 const backend_url = import.meta.env.BACKEND_URL || "http://localhost:3001";
 const LoginForm = ({ setIsLogedIn }) => {
-  // let [isLogedIn, setIsLogedIn] = useState(false);
-  // let handleClick = () => {
-  //     setIsLogedIn(!isLogedIn);
-  // }
   const navigate = useNavigate();
   const handleLoginSubmit = async (event) => {
     event.preventDefault();
@@ -43,7 +39,9 @@ const LoginForm = ({ setIsLogedIn }) => {
         // localStorage.setItem("userInfo:", JSON.stringify(userInfo));
         setIsLogedIn(true); // cập nhật trạng thái đăng nhập
       } else {
-        alert("Invalid email or password");
+        // alert("Invalid email or password");
+        const dataAlert = await response.json();
+        alert(dataAlert.message);
       }
     } catch (error) {
       // throw new Error("Error login");
