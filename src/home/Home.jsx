@@ -1,22 +1,21 @@
-import Banner from '../components/Banner'
-import FavBook from './FavBook'
-import FavoriteBooks from './FavoriteBooks'
+import Banner from "../components/Banner";
+import FavBook from "./FavBook";
+import FavoriteBooks from "./FavoriteBooks";
 
 const Home = () => {
   return (
     <div>
-     <Banner/>
-     <FavoriteBooks/>
+      <Banner />
+      <FavoriteBooks />
       <FavBook />
-      
     </div>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;
 
 /**
- * 8/3: 
+ * 8/3:
  *  - them 2 nút ấn vào trong phần home.                                                               Ͳ
  *  - Giải quyết phần css cho bức ảnh để có thể căn chỉnh ra giữa.                                     Ͳ
  *  - Thêm các cuốn sách vào database                                                                  Ͳ
@@ -34,9 +33,9 @@ export default Home
  *  - Làm chức năng search book                                                                        Ͳ
  *  - Xử lý phần bấm nút log in và log out mượt hơn.                                                   Ͳ
  *  - Mỗi khi mua hàng sẽ giảm quantity đi                                                             Ͳ
- *  - Thêm sửa xóa bên giỏ hàng xong thì lưu vào database 
- *  - Sửa lại để cho các cuốn sách phổ biến sẽ hiển thị ở bên ngoài trang chủ 
- *  - Làm cho profile để có thể edit                                                                   Ͳ     
+ *  - Thêm sửa xóa bên giỏ hàng xong thì lưu vào database
+ *  - Sửa lại để cho các cuốn sách phổ biến sẽ hiển thị ở bên ngoài trang chủ
+ *  - Làm cho profile để có thể edit                                                                   Ͳ
  *  - Upload ảnh với form data
- *  - Sửa tiếp phần edit user 
+ *  - Sửa tiếp phần edit user
  */

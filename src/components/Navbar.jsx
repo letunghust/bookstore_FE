@@ -88,8 +88,8 @@ const Navbar = () => {
     { link: "Home", path: "/" },
     { link: "Recommend", path: "/recommend" },
     { link: "Shop", path: "/shop" },
-    { link: "Admin", path: "/admin" },
     { link: "Blog", path: "/blog" },
+    { link: "Admin", path: "/admin" },
   ].filter((item) => item.link !== "Admin" || userRole === "admin");
 
   return (

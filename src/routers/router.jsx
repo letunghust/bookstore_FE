@@ -20,6 +20,7 @@ import ForgotPasswordForm from "../pages/ForgotPasswordForm";
 import ResetPasswordForm from "../pages/ResetPasswordForm";
 import MyOrder from "../pages/MyOrder";
 import ManageUsers from "../dashboard/ManageUsers";
+import ManageOrders from "../dashboard/ManageOrders";
 // import {MainLayOut} from "../layout/MainLayOut";
 
 const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLISH_KEY);
@@ -99,6 +100,10 @@ const router = createBrowserRouter([
           {
             path: "/admin/manageuser",
             element: <ManageUsers/>,
+          },
+          {
+            path: "/admin/manageorder",
+            element: <ManageOrders/>,
           },
           {
             path: "/admin/edit-books/:id",
