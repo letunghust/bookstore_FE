@@ -4,15 +4,18 @@ import { Link } from "react-router-dom";
 const Shop = () => {
   const [books, setBooks] = useState([]);
   const [selectedGenre, setSelectedGenre] = useState('');
+  const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
 
   // get all books
   const fetchData = async () => {
     try {
       const response = await fetch(
-        `${import.meta.env.VITE_BACKEND_URL}/all-books?category=${selectedGenre}`
+        `${import.meta.env.VITE_BACKEND_URL}/all-books?category=${selectedGenre}&page=${page}`
       );
       const data = await response.json();
       setBooks(data.docs);
+      setTotalPages(data.totalPages);
     } catch (error) {
       console.log(error);
     }
@@ -23,12 +26,28 @@ const Shop = () => {
   }, [selectedGenre]);
   //end of get all books
 
+  useEffect(() => {
+    fetchData();
+  }, [selectedGenre, page]);
+
   const handleGenreFilter = (e) => {
     const genre = e.target.value;
     setSelectedGenre(genre);
-    fetchData();
+    // fetchData();
+    setPage(1);
   };
 
+  const handleNextPage = () => {
+    if(page < totalPages) {
+      setPage(page + 1);
+    }
+  }
+
+  const handlePrevPage = () => {
+    if(page > 1) {
+      setPage(page - 1);
+    }
+  }
   return (
     <div>
       <div className="flex">
@@ -146,7 +165,7 @@ const Shop = () => {
                     className="w-full h-48 object-cover"
                   />
                   <div className="p-4">
-                    <h3 className="text-lg font-semibold mb-2">
+                    <h3 className="text-lg font-semibold mb-2 line-clamp-2 h-14">
                       {book.bookTitle}
                     </h3>
                     <p className="text-gray-700">${book.price}</p>
@@ -154,6 +173,24 @@ const Shop = () => {
                 </div>
               </Link>
             ))}
+          </div>
+          {/* pagination page */}
+          <div className="mt-4 flex justify-center space-x-4">
+            <button
+              onClick={handlePrevPage}
+              disabled={page === 1}
+              className={`px-4 py-2 ${page === 1 ? 'bg-gray-400' : 'bg-blue-500 text-white'} rounded`}
+            >
+              Previous
+            </button>
+            <span className="px-4 py-2">{`Page ${page} of ${totalPages}`}</span>
+            <button
+              onClick={handleNextPage}
+              disabled={page === totalPages}
+              className={`px-4 py-2 ${page === totalPages ? 'bg-gray-400' : 'bg-blue-500 text-white'} rounded`}
+            >
+              Next
+            </button>
           </div>
         </div>
       </div>
