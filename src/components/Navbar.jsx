@@ -16,11 +16,9 @@ const Navbar = () => {
   let [isLogedIn, setIsLogedIn] = useState(false);
   const [showPopup, setShowPopUp] = useState(false);
   const [userRole, setUserRole] = useState("");
+  const [avatar, setAvatar] = useState('');
   const navigate = useNavigate();
   const defaultAvatar = "https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/Flag_of_Vietnam.svg/1280px-Flag_of_Vietnam.svg.png";
-  // const toggleMenu = () => {
-  //     setIsMenuOpen(!isMenuOpen);
-  // }
 
   // get info from local storage to get role
   useEffect(() => {
@@ -37,7 +35,8 @@ const Navbar = () => {
             const response = await axios.get(
               `${import.meta.env.VITE_BACKEND_URL}/user/${userId}`
             );
-            // console.log(response)
+            console.log(response.data.avatar)
+            setAvatar(response.data.avatar);
             // console.log('data' ,response.data.role)
             setUserRole(response.data.role);
           } catch (error) {
@@ -123,7 +122,7 @@ const Navbar = () => {
         
           {isLogedIn ? (
             <div>
-              <img src={defaultAvatar} alt="Avatar" onClick={togglePopup}  className="w-10 h-10 rounded-full cursor-pointer"/>
+              <img src={avatar || defaultAvatar} alt="Avatar" onClick={togglePopup}  className="w-10 h-10 rounded-full cursor-pointer"/>
               {showPopup ? (
                <div className="absolute right-0 mt-2 bg-white rounded-md shadow-lg z-10">
                   <Link to='/profile'  className="block px-4 py-2 text-gray-800 hover:bg-gray-100" onClick={togglePopup}> 

@@ -20,7 +20,6 @@ const SingleBookHome = () => {
         );
         const data = response.data;
         setBookInfo(data);
-        // console.log("res data: ", data);
       } catch (err) {
         console.log(err);
       }
