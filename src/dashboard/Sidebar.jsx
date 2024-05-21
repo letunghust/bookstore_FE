@@ -2,7 +2,6 @@ import { Card, List, ListItem, ListItemPrefix } from "@material-tailwind/react";
 import { PresentationChartBarIcon, InboxIcon } from "@heroicons/react/24/solid";
 import { useLocation, Link } from "react-router-dom";
 import { IoIosCloudUpload, IoMdPeople } from "react-icons/io";
-// import { IoMdPeople } from "react-icons/io";
 import { FaMoneyBills } from "react-icons/fa6";
 
 const SidebarItem = ({ to, icon, label }) => {

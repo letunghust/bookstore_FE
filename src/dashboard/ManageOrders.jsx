@@ -7,8 +7,6 @@ const ManageOrders = () => {
     const fetchOrders = async (req, res) => {
         try {
             const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/allorders`);
-            // console.log(response);
-            // console.log(response.ok);
             if(response.ok) {
                 const data = await response.json();
                 console.log(data)
