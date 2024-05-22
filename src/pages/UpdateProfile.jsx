@@ -11,6 +11,9 @@ const UpdateProfile = () => {
   const [newPassword, setNewPassword] = useState("");
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
+  const [avatar, setAvatar] = useState('');
+  const defaultAvatar =
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/Flag_of_Vietnam.svg/1280px-Flag_of_Vietnam.svg.png";
 
   // get user data
   const fetchUserData = async () => {
@@ -64,24 +67,28 @@ const UpdateProfile = () => {
     }
   };
 
+  // handle submit edit profile
   const handleSubmitEditProfile = async () => {
     try {
       if (token) {
         const decodedToken = jwtDecode(token);
         const userId = decodedToken._id;
-        const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/user/${userId}`, {
-          method: "PATCH",
-          headers: {
-            "Content-type": "application/json",
-            "Authorization": `${token}`,
-          },
-          body: JSON.stringify({name, phone})
-        });
+        const response = await fetch(
+          `${import.meta.env.VITE_BACKEND_URL}/user/${userId}`,
+          {
+            method: "PATCH",
+            headers: {
+              "Content-type": "application/json",
+              Authorization: `${token}`,
+            },
+            body: JSON.stringify({ name, phone }),
+          }
+        );
 
         const data = await response.json();
-        console.log(data)
+        console.log(data);
         // console.log(data.success)
-        alert('Profile updated successfully');
+        alert("Profile updated successfully");
         handleCloseEditModal();
         fetchUserData();
       }
@@ -89,6 +96,39 @@ const UpdateProfile = () => {
       console.log(error);
     }
   };
+
+  // handle change avatar 
+  const handleAvatarChange = async (e) => {
+    const file = e.target.files[0];
+    const formData = new FormData();
+    formData.append('avatar', file);
+
+    try {
+      if(token) {
+        // const decodedToken = jwtDecode(token);
+        // const userId = decodedToken._id;
+        const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/uploadavatar`, {
+          method: 'POST',
+          headers: {
+            Authorization: `${token}`,
+          },
+          body: formData,
+        });
+
+        const data = await response.json();
+        console.log(data); 
+        if(data.success) {
+          setAvatar(data.avatar);
+          fetchUserData();
+          setTimeout(() => {
+            window.location.reload();
+          }, 500);
+        }
+      }
+    } catch(error) {
+      console.log(error);
+    }
+  }
 
   // modal change password
   const handleOpenModal = () => {
@@ -109,24 +149,36 @@ const UpdateProfile = () => {
   };
 
   return (
-    <div className="max-w-md mx-auto my-8 bg-white rounded-lg shadow-md overflow-hidden">
+    <div className="max-w-xl  mx-auto my-8 bg-white rounded-lg shadow-md overflow-hidden">
       <div className="bg-blue-500 text-white py-4 px-6">
         <h1 className="text-2xl font-semibold">Your Profile</h1>
       </div>
       <div className="p-6">
         {user ? (
           <>
-            <div className="mb-4">
-              <p className="text-gray-700 font-semibold">Full Name:</p>
-              <p className="text-gray-900">{user.name}</p>
-            </div>
-            <div className="mb-4">
-              <p className="text-gray-700 font-semibold">Email:</p>
-              <p className="text-gray-900">{user.email}</p>
-            </div>
-            <div className="mb-4">
-              <p className="text-gray-700 font-semibold">Phone Number:</p>
-              <p className="text-gray-900">{user.phone}</p>
+            <div className="flex">
+              <div>
+                {/* <h1>Avatar</h1> */}
+                <img
+                  src={user.avatar || defaultAvatar}
+                  className="w-24 h-24 rounded-full object-cover mr-4"
+                />
+                <input type="file" accept="image/*" onChange={handleAvatarChange} className="mt-2"/>
+              </div>
+              <div>
+                <div className="mb-4">
+                  <p className="text-gray-700 font-semibold">Full Name:</p>
+                  <p className="text-gray-900">{user.name}</p>
+                </div>
+                <div className="mb-4">
+                  <p className="text-gray-700 font-semibold">Email:</p>
+                  <p className="text-gray-900">{user.email}</p>
+                </div>
+                <div className="mb-4">
+                  <p className="text-gray-700 font-semibold">Phone Number:</p>
+                  <p className="text-gray-900">{user.phone}</p>
+                </div>
+              </div>
             </div>
             <div className="flex justify-between mt-8">
               <button

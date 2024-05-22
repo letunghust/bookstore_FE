@@ -35,7 +35,7 @@ const Navbar = () => {
             const response = await axios.get(
               `${import.meta.env.VITE_BACKEND_URL}/user/${userId}`
             );
-            console.log(response.data.avatar)
+            // console.log(response.data.avatar)
             setAvatar(response.data.avatar);
             // console.log('data' ,response.data.role)
             setUserRole(response.data.role);
@@ -52,7 +52,6 @@ const Navbar = () => {
       setIsLogedIn(false);
     }
   }, []);
-  // }, [setIsLogedIn]);
 
   // handle log out
   const handleLogout = () => {
