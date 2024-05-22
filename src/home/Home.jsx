@@ -5,6 +5,7 @@ import FavoriteBooks from "./FavoriteBooks";
 const Home = () => {
   return (
     <div>
+      <h1>HELLO WORLD!</h1>
       <Banner />
       <FavoriteBooks />
       <FavBook />
