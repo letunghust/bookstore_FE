@@ -31,7 +31,8 @@ const ManageOrders = () => {
 
     return (
         <div>
-        <h1>Order Management</h1>
+        {/* <h1>Order Management</h1> */}
+        <h1 className='text-2xl font-bold p-4'>Manage Orders</h1>
         <table className="table-auto w-full">
           <thead>
             <tr>

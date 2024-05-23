@@ -1,12 +1,14 @@
 import Banner from "../components/Banner";
 import FavBook from "./FavBook";
 import FavoriteBooks from "./FavoriteBooks";
+import PopularBooks from "./PopularBooks";
 
 const Home = () => {
   return (
     <div>
       <Banner />
-      <FavoriteBooks />
+      {/* <FavoriteBooks /> */}
+      <PopularBooks/>
       <FavBook />
     </div>
   );
@@ -36,11 +38,9 @@ export default Home;
  *  - Thêm sửa xóa bên giỏ hàng xong thì lưu vào database
  *  - Sửa lại để cho các cuốn sách phổ biến sẽ hiển thị ở bên ngoài trang chủ
  *  - Làm cho profile để có thể edit                                                                   Ͳ
- *  - Upload ảnh với form data
- *  - Sửa tiếp phần edit user
+ *  - Upload ảnh với form data                                                                         Ͳ
+ *  - Sửa tiếp phần edit user                                                                          Ͳ
+ *  - Sửa để cho hệ thống dùng toastify 
+ *  - Logic khi mua hàng quantity 
+ *  - Sửa để chọn role trong admin  
  */
-
-
-
-
-//12332132132123
