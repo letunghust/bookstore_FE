@@ -3,27 +3,28 @@ import BookCard from "../components/BookCard";
 
 const PopularBooks = () => {
   const [popularBooks, setPopularBooks] = useState([]);
-  const [page, setPage] = useState(1);
-  const [totalPage, setTotalPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+  const itemsPerPage = 10;
 
   const fetchPopularBooks = async () => {
     try {
       const response = await fetch(
-        `${import.meta.env.VITE_BACKEND_AI}/api/popular-books`
+        `${import.meta.env.VITE_BACKEND_AI}/api/popular-books?page=${currentPage}&limit=${itemsPerPage}`
       );
-      // console.log(response);
-      // console.log(response.ok)
+      console.log(response)
       if (response.ok) {
         const data = await response.json();
-        // console.log(data.length)
-        // setTotalPage(data.length/2)
-        // setPopularBooks(data);
+        // console.log(data)
+        
+        // const filteredBooks = data.docs.filter((book) => typeof book["_id"] === "string");
         const mappedBooks = data.map((book) => ({
-          _id: book["Book-Title"],
-          imageURL: book["Image-URL-M"],
-          bookTitle: book["Book-Title"],
+          _id: book["_id"],
+          imageURL: book["imageURL"],
+          bookTitle: book["bookTitle"],
         }));
         setPopularBooks(mappedBooks);
+        setTotalPages(data.totalPages);
       }
     } catch (error) {
       console.log("Error when get all book popular", error);
@@ -32,52 +33,58 @@ const PopularBooks = () => {
 
   useEffect(() => {
     fetchPopularBooks();
-  }, []);
+  }, [currentPage]);
 
-  const handleNextPage = () => {
-    if (page < totalPage) {
-      setPage(page + 1);
-    }
+  const handlePageChange = (pageNumber) => {
+    setCurrentPage(pageNumber);
   };
 
-  const handlePrevPage = () => {
-    if (page > 1) {
-      setPage(page - 1);
-    }
-  };
-  return (
-    <div>
-      {/* <h1>Popular books</h1> */}
-      {/* <ul>
-            {popularBooks.map((book) => (
-                <li key={book['Book-Title']}> 
-                    <p>{book['Book-Title']}</p>
-                </li>
-            ))}
-        </ul> */}
-      <BookCard books={popularBooks} headline="Popular books" />
-      {/* pagination page */}
-      {/* <div className="mt-4 flex justify-center space-x-4">
+  const renderPagination = () => {
+    const pageNumbers = [];
+
+    for (let i = 1; i <= totalPages; i++) {
+      pageNumbers.push(
         <button
-          onClick={handlePrevPage}
-          disabled={page === 1}
+          key={i}
+          onClick={() => handlePageChange(i)}
           className={`px-4 py-2 ${
-            page === 1 ? "bg-gray-400" : "bg-blue-500 text-white"
+            currentPage === i ? "bg-blue-500 text-white" : "bg-gray-200"
+          } rounded`}
+        >
+          {i}
+        </button>
+      );
+    }
+
+    return (
+      <div className="mt-4 flex justify-center space-x-4">
+        <button
+          onClick={() => handlePageChange(currentPage - 1)}
+          disabled={currentPage === 1}
+          className={`px-4 py-2 ${
+            currentPage === 1 ? "bg-gray-400" : "bg-blue-500 text-white"
           } rounded`}
         >
           Previous
         </button>
-        <span>5</span>
+        {pageNumbers}
         <button
-          onClick={handleNextPage}
-          disabled={page === totalPage}
+          onClick={() => handlePageChange(currentPage + 1)}
+          disabled={currentPage === totalPages}
           className={`px-4 py-2 ${
-            page === totalPage ? "bg-gray-400" : "bg-blue-500 text-white"
+            currentPage === totalPages ? "bg-gray-400" : "bg-blue-500 text-white"
           } rounded`}
         >
           Next
         </button>
-      </div> */}
+      </div>
+    );
+  };
+
+  return (
+    <div>
+      <BookCard books={popularBooks} headline="Popular books" />
+      {/* {renderPagination()} */}
     </div>
   );
 };
