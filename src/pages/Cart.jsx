@@ -77,6 +77,29 @@ const Cart = () => {
     }
   };
 
+  // handle update quantity when payment success
+  const updateBookQuantities = async () => {
+    try {
+      for(let item of cartItems) {
+        const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/bookquantity/${item.book._id}`, {
+          method: "PATCH",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json; charset=UTF-8",
+          },
+          body: JSON.stringify({quantity: item.book.quantity - item.quantity}),
+        });
+
+        if(!response.ok) {
+          throw new Error(`Error updating quantity for book ${item.book._id}`);
+        }
+      }
+      console.log("Updated book quantities successfully");
+    } catch(error) {
+      console.log('Error updating quantity for book', error);
+    }
+  }
+
   // handle increase, decrease quantity and remove item from cart
   const handleIncreaseQuantity = (id) => {
     const updatedCartItems = cartItems.map((item) => {
@@ -249,23 +272,6 @@ const Cart = () => {
         // Xử lý thanh toán thành công
         if (paymentIntent.status === "succeeded") {
           alert("Payment successful");
-          // const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/orders`, {
-          //   method: "POST",
-          //   headers: {
-          //     Accept: "application/json",
-          //     "Content-Type": "application/json; charset=UTF-8",
-          //     Authorization: `${token}`,
-          //   },
-          //   body: "",
-          // })
-          // console.log(response)
-          // if(response.ok) {
-          //   alert('Sent mail');
-          // } else {
-          //   alert("Don't send mail")
-          // }
-
-          // console.log("Payment successful:", paymentIntent);
 
           // Gọi API để xử lý thanh toán thành công và lưu đơn hàng
           const response = await fetch(
@@ -284,6 +290,9 @@ const Cart = () => {
           if (response.ok) {
             // Xử lý sau khi gọi API thành công
             console.log("Payment success processed");
+
+            // cap nhật số lượng sách trong kho
+            await updateBookQuantities();
           } else {
             // Xử lý khi gọi API thất bại
             console.error("Error processing payment success");

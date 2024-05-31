@@ -60,8 +60,6 @@ const SingleBookHome = () => {
   }
 
   // xu lý thay đổi số lượng sách
-    //.............................
-    //;;;;;;;;;
 
   // them sách vào giỏ hàng
   const handleAddToCart = async (bookId) => {
@@ -77,7 +75,7 @@ const SingleBookHome = () => {
           return;
         }
 
-        // gọi api để thêm sách vào 
+        // gọi api để thêm sách vào giỏ hàng 
         const response = await fetch(
           `${import.meta.env.VITE_BACKEND_URL}/add/${bookId}`,
           {
@@ -96,18 +94,18 @@ const SingleBookHome = () => {
         }
 
         // giảm số lượng sách đi 1 
-        const updateQuantityResponse = await fetch(`${import.meta.env.VITE_BACKEND_URL}/bookquantity/${bookId}`, {
-          method: "PATCH",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json; charset=UTF-8",
-          },
-          body: JSON.stringify({quantity: bookInfo.quantity - 1}),
-        })
+        // const updateQuantityResponse = await fetch(`${import.meta.env.VITE_BACKEND_URL}/bookquantity/${bookId}`, {
+        //   method: "PATCH",
+        //   headers: {
+        //     Accept: "application/json",
+        //     "Content-Type": "application/json; charset=UTF-8",
+        //   },
+        //   body: JSON.stringify({quantity: bookInfo.quantity - 1}),
+        // })
 
-        if(!updateQuantityResponse.ok) {
-          throw new Error("Error updating book quantity");
-        }
+        // if(!updateQuantityResponse.ok) {
+        //   throw new Error("Error updating book quantity");
+        // }
 
         const res = await response.json();
         console.log(res);
