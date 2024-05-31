@@ -104,7 +104,13 @@ const Cart = () => {
   const handleIncreaseQuantity = (id) => {
     const updatedCartItems = cartItems.map((item) => {
       if (item._id === id) {
-        return { ...item, quantity: item.quantity + 1 };
+        // return { ...item, quantity: item.quantity + 1 };
+        if(item.quantity < item.book.quantity) {
+          return {...item, quantity: item.quantity + 1};
+        } else {
+          alert("The quantity in the cart cannot the available stock");
+          return item;
+        }
       }
       return item;
     });

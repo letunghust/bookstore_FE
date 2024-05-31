@@ -93,20 +93,6 @@ const SingleBookHome = () => {
           throw new Error("Error adding book to cart");
         }
 
-        // giảm số lượng sách đi 1 
-        // const updateQuantityResponse = await fetch(`${import.meta.env.VITE_BACKEND_URL}/bookquantity/${bookId}`, {
-        //   method: "PATCH",
-        //   headers: {
-        //     Accept: "application/json",
-        //     "Content-Type": "application/json; charset=UTF-8",
-        //   },
-        //   body: JSON.stringify({quantity: bookInfo.quantity - 1}),
-        // })
-
-        // if(!updateQuantityResponse.ok) {
-        //   throw new Error("Error updating book quantity");
-        // }
-
         const res = await response.json();
         console.log(res);
         // alert(res);
