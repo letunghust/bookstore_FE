@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import Button from "../components/Button";
 import { useNavigate } from "react-router-dom";
 
-const backend_url = import.meta.env.BACKEND_URL ;
+const backend_url = import.meta.env.VITE_BACKEND_URL ;
 const token = localStorage.getItem("token");
 const UploadBook = () => {
   //danh sach các thể loại sách

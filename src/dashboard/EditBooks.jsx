@@ -4,7 +4,7 @@ import Button from "../components/Button";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 
-const backend_url = import.meta.env.BACKEND_URL;
+const backend_url = import.meta.env.VITE_BACKEND_URL;
 const token = localStorage.getItem("token");
 const EditBooks = () => {
   const { id } = useParams();
