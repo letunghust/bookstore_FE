@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { FaPencilAlt } from "react-icons/fa";
 import { MdDeleteForever } from "react-icons/md";
  
-const backend_url = import.meta.env.BACKEND_URL || "http://localhost:3001";
+const backend_url = import.meta.env.BACKEND_URL ;
 const token = localStorage.getItem("token");
 const ManageBooks = () => {
   const [allBooks, setAllBooks] = useState([]);

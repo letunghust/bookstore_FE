@@ -3,7 +3,7 @@ import { TEInput, TERipple } from "tw-elements-react";
 import Button from "../components/Button";
 import { Link, useNavigate } from "react-router-dom";
 
-const backend_url = import.meta.env.BACKEND_URL || "http://localhost:3001";
+const backend_url = import.meta.env.BACKEND_URL ;
 const SignUpForm = () => {
     const navigate = useNavigate();
     const handleSignUpSubmit = async(event) => {

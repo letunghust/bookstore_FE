@@ -36,11 +36,16 @@ export default Home;
  *  - Xử lý phần bấm nút log in và log out mượt hơn.                                                   Ͳ
  *  - Mỗi khi mua hàng sẽ giảm quantity đi                                                             Ͳ
  *  - Thêm sửa xóa bên giỏ hàng xong thì lưu vào database
- *  - Sửa lại để cho các cuốn sách phổ biến sẽ hiển thị ở bên ngoài trang chủ
+ *  - Sửa lại để cho các cuốn sách phổ biến sẽ hiển thị ở bên ngoài trang chủ                          Ͳ
  *  - Làm cho profile để có thể edit                                                                   Ͳ
  *  - Upload ảnh với form data                                                                         Ͳ
  *  - Sửa tiếp phần edit user                                                                          Ͳ
+ *  - Logic khi mua hàng quantity                                                                      Ͳ
  *  - Sửa để cho hệ thống dùng toastify 
- *  - Logic khi mua hàng quantity 
  *  - Sửa để chọn role trong admin  
+ *  - Sửa lại tính năng quản lý đơn hàng
+ *  - Làm phần xóa 1 sản phẩm khỏi giỏ hàng 
+ *  - Làm tiếp phần quản lý user
+ *  - Sửa để cho gửi email đẹp hơn
+ *  - Thay thế alert bằng toastify 
  */
