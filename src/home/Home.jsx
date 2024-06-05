@@ -5,10 +5,14 @@ import PopularBooks from "./PopularBooks";
 
 const Home = () => {
   return (
-    <div>
+    <div className="container mx-auto">
       <Banner />
       {/* <FavoriteBooks /> */}
-      <PopularBooks/>
+      <div className="flex justify-center border-black">
+        <div className="w-2/3"> 
+          <PopularBooks/>
+        </div>
+      </div>
       <FavBook />
     </div>
   );

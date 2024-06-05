@@ -3,6 +3,7 @@ import { useStripe, useElements, CardElement } from "@stripe/react-stripe-js";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 import ModalCheckout from "../components/ModalCheckout";
 
 const Cart = () => {
@@ -219,7 +220,16 @@ const Cart = () => {
           body: JSON.stringify({ cartId, userId }),
         }
       );
-      console.log(response);
+      // toast.success("Delete cart successfully", {
+      //   position: "top-right",
+      //   autoClose: 5000,
+      //   hideProgressBar: false,
+      //   closeOnClick: true,
+      //   pauseOnHover: true,
+      //   draggable: true,
+      //   progress: undefined,
+      // })
+      // console.log(response);
       if (response.ok) {
         const data = await response.json();
         // console.log("data secret: ", data);

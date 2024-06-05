@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import Button from "../components/Button";
 import { Link, useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
-const backend_url = import.meta.env.VITE_BACKEND_URL ;
+const backend_url = import.meta.env.VITE_BACKEND_URL;
 const LoginForm = ({ setIsLogedIn }) => {
   const navigate = useNavigate();
   const handleLoginSubmit = async (event) => {
@@ -24,16 +26,34 @@ const LoginForm = ({ setIsLogedIn }) => {
         body: JSON.stringify(userInfo),
       });
 
-      if (response.ok) { 
+      if (response.ok) {
         const data = await response.json();
         const token = data.token;
-        if(token) {
-          localStorage.setItem('token', token)
-          alert("Login successfully");
+        if (token) {
+          localStorage.setItem("token", token);
+          // alert("Login successfully");
+          // toast.success("Login successfully", {
+          //   position: "top-right",
+          //   autoClose: 5000,
+          //   hideProgressBar: false,
+          //   closeOnClick: true,
+          //   pauseOnHover: true,
+          //   draggable: true,
+          //   progress: undefined,
+          // })
           navigate("/");
           window.location.reload();
-        } else{
-          alert('Invalid email or password');
+        } else {
+          // alert("Invalid email or password");
+          toast.error("Invalid email or password", {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          })
         }
         form.reset();
         // localStorage.setItem("userInfo:", JSON.stringify(userInfo));
@@ -41,12 +61,30 @@ const LoginForm = ({ setIsLogedIn }) => {
       } else {
         // alert("Invalid email or password");
         const dataAlert = await response.json();
-        alert(dataAlert.message);
+        // alert(dataAlert.message);
+        toast.error(dataAlert.message, {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        })
       }
     } catch (error) {
       // throw new Error("Error login");
-      console.log(error)
-      alert('Error log in')
+      console.log(error);
+      // alert("Error log in");
+      toast.error("Error log in", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      })
     }
   };
 

@@ -2,6 +2,8 @@ import React from "react";
 import { TEInput, TERipple } from "tw-elements-react";
 import Button from "../components/Button";
 import { Link, useNavigate } from "react-router-dom";
+import {  toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 const backend_url = import.meta.env.VITE_BACKEND_URL ;
 const SignUpForm = () => {
@@ -29,15 +31,34 @@ const SignUpForm = () => {
             })
 
             if(response.ok) {
-                alert("Sign up successfully!");
+                // alert("Sign up successfully!");
+                toast.success("Sign up successfully!", {
+                  position: "top-right",
+                  autoClose: 5000,
+                  hideProgressBar: false,
+                  closeOnClick: true,
+                  pauseOnHover: true,
+                  draggable: true,
+                  progress: undefined,
+                })
                 form.reset();
                 navigate("/");
             }
             else{
-                alert("Sign up failed!");
+                // alert("Sign up failed!");
+                toast.error("Sign up failed!", {
+                  position: "top-right",
+                  autoClose: 5000,
+                  hideProgressBar: false,
+                  closeOnClick: true,
+                  pauseOnHover: true,
+                  draggable: true,
+                  progress: undefined,
+                })
             }
         } catch(error) {
-            throw new Error("Error sign up");
+            // throw new Error("Error sign up");
+            console.log("Error sign up", error);
         }
     }
 

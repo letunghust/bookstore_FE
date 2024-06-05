@@ -1,20 +1,16 @@
-/* eslint-disable react/prop-types */
 import React, { useRef, useState } from "react";
 import { Link } from "react-router-dom";
-// import FavoriteBooks from "../home/FavoriteBooks";
-// Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
 
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/pagination";
-import "swiper/css/navigation"; // Thêm import cho CSS navigation
 import { Navigation, Pagination } from "swiper/modules";
 
 const BookCard = ({ headline, books }) => {
   return (
-    <div className="my-8 mx-auto max-w-2xl">
-      <h2 className="text-3xl font-bold mb-6">{headline}</h2>
+    <div className="w-full my-8 mx-auto">
+      <h2 className="text-3xl font-bold mb-6 text-center">{headline}</h2>
       <Swiper
         slidesPerView={1}
         spaceBetween={10}

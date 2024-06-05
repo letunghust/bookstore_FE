@@ -82,7 +82,7 @@ const PopularBooks = () => {
   };
 
   return (
-    <div>
+    <div className="w-full">
       <BookCard books={popularBooks} headline="Popular books" />
       {/* {renderPagination()} */}
     </div>

@@ -3,6 +3,8 @@ import React, { useEffect, useState } from "react";
 import Button from "../components/Button";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
+import {  toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 const backend_url = import.meta.env.VITE_BACKEND_URL;
 const token = localStorage.getItem("token");
@@ -23,13 +25,13 @@ const EditBooks = () => {
     bookCategories[0]
   );
 
-  // lựa chọn thể loại sách 
+  // lựa chọn thể loại sách
   const handleChangeSelectedValue = (event) => {
     console.log(event.target.value);
     setSelectedBookCategory(event.target.value);
   };
 
-  // cập nhật dữ liệu vào form 
+  // cập nhật dữ liệu vào form
   const initData = async () => {
     try {
       const response = await axios.get(`${backend_url}/book/${id}`);
@@ -40,7 +42,7 @@ const EditBooks = () => {
       console.error(error);
     }
   };
-  console.log('book info: ', bookInfo)
+  console.log("book info: ", bookInfo);
   useEffect(() => {
     initData();
   }, [id]);
@@ -76,7 +78,7 @@ const EditBooks = () => {
         method: "PATCH",
         headers: {
           "Content-type": "application/json",
-          "Authorization": `${token}`,
+          Authorization: `${token}`,
         },
         body: JSON.stringify(bookObj),
       });
@@ -84,8 +86,17 @@ const EditBooks = () => {
       const data = response.data;
       setBookInfo(data);
       // console.log(data);
-      alert("Update a book sccessfull!");
-      navigate('/admin/manage'); // chuyển lại manage khi đã edit xong 
+      // alert("Update a book sccessfull!");
+      toast.success("Update a book sccessfull!", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+      navigate("/admin/managebook"); // chuyển lại manage khi đã edit xong
     } catch (error) {
       console.error(error);
     }
@@ -121,7 +132,7 @@ const EditBooks = () => {
               id="bookTitle"
               type="text"
               placeholder="Book Title"
-              value={bookInfo?.bookTitle }
+              value={bookInfo?.bookTitle}
               onChange={handleInputChange}
             />
           </div>
@@ -219,7 +230,7 @@ const EditBooks = () => {
             />
           </div>
         </div>
-       
+
         {/* fifth row */}
         <div className="flex flex-wrap -mx-3 mb-6">
           <div className="w-full px-3">
@@ -227,7 +238,7 @@ const EditBooks = () => {
               className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
               htmlFor="Price"
             >
-             Price
+              Price
             </label>
             <input
               className="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
@@ -243,7 +254,7 @@ const EditBooks = () => {
               className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
               htmlFor="Quantity"
             >
-             Quantity
+              Quantity
             </label>
             <input
               className="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
