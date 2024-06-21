@@ -1,11 +1,13 @@
 import axios from "axios";
 import React, { useEffect, useState, useRef, useCallback } from "react";
 import { Link, useParams } from "react-router-dom";
-import Button from "../components/Button";
+// import Button from "../components/Button";
 
 const SingleBookHome = () => {
   const { id } = useParams();
   const [bookInfo, setBookInfo] = useState(null);
+  // const [bookRecommend, setBookRecommend] = useState([]);
+  const [bookRecommend, setBookRecommend] = useState();
   // const [res1, setResInfo] = useState("");
   const [relatedBooks, setRelatedBooks] = useState([]);
   const [pendingQuantityChanges, setPendingQuantityChanges] = useState([]);
@@ -19,7 +21,42 @@ const SingleBookHome = () => {
           `${import.meta.env.VITE_BACKEND_URL}/book/${id}`
         );
         const data = response.data;
+        console.log(data);
         setBookInfo(data);
+
+        const recommendResponse = await axios.post(
+          `${import.meta.env.VITE_BACKEND_AI}/api/recommend`,
+          {
+            // user_input: bookInfo?.bookTitle,
+            user_input: data?.bookTitle,
+
+            // user_input: "Madness"          
+          }
+        );
+        console.log(recommendResponse);
+        let recommendData = recommendResponse.data;
+        console.log(recommendData)
+        console.log(typeof(recommendData))
+
+       // Kiểm tra nếu recommendData là chuỗi
+       let finalRecommendData = recommendData;
+       if (typeof recommendData === "string") {
+         try {
+          recommendData = recommendData.replace(/NaN/g, "null");
+           finalRecommendData = JSON.parse(recommendData);
+         } catch (e) {
+           console.error("Error parsing recommendData:", e);
+           finalRecommendData = [];
+         }
+       }
+
+       // Kiểm tra nếu finalRecommendData không phải là mảng
+       if (!Array.isArray(finalRecommendData)) {
+         console.error("Recommend data is not an array:", finalRecommendData);
+         finalRecommendData = [];
+       }
+
+       setBookRecommend(finalRecommendData);
       } catch (err) {
         console.log(err);
       }
@@ -28,36 +65,68 @@ const SingleBookHome = () => {
     if (id) {
       fetchBookInfo();
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
 
   // hiển thị các cuốn sách cùng thể loại
-  useEffect(() => {
-    // Fetch related books based on category or any other criteria
-    // In this example, let's assume books have a category field
-    const fetchRelatedBooks = async () => {
-      try {
-        const response = await axios.get(
-          `${import.meta.env.VITE_BACKEND_URL}/all-books?category=${
-            bookInfo.category
-          }`
-        );
-        const data = response.data;
-        
-        setRelatedBooks(data.docs);
-        // console.log("related books: ", data);
-      } catch (err) {
-        console.log(err);
-      }
-    };
+  // useEffect(() => {
+  //   // Fetch related books based on category or any other criteria
+  //   // In this example, let's assume books have a category field
+  //   const fetchRelatedBooks = async () => {
+  //     try {
+  //       const response = await axios.get(
+  //         `${import.meta.env.VITE_BACKEND_URL}/all-books?category=${
+  //           bookInfo.category
+  //         }`
+  //       );
+  //       const data = response.data;
 
-    if (bookInfo) {
-      fetchRelatedBooks();
-    }
-  }, [bookInfo]);
+  //       setRelatedBooks(data.docs);
+  //       // console.log("related books: ", data);
+  //     } catch (err) {
+  //       console.log(err);
+  //     }
+  //   };
 
-  if (!id || !bookInfo) {
-    return <div>Loading...</div>;
-  }
+  //   if (bookInfo) {
+  //     fetchRelatedBooks();
+  //   }
+  // }, [bookInfo]);
+
+  // hiển thị các cuốn sách được gợi ý
+  // const fetchRecommendedBooks = async () => {
+  //   try {
+  //     const response = await axios.post(
+  //       `${import.meta.env.VITE_BACKEND_AI}/api/recommend`,
+  //       {
+  //         user_input: bookInfo?.bookTitle,
+  //       }
+  //     );
+  //     const data = response.data;
+  //     console.log(typeof(data))
+
+  //     setBookRecommend(data);
+  //     // if (Array.isArray(dataArray)) {
+  //     //   setBookRecommend(dataArray);
+  //     //   console.log("dataarray recommended books: ", dataArray);
+  //     // } else {
+  //     //   console.log("data recommended books: ", data);
+  //     //   setBookRecommend([]);
+  //     // }
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // };
+
+  // useEffect(() => {
+  //   if (bookInfo) {
+  //     fetchRecommendedBooks();
+  //   }
+  // }, [bookInfo]);
+
+  // if (!id || !bookInfo) {
+  //   return <div>Loading...</div>;
+  // }
 
   // xu lý thay đổi số lượng sách
 
@@ -69,13 +138,13 @@ const SingleBookHome = () => {
       if (!token) {
         alert("please log in");
       } else {
-        // Nếu số lượng sách = 0 thì không mua được 
-        if(bookInfo.quantity === 0) {
+        // Nếu số lượng sách = 0 thì không mua được
+        if (bookInfo.quantity === 0) {
           alert("Out of stock");
           return;
         }
 
-        // gọi api để thêm sách vào giỏ hàng 
+        // gọi api để thêm sách vào giỏ hàng
         const response = await fetch(
           `${import.meta.env.VITE_BACKEND_URL}/add/${bookId}`,
           {
@@ -112,25 +181,25 @@ const SingleBookHome = () => {
         <div className="flex">
           <div className="w-full flex justify-center bottom-5 border-black text-center">
             <img
-              src={bookInfo.imageURL}
-              alt={bookInfo.bookTitle}
+              src={bookInfo?.imageURL}
+              alt={bookInfo?.bookTitle}
               className="w-2/3 h-auto"
               // className="w-auto h-2/3"
             />
           </div>
           <div className="w-full">
             <h1 className="text-2xl text-center font-bold mb-4 p-2">
-              {bookInfo.bookTitle}
+              {bookInfo?.bookTitle}
             </h1>
             <h1 className="text-xl text-center text-blue-400">
-              {bookInfo.price}$
+              {bookInfo?.price}$
             </h1>
-            <p className="w-full p-3">{bookInfo.bookDescription}</p>
-            <p>Quantity: {bookInfo.quantity}</p>
+            <p className="w-full p-3">{bookInfo?.bookDescription}</p>
+            <p>Quantity: {bookInfo?.quantity}</p>
             <div className="flex w-full">
-              <a href={bookInfo.bookPDFURL}>
+              {/* <a href={bookInfo.bookPDFURL}>
                 <Button type="text" label="Download Now " />
-              </a>
+              </a> */}
               <button
                 onClick={() => {
                   // console.log(bookInfo._id);
@@ -140,13 +209,40 @@ const SingleBookHome = () => {
                 {" "}
                 Add to Cart{" "}
               </button>
-             
             </div>
           </div>
         </div>
       </div>
-      {/* hiển thị sách cùng thể loại */}
+      {/* hiển thị sách đề xuất  */}
       <div className="w-full p-4">
+        <h2 className="text-2xl font-bold mb-4 text-center">
+          Recommended Books
+        </h2>
+        <ul className="flex flex-wrap justify-center gap-5">
+          {bookRecommend?.map((recommendedBook) => (
+            <Link
+              to={`${import.meta.env.VITE_FRONTEND_URL}/book/${
+                recommendedBook._id
+              }`}
+              key={recommendedBook._id}
+            >
+              <li key={recommendedBook.id} className="mb-4 mr-4 w-[100px]">
+                <div className="flex flex-col items-start">
+                  <img
+                    src={recommendedBook?.imageURL}
+                    alt={recommendedBook.bookTitle}
+                    className="w-[94px] h-auto mb-2"
+                  />
+                  <p className="text-sm">{recommendedBook.bookTitle}</p>
+                </div>
+              </li>
+            </Link>
+          ))}
+        </ul>
+      </div>
+
+      {/* hiển thị sách cùng thể loại */}
+      {/* <div className="w-full p-4">
         <h2 className="text-2xl font-bold mb-4 text-center">Other Books</h2>
         <ul className="flex flex-wrap justify-center gap-5">
           {relatedBooks.map((relatedBook) => (
@@ -169,9 +265,8 @@ const SingleBookHome = () => {
             </Link>
           ))}
         </ul>
-      </div>
+      </div> */}
     </div>
-
   );
 };
 

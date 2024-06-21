@@ -52,4 +52,5 @@ export default Home;
  *  - Làm tiếp phần quản lý user
  *  - Sửa để cho gửi email đẹp hơn
  *  - Thay thế alert bằng toastify 
+ *  - Cập nhật lại để khi bấm vào 1 cuốn sách thì sẽ gợi ý ra các cuốn sách 
  */
