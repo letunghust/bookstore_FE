@@ -3,8 +3,9 @@ import { useStripe, useElements, CardElement } from "@stripe/react-stripe-js";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import 'react-toastify/dist/ReactToastify.css';
+import "react-toastify/dist/ReactToastify.css";
 import ModalCheckout from "../components/ModalCheckout";
+import emptyImage from "../assets/empty-cart.png";
 
 const Cart = () => {
   const [cartItems, setCartItems] = useState("");
@@ -81,33 +82,38 @@ const Cart = () => {
   // handle update quantity when payment success
   const updateBookQuantities = async () => {
     try {
-      for(let item of cartItems) {
-        const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/bookquantity/${item.book._id}`, {
-          method: "PATCH",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json; charset=UTF-8",
-          },
-          body: JSON.stringify({quantity: item.book.quantity - item.quantity}),
-        });
+      for (let item of cartItems) {
+        const response = await fetch(
+          `${import.meta.env.VITE_BACKEND_URL}/bookquantity/${item.book._id}`,
+          {
+            method: "PATCH",
+            headers: {
+              Accept: "application/json",
+              "Content-Type": "application/json; charset=UTF-8",
+            },
+            body: JSON.stringify({
+              quantity: item.book.quantity - item.quantity,
+            }),
+          }
+        );
 
-        if(!response.ok) {
+        if (!response.ok) {
           throw new Error(`Error updating quantity for book ${item.book._id}`);
         }
       }
       console.log("Updated book quantities successfully");
-    } catch(error) {
-      console.log('Error updating quantity for book', error);
+    } catch (error) {
+      console.log("Error updating quantity for book", error);
     }
-  }
+  };
 
   // handle increase, decrease quantity and remove item from cart
   const handleIncreaseQuantity = (id) => {
     const updatedCartItems = cartItems.map((item) => {
       if (item._id === id) {
         // return { ...item, quantity: item.quantity + 1 };
-        if(item.quantity < item.book.quantity) {
-          return {...item, quantity: item.quantity + 1};
+        if (item.quantity < item.book.quantity) {
+          return { ...item, quantity: item.quantity + 1 };
         } else {
           alert("The quantity in the cart cannot the available stock");
           return item;
@@ -136,15 +142,50 @@ const Cart = () => {
     ]);
   };
 
-  const handleRemoveItem = (id) => {
-    const updatedCartItems = cartItems.filter((item) => item._id !== id);
-    if(updatedCartItems) {
-    // if(updatedCartItems.length < cartItems.length) {
-      setCartItems(updatedCartItems);
-      setPendingChanges((prevChanges) => {
-        [...prevChanges, { type: "remove", itemId: id }];
-        // console.log(prevChanges);
-      });
+  // const handleRemoveItem = (id) => {
+  //   const updatedCartItems = cartItems.filter((item) => item._id !== id);
+  //   if(updatedCartItems) {
+  //   // if(updatedCartItems.length < cartItems.length) {
+  //     setCartItems(updatedCartItems);
+  //     setPendingChanges((prevChanges) => {
+  //       [...prevChanges, { type: "remove", itemId: id }];
+  //       // console.log(prevChanges);
+  //     });
+  //   }
+  // };
+  const handleRemoveItem = async (id) => {
+    console.log(id)
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_BACKEND_URL}/remove/${id}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `${token}`,
+          },
+        }
+      );
+      if (response.ok) {
+        // Lấy phản hồi JSON
+        const data = await response.json();
+        console.log(data.message);
+        alert(data.message)
+        window.location.reload()
+
+        // Cập nhật lại danh sách các mục trong giỏ hàng
+        const updatedCartItems = cartItems.filter((item) => item._id !== id);
+        setCartItems(updatedCartItems);
+
+        // Xóa bỏ thay đổi đang chờ xử lý liên quan đến mục này
+        setPendingChanges((prevChanges) =>
+          prevChanges.filter((change) => change.itemId !== id)
+        );
+      } else {
+        console.log(`Failed to remove item: ${response.statusText}`);
+      }
+    } catch (error) {
+      console.log(error);
     }
   };
 
@@ -171,7 +212,7 @@ const Cart = () => {
     }
   };
 
-  // BI LOI O CHO NAY khi remove đi mà f5 lại sẽ bị mất hết 
+  // BI LOI O CHO NAY khi remove đi mà f5 lại sẽ bị mất hết
   useEffect(() => {
     let timeout;
     const handlePendingChanges = async () => {
@@ -179,14 +220,13 @@ const Cart = () => {
         timeout = setTimeout(() => {
           sendChangesToserver();
         }, 1000);
-      }
-      else {
+      } else {
         // await clearCart();
         // setTimeout(() =>{
         //   sendChangesToserver();
         // }, 1000)
       }
-    }
+    };
 
     handlePendingChanges();
 
@@ -365,7 +405,10 @@ const Cart = () => {
       {/* GIO HANG */}
       <h2 className="text-xl font-bold mb-4">Your Cart</h2>
       {cartItems.length === 0 ? (
-        <p className="text-gray-600">Your cart is empty</p>
+        <div className="flex flex-col items-center justify-center h-full">
+        {/* <p className="text-gray-600 text-center mb-4">Your cart is empty</p> */}
+        <img src={emptyImage} alt="Empty Cart" className="w-1/2"/>
+      </div>
       ) : (
         <>
           <ul className="divide-y divide-gray-200">
@@ -383,7 +426,7 @@ const Cart = () => {
                     </h3>
                     <button
                       className="text-red-600 hover:text-red-800"
-                      onClick={() => handleRemoveItem(item._id)}
+                      onClick={() => handleRemoveItem(item.book._id)}
                     >
                       Remove
                     </button>

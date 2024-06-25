@@ -45,12 +45,11 @@ export default Home;
  *  - Upload ảnh với form data                                                                         Ͳ
  *  - Sửa tiếp phần edit user                                                                          Ͳ
  *  - Logic khi mua hàng quantity                                                                      Ͳ
- *  - Sửa để cho hệ thống dùng toastify 
+ *  - Cập nhật lại để khi bấm vào 1 cuốn sách thì sẽ gợi ý ra các cuốn sách                            Ͳ
+ *  - Sửa để cho hệ thống dùng toastify                                                                Ͳ
  *  - Sửa để chọn role trong admin  
  *  - Sửa lại tính năng quản lý đơn hàng
  *  - Làm phần xóa 1 sản phẩm khỏi giỏ hàng 
  *  - Làm tiếp phần quản lý user
  *  - Sửa để cho gửi email đẹp hơn
- *  - Thay thế alert bằng toastify 
- *  - Cập nhật lại để khi bấm vào 1 cuốn sách thì sẽ gợi ý ra các cuốn sách 
  */
