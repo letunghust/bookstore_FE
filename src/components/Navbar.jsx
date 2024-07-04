@@ -37,7 +37,7 @@ const Navbar = () => {
             );
             // console.log(response.data.avatar)
             setAvatar(response.data.avatar);
-            // console.log('data' ,response.data.role)
+            console.log('role: ' ,response.data.role)
             setUserRole(response.data.role);
           } catch (error) {
             console.log(error);
@@ -87,8 +87,18 @@ const Navbar = () => {
     { link: "Recommend", path: "/recommend" },
     { link: "Shop", path: "/shop" },
     // { link: "Blog", path: "/blog" },
-    { link: "Admin", path: "/admin" },
-  ].filter((item) => item.link !== "Admin" || userRole === "admin");
+  ]
+    // ].filter((item) => item.link !== "Admin" || userRole === "admin");
+
+    if(userRole === "admin") {
+      navItems.push({link: "Admin", path: "/admin"});
+    }
+
+    if(userRole == "cashier") {
+      navItems.push({link: "Cashier", path: "/cashier"});
+    }
+  // { link: "Admin", path: "/admin" },
+  // { link: "Cashier", path: "/cashier"},           
 
   return (
     <header>

@@ -1,5 +1,5 @@
 import Banner from "../components/Banner";
-import FavBook from "./FavBook";
+// import FavBook from "./FavBook";
 // import FavoriteBooks from "./FavoriteBooks";
 import PopularBooks from "./PopularBooks";
 
@@ -48,11 +48,14 @@ export default Home;
  *  - Cập nhật lại để khi bấm vào 1 cuốn sách thì sẽ gợi ý ra các cuốn sách                            Ͳ
  *  - Sửa để cho hệ thống dùng toastify                                                                Ͳ
  *  - Làm phần xóa 1 sản phẩm khỏi giỏ hàng                                                            Ͳ
- *  - Sửa để chọn role trong admin  
+ *  - Sửa để chọn role trong admin                                                                     Ͳ
+ *  - Sửa để khi add to cart thì sẽ có thông báo đẹp hơn                                               Ͳ
+ *  - Trạng thái của mua hàng của 1 sản phẩm 
+ *  - Thay thế avatar default  
+ *  - Sửa để cho nút add to cart đẹp hơn 
  *  - Sửa lại tính năng quản lý đơn hàng
  *  - Làm tiếp phần quản lý user
  *  - Sửa để cho gửi email đẹp hơn
- *  - Trạng thái của mua hàng của 1 sản phẩm 
  *  - Phân trang cho quản lý user 
  *  - Sửa lại phần recommend là dùng dropdown 
  *  - Sửa lại ở phần trang chủ để khi search thì kết quả trả về ở dạng dropdown 

@@ -21,6 +21,7 @@ import ResetPasswordForm from "../pages/ResetPasswordForm";
 import MyOrder from "../pages/MyOrder";
 import ManageUsers from "../dashboard/ManageUsers";
 import ManageOrders from "../dashboard/ManageOrders";
+import Cashier from "../pages/Cashier";
 // import {MainLayOut} from "../layout/MainLayOut";
 
 const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLISH_KEY);
@@ -80,6 +81,10 @@ const router = createBrowserRouter([
       {
         path: "/my-order",
         element: <MyOrder/>, 
+      },
+      {
+        path: "/cashier",
+        element: <Cashier/>
       },
       {
         path: "/admin",

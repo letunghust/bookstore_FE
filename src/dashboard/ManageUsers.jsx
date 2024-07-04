@@ -83,7 +83,7 @@ const ManageUsers = () => {
             <th className="py-2 px-4 border-b">Created At</th>
             <th className="py-2 px-4 border-b">Block</th>
             <th className="py-2 px-4 border-b">Role</th>
-            <th className="py-2 px-4 border-b">Edit/Delete</th>
+            <th className="py-2 px-4 border-b">Delete</th>
           </tr>
         </thead>
         <tbody>
@@ -120,13 +120,14 @@ const ManageUsers = () => {
                   }
                 >
                   <option value="user"> User </option>
+                  <option value="cashier"> Cashier </option>
                   <option value="admin"> Admin </option>
                 </select>
               </td>
               <td className="py-2 px-4">
-                <button className="bg-blue-500 text-white px-4 py-1 rounded">
+                {/* <button className="bg-blue-500 text-white px-4 py-1 rounded">
                   Edit
-                </button>
+                </button> */}
                 <button className="bg-red-500 text-white px-4 py-1 rounded ml-2">
                   Delete
                 </button>

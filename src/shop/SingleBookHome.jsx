@@ -1,6 +1,8 @@
 import axios from "axios";
 import React, { useEffect, useState, useRef, useCallback } from "react";
 import { Link, useParams } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 // import Button from "../components/Button";
 
 const SingleBookHome = () => {
@@ -68,61 +70,6 @@ const SingleBookHome = () => {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
 
-  // hiển thị các cuốn sách cùng thể loại
-  // useEffect(() => {
-  //   // Fetch related books based on category or any other criteria
-  //   // In this example, let's assume books have a category field
-  //   const fetchRelatedBooks = async () => {
-  //     try {
-  //       const response = await axios.get(
-  //         `${import.meta.env.VITE_BACKEND_URL}/all-books?category=${
-  //           bookInfo.category
-  //         }`
-  //       );
-  //       const data = response.data;
-
-  //       setRelatedBooks(data.docs);
-  //       // console.log("related books: ", data);
-  //     } catch (err) {
-  //       console.log(err);
-  //     }
-  //   };
-
-  //   if (bookInfo) {
-  //     fetchRelatedBooks();
-  //   }
-  // }, [bookInfo]);
-
-  // hiển thị các cuốn sách được gợi ý
-  // const fetchRecommendedBooks = async () => {
-  //   try {
-  //     const response = await axios.post(
-  //       `${import.meta.env.VITE_BACKEND_AI}/api/recommend`,
-  //       {
-  //         user_input: bookInfo?.bookTitle,
-  //       }
-  //     );
-  //     const data = response.data;
-  //     console.log(typeof(data))
-
-  //     setBookRecommend(data);
-  //     // if (Array.isArray(dataArray)) {
-  //     //   setBookRecommend(dataArray);
-  //     //   console.log("dataarray recommended books: ", dataArray);
-  //     // } else {
-  //     //   console.log("data recommended books: ", data);
-  //     //   setBookRecommend([]);
-  //     // }
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   if (bookInfo) {
-  //     fetchRecommendedBooks();
-  //   }
-  // }, [bookInfo]);
 
   // if (!id || !bookInfo) {
   //   return <div>Loading...</div>;
@@ -165,8 +112,17 @@ const SingleBookHome = () => {
         const res = await response.json();
         console.log(res);
         // alert(res);
-        alert(JSON.stringify(res));
-        window.location.reload();
+        // alert(JSON.stringify(res));
+        toast.success("Book added to cart successfully", {
+            position: "top-right",
+            autoClose: 2000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          })
+        // window.location.reload();
       }
     } catch (error) {
       console.log(error);
