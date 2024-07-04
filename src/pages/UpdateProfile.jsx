@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { jwtDecode } from "jwt-decode";
 import ButtonClose from "../components/ButtonClose";
+import defaultAvatar from "../assets/avatar.jpg";
 
 const token = localStorage.getItem("token");
 const UpdateProfile = () => {
@@ -12,8 +13,8 @@ const UpdateProfile = () => {
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [avatar, setAvatar] = useState('');
-  const defaultAvatar =
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/Flag_of_Vietnam.svg/1280px-Flag_of_Vietnam.svg.png";
+  // const defaultAvatar =
+  //   "https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/Flag_of_Vietnam.svg/1280px-Flag_of_Vietnam.svg.png";
 
   // get user data
   const fetchUserData = async () => {

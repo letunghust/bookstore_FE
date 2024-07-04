@@ -50,8 +50,8 @@ export default Home;
  *  - Làm phần xóa 1 sản phẩm khỏi giỏ hàng                                                            Ͳ
  *  - Sửa để chọn role trong admin                                                                     Ͳ
  *  - Sửa để khi add to cart thì sẽ có thông báo đẹp hơn                                               Ͳ
- *  - Trạng thái của mua hàng của 1 sản phẩm 
- *  - Thay thế avatar default  
+ *  - Thay thế avatar default                                                                          Ͳ
+ *  - Trạng thái  mua hàng của 1 sản phẩm 
  *  - Sửa để cho nút add to cart đẹp hơn 
  *  - Sửa lại tính năng quản lý đơn hàng
  *  - Làm tiếp phần quản lý user
@@ -59,4 +59,5 @@ export default Home;
  *  - Phân trang cho quản lý user 
  *  - Sửa lại phần recommend là dùng dropdown 
  *  - Sửa lại ở phần trang chủ để khi search thì kết quả trả về ở dạng dropdown 
+ *  - Sửa để fix cứng giá trị của VN trong phần thanh toán 
  */

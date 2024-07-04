@@ -8,6 +8,7 @@ import { ThemeContext } from "../App";
 // import LoginForm from "../pages/LoginForm";
 import { jwtDecode } from "jwt-decode";
 import axios from "axios";
+import defaultAvatar from "../assets/avatar.jpg";
 
 const Navbar = () => {
   // const [isMenuOpen, setIsMenuOpen] = useState(false); 
@@ -18,7 +19,7 @@ const Navbar = () => {
   const [userRole, setUserRole] = useState("");
   const [avatar, setAvatar] = useState('');
   const navigate = useNavigate();
-  const defaultAvatar = "https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/Flag_of_Vietnam.svg/1280px-Flag_of_Vietnam.svg.png";
+  // const defaultAvatar = "https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/Flag_of_Vietnam.svg/1280px-Flag_of_Vietnam.svg.png";
 
   // get info from local storage to get role
   useEffect(() => {
