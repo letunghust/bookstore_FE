@@ -96,9 +96,7 @@ const Navbar = () => {
 
     if(userRole == "cashier") {
       navItems.push({link: "Cashier", path: "/cashier"});
-    }
-  // { link: "Admin", path: "/admin" },
-  // { link: "Cashier", path: "/cashier"},           
+    }        
 
   return (
     <header>
