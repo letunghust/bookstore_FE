@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState, useRef, useCallback } from "react";
 import { Link, useParams } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
-import 'react-toastify/dist/ReactToastify.css';
+import "react-toastify/dist/ReactToastify.css";
 // import Button from "../components/Button";
 
 const SingleBookHome = () => {
@@ -32,33 +32,33 @@ const SingleBookHome = () => {
             // user_input: bookInfo?.bookTitle,
             user_input: data?.bookTitle,
 
-            // user_input: "Madness"          
+            // user_input: "Madness"
           }
         );
         console.log(recommendResponse);
         let recommendData = recommendResponse.data;
-        console.log(recommendData)
-        console.log(typeof(recommendData))
+        console.log(recommendData);
+        console.log(typeof recommendData);
 
-       // Kiểm tra nếu recommendData là chuỗi
-       let finalRecommendData = recommendData;
-       if (typeof recommendData === "string") {
-         try {
-          recommendData = recommendData.replace(/NaN/g, "null");
-           finalRecommendData = JSON.parse(recommendData);
-         } catch (e) {
-           console.error("Error parsing recommendData:", e);
-           finalRecommendData = [];
-         }
-       }
+        // Kiểm tra nếu recommendData là chuỗi
+        let finalRecommendData = recommendData;
+        if (typeof recommendData === "string") {
+          try {
+            recommendData = recommendData.replace(/NaN/g, "null");
+            finalRecommendData = JSON.parse(recommendData);
+          } catch (e) {
+            console.error("Error parsing recommendData:", e);
+            finalRecommendData = [];
+          }
+        }
 
-       // Kiểm tra nếu finalRecommendData không phải là mảng
-       if (!Array.isArray(finalRecommendData)) {
-         console.error("Recommend data is not an array:", finalRecommendData);
-         finalRecommendData = [];
-       }
+        // Kiểm tra nếu finalRecommendData không phải là mảng
+        if (!Array.isArray(finalRecommendData)) {
+          console.error("Recommend data is not an array:", finalRecommendData);
+          finalRecommendData = [];
+        }
 
-       setBookRecommend(finalRecommendData);
+        setBookRecommend(finalRecommendData);
       } catch (err) {
         console.log(err);
       }
@@ -67,9 +67,8 @@ const SingleBookHome = () => {
     if (id) {
       fetchBookInfo();
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
-
 
   // if (!id || !bookInfo) {
   //   return <div>Loading...</div>;
@@ -114,14 +113,14 @@ const SingleBookHome = () => {
         // alert(res);
         // alert(JSON.stringify(res));
         toast.success("Book added to cart successfully", {
-            position: "top-right",
-            autoClose: 2000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-          })
+          position: "top-right",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
         // window.location.reload();
       }
     } catch (error) {
@@ -156,7 +155,7 @@ const SingleBookHome = () => {
               {/* <a href={bookInfo.bookPDFURL}>
                 <Button type="text" label="Download Now " />
               </a> */}
-              <button
+              {/* <button
                 onClick={() => {
                   // console.log(bookInfo._id);
                   handleAddToCart(bookInfo._id);
@@ -164,6 +163,12 @@ const SingleBookHome = () => {
               >
                 {" "}
                 Add to Cart{" "}
+              </button> */}
+              <button
+                onClick={() => handleAddToCart(bookInfo._id)}
+                className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded transition duration-300 ease-in-out"
+              >
+                Add to Cart
               </button>
             </div>
           </div>
