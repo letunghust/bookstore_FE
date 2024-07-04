@@ -2,10 +2,12 @@ import React, { useState, useEffect } from "react";
 import { useStripe, useElements, CardElement } from "@stripe/react-stripe-js";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
+// import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import ModalCheckout from "../components/ModalCheckout";
 import emptyImage from "../assets/empty-cart.png";
+import {  toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 const Cart = () => {
   const [cartItems, setCartItems] = useState("");
@@ -154,7 +156,7 @@ const Cart = () => {
   //   }
   // };
   const handleRemoveItem = async (id) => {
-    console.log(id)
+    // console.log(id)
     try {
       const response = await fetch(
         `${import.meta.env.VITE_BACKEND_URL}/remove/${id}`,
@@ -169,9 +171,19 @@ const Cart = () => {
       if (response.ok) {
         // Lấy phản hồi JSON
         const data = await response.json();
-        console.log(data.message);
-        alert(data.message)
+        // console.log(data.message);
+        // alert(data.message)
+        toast.success(data.message, {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
         window.location.reload()
+        
 
         // Cập nhật lại danh sách các mục trong giỏ hàng
         const updatedCartItems = cartItems.filter((item) => item._id !== id);
@@ -407,7 +419,7 @@ const Cart = () => {
       {cartItems.length === 0 ? (
         <div className="flex flex-col items-center justify-center h-full">
         {/* <p className="text-gray-600 text-center mb-4">Your cart is empty</p> */}
-        <img src={emptyImage} alt="Empty Cart" className="w-1/2"/>
+        <img src={emptyImage} alt="Empty Cart" className="w-1/4"/>
       </div>
       ) : (
         <>

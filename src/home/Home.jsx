@@ -1,6 +1,6 @@
 import Banner from "../components/Banner";
 import FavBook from "./FavBook";
-import FavoriteBooks from "./FavoriteBooks";
+// import FavoriteBooks from "./FavoriteBooks";
 import PopularBooks from "./PopularBooks";
 
 const Home = () => {
@@ -13,7 +13,7 @@ const Home = () => {
           <PopularBooks/>
         </div>
       </div>
-      <FavBook />
+      {/* <FavBook /> */}
     </div>
   );
 };
@@ -39,7 +39,7 @@ export default Home;
  *  - Làm chức năng search book                                                                        Ͳ
  *  - Xử lý phần bấm nút log in và log out mượt hơn.                                                   Ͳ
  *  - Mỗi khi mua hàng sẽ giảm quantity đi                                                             Ͳ
- *  - Thêm sửa xóa bên giỏ hàng xong thì lưu vào database
+ *  - Thêm sửa xóa bên giỏ hàng xong thì lưu vào database                                              Ͳ
  *  - Sửa lại để cho các cuốn sách phổ biến sẽ hiển thị ở bên ngoài trang chủ                          Ͳ
  *  - Làm cho profile để có thể edit                                                                   Ͳ
  *  - Upload ảnh với form data                                                                         Ͳ
@@ -47,9 +47,13 @@ export default Home;
  *  - Logic khi mua hàng quantity                                                                      Ͳ
  *  - Cập nhật lại để khi bấm vào 1 cuốn sách thì sẽ gợi ý ra các cuốn sách                            Ͳ
  *  - Sửa để cho hệ thống dùng toastify                                                                Ͳ
+ *  - Làm phần xóa 1 sản phẩm khỏi giỏ hàng                                                            Ͳ
  *  - Sửa để chọn role trong admin  
  *  - Sửa lại tính năng quản lý đơn hàng
- *  - Làm phần xóa 1 sản phẩm khỏi giỏ hàng 
  *  - Làm tiếp phần quản lý user
  *  - Sửa để cho gửi email đẹp hơn
+ *  - Trạng thái của mua hàng của 1 sản phẩm 
+ *  - Phân trang cho quản lý user 
+ *  - Sửa lại phần recommend là dùng dropdown 
+ *  - Sửa lại ở phần trang chủ để khi search thì kết quả trả về ở dạng dropdown 
  */

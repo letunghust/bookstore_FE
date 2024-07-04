@@ -9,7 +9,9 @@ const ManageUsers = () => {
 
   const fetchUsers = async () => {
     try {
-      const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/all-users`);
+      const response = await axios.get(
+        `${import.meta.env.VITE_BACKEND_URL}/all-users`
+      );
       setUsers(response.data);
       setLoading(false);
     } catch (error) {
@@ -22,11 +24,15 @@ const ManageUsers = () => {
     fetchUsers();
   }, []);
 
+  // block user
   const handleToggleBlock = async (userId, isBlocked) => {
     try {
-      await axios.patch(`${import.meta.env.VITE_BACKEND_URL}/blockuser/${userId}`, {
-        isBlocked: !isBlocked,
-      });
+      await axios.patch(
+        `${import.meta.env.VITE_BACKEND_URL}/blockuser/${userId}`,
+        {
+          isBlocked: !isBlocked,
+        }
+      );
       setUsers((prevUsers) =>
         prevUsers.map((user) =>
           user._id === userId ? { ...user, isBlocked: !isBlocked } : user
@@ -34,6 +40,31 @@ const ManageUsers = () => {
       );
     } catch (error) {
       console.error("Error updating user block status", error);
+    }
+  };
+
+  // update role change
+  const handleRoleChange = async (userId, newRole) => {
+    try {
+      const response = await axios.patch(
+        `${import.meta.env.VITE_BACKEND_URL}/userRole/${userId}`,
+        {
+          role: newRole,
+        }
+      );
+
+      if (response.status === 200) {
+        // Cập nhật trạng thái người dùng trên giao diện sau khi cập nhật thành công
+        setUsers((prevUsers) =>
+          prevUsers.map((user) =>
+            user._id === userId ? { ...user, role: newRole } : user
+          )
+        );
+      } else {
+        console.error("Failed to update user role");
+      }
+    } catch (error) {
+      console.error("Error updating user role", error);
     }
   };
 
@@ -61,7 +92,9 @@ const ManageUsers = () => {
               <td className="py-2 px-4">{index + 1}</td>
               <td className="py-2 px-4">{user.name}</td>
               <td className="py-2 px-4">{user.email}</td>
-              <td className="py-2 px-4">{new Date(user.createdAt).toLocaleDateString()}</td>
+              <td className="py-2 px-4">
+                {new Date(user.createdAt).toLocaleDateString()}
+              </td>
               <td className="py-2 px-4 text-center">
                 <Switch
                   checked={user.isBlocked}
@@ -77,7 +110,19 @@ const ManageUsers = () => {
                   width={48}
                 />
               </td>
-              <td className="py-2 px-4">{user.role}</td>
+              {/* <td className="py-2 px-4">{user.role}</td> */}
+              <td className="py-2 px-4">
+                <select
+                  value={user.role}
+                  onChange={(e) => {
+                    console.log('Role changed:', e.target.value);
+                    handleRoleChange(user._id, e.target.value)}
+                  }
+                >
+                  <option value="user"> User </option>
+                  <option value="admin"> Admin </option>
+                </select>
+              </td>
               <td className="py-2 px-4">
                 <button className="bg-blue-500 text-white px-4 py-1 rounded">
                   Edit
