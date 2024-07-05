@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState, useContext, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { FaBahtSign } from "react-icons/fa6";
 import { FaAffiliatetheme, FaBoltLightning } from "react-icons/fa6";
@@ -11,14 +11,15 @@ import axios from "axios";
 import defaultAvatar from "../assets/avatar.jpg";
 
 const Navbar = () => {
-  // const [isMenuOpen, setIsMenuOpen] = useState(false); 
+  // const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSticky, setIsSticky] = useState(false);
   const { darkTheme, toggleTheme } = useContext(ThemeContext);
   let [isLogedIn, setIsLogedIn] = useState(false);
   const [showPopup, setShowPopUp] = useState(false);
   const [userRole, setUserRole] = useState("");
-  const [avatar, setAvatar] = useState('');
+  const [avatar, setAvatar] = useState("");
   const navigate = useNavigate();
+  const popupRef = useRef(null); // Ref for the popup
   // const defaultAvatar = "https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/Flag_of_Vietnam.svg/1280px-Flag_of_Vietnam.svg.png";
 
   // get info from local storage to get role
@@ -38,7 +39,7 @@ const Navbar = () => {
             );
             // console.log(response.data.avatar)
             setAvatar(response.data.avatar);
-            console.log('role: ' ,response.data.role)
+            console.log("role: ", response.data.role);
             setUserRole(response.data.role);
           } catch (error) {
             console.log(error);
@@ -81,23 +82,42 @@ const Navbar = () => {
   // open pop up when click avatar
   const togglePopup = () => {
     setShowPopUp(!showPopup);
-  }
+  };
+
+  // click outsite pop up
+  const handleClickOutside = (event) => {
+    if (popupRef.current && !popupRef.current.contains(event.target)) {
+      setShowPopUp(false);
+    }
+  };
+
+  useEffect(() => {
+    if (showPopup) {
+      document.addEventListener("mousedown", handleClickOutside);
+    } else {
+      document.removeEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [showPopup]);
 
   const navItems = [
     { link: "Home", path: "/" },
     { link: "Recommend", path: "/recommend" },
     { link: "Shop", path: "/shop" },
     // { link: "Blog", path: "/blog" },
-  ]
-    // ].filter((item) => item.link !== "Admin" || userRole === "admin");
+  ];
+  // ].filter((item) => item.link !== "Admin" || userRole === "admin");
 
-    if(userRole === "admin") {
-      navItems.push({link: "Admin", path: "/admin"});
-    }
+  if (userRole === "admin") {
+    navItems.push({ link: "Admin", path: "/admin" });
+  }
 
-    if(userRole == "cashier") {
-      navItems.push({link: "Cashier", path: "/cashier"});
-    }        
+  if (userRole == "cashier") {
+    navItems.push({ link: "Cashier", path: "/cashier" });
+  }
 
   return (
     <header>
@@ -109,8 +129,14 @@ const Navbar = () => {
           </Link>
           <ul className="flex items-center">
             {navItems.map(({ link, path }) => (
-              <li key={path} className="hover:bg-[#ccc] h-full flex items-center px-2" >
-                <Link to={path} className="hover:text-blue-500 transition-colors duration-300 w-full" >
+              <li
+                key={path}
+                className="hover:bg-[#ccc] h-full flex items-center px-2"
+              >
+                <Link
+                  to={path}
+                  className="hover:text-blue-500 transition-colors duration-300 w-full"
+                >
                   {link}
                 </Link>
               </li>
@@ -127,27 +153,49 @@ const Navbar = () => {
           <Link to="/cart">
             <BsCart className="text-2xl" />
           </Link>
-        
+
           {isLogedIn ? (
             <div>
-              <img src={avatar || defaultAvatar} alt="Avatar" onClick={togglePopup}  className="w-10 h-10 rounded-full cursor-pointer"/>
+              <img
+                src={avatar || defaultAvatar}
+                alt="Avatar"
+                onClick={togglePopup}
+                className="w-10 h-10 rounded-full cursor-pointer"
+              />
               {showPopup ? (
-               <div className="absolute right-0 mt-2 bg-white rounded-md shadow-lg z-10">
-                  <Link to='/profile'  className="block px-4 py-2 text-gray-800 hover:bg-gray-100" onClick={togglePopup}> 
-                      Your profile
+                <div ref={popupRef} className="absolute right-0 mt-2 bg-white rounded-md shadow-lg z-10">
+                  <Link
+                    to="/profile"
+                    className="block px-4 py-2 text-gray-800 hover:bg-gray-100"
+                    onClick={togglePopup}
+                  >
+                    Your profile
                   </Link>
-                  <Link to='/my-order'  className="block px-4 py-2 text-gray-800 hover:bg-gray-100" onClick={togglePopup}> 
-                      My order 
+                  <Link
+                    to="/my-order"
+                    className="block px-4 py-2 text-gray-800 hover:bg-gray-100"
+                    onClick={togglePopup}
+                  >
+                    My order
                   </Link>
-                  <button onClick={handleLogout}  className="block w-full text-left px-4 py-2 text-gray-800 hover:bg-gray-100"> Log out </button>
+                  <button
+                    onClick={handleLogout}
+                    className="block w-full text-left px-4 py-2 text-gray-800 hover:bg-gray-100"
+                  >
+                    {" "}
+                    Log out{" "}
+                  </button>
                 </div>
               ) : (
                 <></>
               )}
             </div>
           ) : (
-            <Link to="/login"  className="text-white bg-blue-500 hover:bg-blue-600 px-4 py-2 rounded">
-             Login
+            <Link
+              to="/login"
+              className="text-white bg-blue-500 hover:bg-blue-600 px-4 py-2 rounded"
+            >
+              Login
             </Link>
           )}
         </div>

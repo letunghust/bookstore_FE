@@ -52,14 +52,15 @@ export default Home;
  *  - Sửa để khi add to cart thì sẽ có thông báo đẹp hơn                                               Ͳ
  *  - Thay thế avatar default                                                                          Ͳ
  *  - Sửa để cho nút add to cart đẹp hơn                                                               Ͳ
- *  - Trạng thái  mua hàng của 1 sản phẩm 
- *  - Sửa lại tính năng quản lý đơn hàng
- *  - Làm tiếp phần quản lý user
+ *  - Trạng thái  mua hàng của 1 sản phẩm                                                              Ͳ
+ *  - User có thể xem được trạng thái của 1 đơn hàng cụ thể                                            Ͳ
+ *  - Khi nhấn vào icon avatar mà bấm ra ngoài thì nó có thể tắt đi được                               Ͳ
+ *  - Sửa lại tính năng quản lý đơn hàng                  
+ *  - Bấm nút delete trong quản lý user thì phải hiện thông báo xác nhận                                                                         
  *  - Sửa để cho gửi email đẹp hơn
  *  - Phân trang cho quản lý user 
  *  - Sửa lại phần recommend là dùng dropdown 
  *  - Sửa lại ở phần trang chủ để khi search thì kết quả trả về ở dạng dropdown 
  *  - Sửa để fix cứng giá trị của VN trong phần thanh toán 
- *  - User có thể xem được trạng thái của 1 đơn hàng cụ thể
- *  - Khi nhấn vào icon avatar mà bấm ra ngoài thì nó có thể tắt đi được 
+ *  - Thay icon sáng tối
  */
