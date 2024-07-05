@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 const Banner = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -11,6 +12,7 @@ const Banner = () => {
           `${import.meta.env.VITE_BACKEND_URL}/books/search?q=${searchTerm}`
         );
         const data = await response.json();
+        console.log(data);
         setBooks(data);
       } catch (error) {
         console.log(error);
@@ -27,6 +29,10 @@ const Banner = () => {
   const handleSearchBook = (e) => {
     const term = e.target.value;
     setSearchTerm(term);
+  };
+
+  const handleClickBook = (bookId) => {
+    console.log("bookId: ", bookId);
   };
 
   return (
@@ -54,12 +60,18 @@ const Banner = () => {
           {searchTerm && books.length > 0 && (
             <ul className="absolute left-0 right-0 mt-2 bg-white border border-gray-300 rounded-lg shadow-lg max-h-60 overflow-y-auto z-10">
               {books.map((book) => (
-                <li
+                <Link
+                  to={`${import.meta.env.VITE_FRONTEND_URL}/book/${book._id}`}
                   key={book._id}
-                  className="px-4 py-2 hover:bg-gray-100 cursor-pointer"
                 >
-                  {book.bookTitle}
-                </li>
+                  <li
+                    key={book._id}
+                    className="px-4 py-2 hover:bg-gray-100 cursor-pointer"
+                    onClick={handleClickBook(book._id)}
+                  >
+                    {book.bookTitle}
+                  </li>
+                </Link>
               ))}
             </ul>
           )}

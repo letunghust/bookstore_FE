@@ -56,11 +56,12 @@ export default Home;
  *  - User có thể xem được trạng thái của 1 đơn hàng cụ thể                                            Ͳ
  *  - Khi nhấn vào icon avatar mà bấm ra ngoài thì nó có thể tắt đi được                               Ͳ
  *  - Thay icon sáng tối                                                                               Ͳ
+ *  - Sửa lại ở phần trang chủ để khi search thì kết quả trả về ở dạng dropdown                        Ͳ
+ *  - Khi dropdown thả xuống thì cần cho phép có thể bấm vào 1 cuốn sách được 
  *  - Sửa lại tính năng quản lý đơn hàng                  
  *  - Bấm nút delete trong quản lý user thì phải hiện thông báo xác nhận                                                                         
  *  - Sửa để cho gửi email đẹp hơn
  *  - Phân trang cho quản lý user 
  *  - Sửa lại phần recommend là dùng dropdown 
- *  - Sửa lại ở phần trang chủ để khi search thì kết quả trả về ở dạng dropdown 
  *  - Sửa để fix cứng giá trị của VN trong phần thanh toán 
  */
