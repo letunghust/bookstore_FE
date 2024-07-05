@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useContext, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { FaBahtSign } from "react-icons/fa6";
-import { FaAffiliatetheme, FaBoltLightning } from "react-icons/fa6";
+// import { FaAffiliatetheme, FaBoltLightning } from "react-icons/fa6";
 import "./NavBar.css";
 import { BsCart } from "react-icons/bs";
 import { ThemeContext } from "../App";
@@ -9,6 +9,8 @@ import { ThemeContext } from "../App";
 import { jwtDecode } from "jwt-decode";
 import axios from "axios";
 import defaultAvatar from "../assets/avatar.jpg";
+import { CiLight } from "react-icons/ci";
+import { MdOutlineNightlightRound } from "react-icons/md";
 
 const Navbar = () => {
   // const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -18,6 +20,7 @@ const Navbar = () => {
   const [showPopup, setShowPopUp] = useState(false);
   const [userRole, setUserRole] = useState("");
   const [avatar, setAvatar] = useState("");
+  const [isNightMode, setIsNightMode] = useState(darkTheme);
   const navigate = useNavigate();
   const popupRef = useRef(null); // Ref for the popup
   // const defaultAvatar = "https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/Flag_of_Vietnam.svg/1280px-Flag_of_Vietnam.svg.png";
@@ -103,6 +106,12 @@ const Navbar = () => {
     };
   }, [showPopup]);
 
+  // change theme light and dark
+  const toggleMode = () => {
+    toggleTheme();
+    setIsNightMode(!isNightMode);
+  };
+
   const navItems = [
     { link: "Home", path: "/" },
     { link: "Recommend", path: "/recommend" },
@@ -144,11 +153,14 @@ const Navbar = () => {
           </ul>
         </div>
         <div className="flex gap-x-2 items-center">
+          
           {/* change light and dark theme */}
-          <FaAffiliatetheme
-            style={{ fontSize: "2rem" }}
-            onClick={toggleTheme}
-          />
+          {isNightMode ? (
+            <MdOutlineNightlightRound style={{ fontSize: "2rem" }} onClick={toggleMode} />
+          ) : (
+            <CiLight style={{ fontSize: "2rem" }} onClick={toggleMode} />
+          )}
+
           {/* link to cart */}
           <Link to="/cart">
             <BsCart className="text-2xl" />
@@ -163,7 +175,10 @@ const Navbar = () => {
                 className="w-10 h-10 rounded-full cursor-pointer"
               />
               {showPopup ? (
-                <div ref={popupRef} className="absolute right-0 mt-2 bg-white rounded-md shadow-lg z-10">
+                <div
+                  ref={popupRef}
+                  className="absolute right-0 mt-2 bg-white rounded-md shadow-lg z-10"
+                >
                   <Link
                     to="/profile"
                     className="block px-4 py-2 text-gray-800 hover:bg-gray-100"
