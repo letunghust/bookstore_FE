@@ -98,12 +98,12 @@ const Cashier = () => {
                 {allPendingOrders.map((order) => (
                   <tr key={order._id} className="border-b hover:bg-gray-50">
                     <td className="py-3 px-4">{order._id}</td>
-                    <td className="py-3 px-4">{order.user.name}</td>
+                    <td className="py-3 px-4">{order.user?.name}</td>
                     <td className="py-3 px-4 text-right">
                       ${order.total_price.toFixed(2)}
                     </td>
                     <td className="py-3 px-4 text-center">
-                      <span className="bg-yellow-200 text-yellow-800 py-1 px-3 rounded-full text-xs">
+                      <span className="bg-gray-500 text-white py-1 px-3 rounded-full text-xs">
                         {order.order_status}
                       </span>
                     </td>

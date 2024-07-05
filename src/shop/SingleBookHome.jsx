@@ -3,7 +3,6 @@ import React, { useEffect, useState, useRef, useCallback } from "react";
 import { Link, useParams } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-// import Button from "../components/Button";
 
 const SingleBookHome = () => {
   const { id } = useParams();

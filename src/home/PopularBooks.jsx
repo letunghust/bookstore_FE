@@ -12,7 +12,7 @@ const PopularBooks = () => {
       const response = await fetch(
         `${import.meta.env.VITE_BACKEND_AI}/api/popular-books?page=${currentPage}&limit=${itemsPerPage}`
       );
-      console.log(response)
+      // console.log(response)
       if (response.ok) {
         const data = await response.json();
         // console.log(data)

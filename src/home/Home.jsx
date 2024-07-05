@@ -51,8 +51,8 @@ export default Home;
  *  - Sửa để chọn role trong admin                                                                     Ͳ
  *  - Sửa để khi add to cart thì sẽ có thông báo đẹp hơn                                               Ͳ
  *  - Thay thế avatar default                                                                          Ͳ
+ *  - Sửa để cho nút add to cart đẹp hơn                                                               Ͳ
  *  - Trạng thái  mua hàng của 1 sản phẩm 
- *  - Sửa để cho nút add to cart đẹp hơn 
  *  - Sửa lại tính năng quản lý đơn hàng
  *  - Làm tiếp phần quản lý user
  *  - Sửa để cho gửi email đẹp hơn
@@ -60,4 +60,6 @@ export default Home;
  *  - Sửa lại phần recommend là dùng dropdown 
  *  - Sửa lại ở phần trang chủ để khi search thì kết quả trả về ở dạng dropdown 
  *  - Sửa để fix cứng giá trị của VN trong phần thanh toán 
+ *  - User có thể xem được trạng thái của 1 đơn hàng cụ thể
+ *  - Khi nhấn vào icon avatar mà bấm ra ngoài thì nó có thể tắt đi được 
  */
