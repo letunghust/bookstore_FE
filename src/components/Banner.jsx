@@ -19,6 +19,8 @@ const Banner = () => {
 
     if (searchTerm) {
       fetchData();
+    } else {
+      setBooks([]); // Clear books when searchTerm is empty
     }
   }, [searchTerm]);
 
@@ -28,12 +30,11 @@ const Banner = () => {
   };
 
   return (
-    <div className="flex justify-center items-center p-8 bg-gray-200">
-      {/* left side bar */}
+    <div className="flex justify-center items-center p-8 bg-gray-200 relative">
       <div className="text-lg font-semibold text-blue-500">
         <div className="text-center">
           <h2 className="text-5xl font-bold mb-4">Search books</h2>
-          <div className="flex items-center">
+          <div className="flex items-center relative">
             <input
               className="border border-gray-300 px-4 py-2 rounded-l-full focus:outline-none"
               type="search"
@@ -41,6 +42,7 @@ const Banner = () => {
               id="search"
               placeholder="Search a book"
               onChange={handleSearchBook}
+              value={searchTerm}
             />
             <button
               type="submit"
@@ -49,19 +51,20 @@ const Banner = () => {
               Search
             </button>
           </div>
-          <div>
-            {/* Hiển thị kết quả tìm kiếm */}
-            {books.map((book) => (
-              <div key={book._id}>
-                <h3>{book.bookTitle}</h3>
-                {/* Hiển thị thông tin khác của sách */}
-              </div>
-            ))}
-          </div>
+          {searchTerm && books.length > 0 && (
+            <ul className="absolute left-0 right-0 mt-2 bg-white border border-gray-300 rounded-lg shadow-lg max-h-60 overflow-y-auto z-10">
+              {books.map((book) => (
+                <li
+                  key={book._id}
+                  className="px-4 py-2 hover:bg-gray-100 cursor-pointer"
+                >
+                  {book.bookTitle}
+                </li>
+              ))}
+            </ul>
+          )}
         </div>
       </div>
-
-      {/* right side bar */}
     </div>
   );
 };

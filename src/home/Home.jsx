@@ -55,6 +55,7 @@ export default Home;
  *  - Trạng thái  mua hàng của 1 sản phẩm                                                              Ͳ
  *  - User có thể xem được trạng thái của 1 đơn hàng cụ thể                                            Ͳ
  *  - Khi nhấn vào icon avatar mà bấm ra ngoài thì nó có thể tắt đi được                               Ͳ
+ *  - Thay icon sáng tối                                                                               Ͳ
  *  - Sửa lại tính năng quản lý đơn hàng                  
  *  - Bấm nút delete trong quản lý user thì phải hiện thông báo xác nhận                                                                         
  *  - Sửa để cho gửi email đẹp hơn
@@ -62,5 +63,4 @@ export default Home;
  *  - Sửa lại phần recommend là dùng dropdown 
  *  - Sửa lại ở phần trang chủ để khi search thì kết quả trả về ở dạng dropdown 
  *  - Sửa để fix cứng giá trị của VN trong phần thanh toán 
- *  - Thay icon sáng tối
  */
