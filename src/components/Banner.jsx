@@ -12,7 +12,7 @@ const Banner = () => {
           `${import.meta.env.VITE_BACKEND_URL}/books/search?q=${searchTerm}`
         );
         const data = await response.json();
-        console.log(data);
+        // console.log(data);
         setBooks(data);
       } catch (error) {
         console.log(error);
@@ -31,9 +31,9 @@ const Banner = () => {
     setSearchTerm(term);
   };
 
-  const handleClickBook = (bookId) => {
-    console.log("bookId: ", bookId);
-  };
+  // const handleClickBook = (bookId) => {
+  //   console.log("bookId: ", bookId);
+  // };
 
   return (
     <div className="flex justify-center items-center p-8 bg-gray-200 relative">
@@ -67,7 +67,7 @@ const Banner = () => {
                   <li
                     key={book._id}
                     className="px-4 py-2 hover:bg-gray-100 cursor-pointer"
-                    onClick={handleClickBook(book._id)}
+                    // onClick={handleClickBook(book._id)}
                   >
                     {book.bookTitle}
                   </li>

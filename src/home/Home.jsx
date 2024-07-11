@@ -1,5 +1,5 @@
 import Banner from "../components/Banner";
-// import FavBook from "./FavBook";
+import FavBook from "./FavBook";
 // import FavoriteBooks from "./FavoriteBooks";
 import PopularBooks from "./PopularBooks";
 
@@ -13,7 +13,7 @@ const Home = () => {
           <PopularBooks/>
         </div>
       </div>
-      {/* <FavBook /> */}
+      <FavBook />
     </div>
   );
 };
@@ -57,11 +57,12 @@ export default Home;
  *  - Khi nhấn vào icon avatar mà bấm ra ngoài thì nó có thể tắt đi được                               Ͳ
  *  - Thay icon sáng tối                                                                               Ͳ
  *  - Sửa lại ở phần trang chủ để khi search thì kết quả trả về ở dạng dropdown                        Ͳ
- *  - Khi dropdown thả xuống thì cần cho phép có thể bấm vào 1 cuốn sách được 
+ *  - Khi dropdown thả xuống thì cần cho phép có thể bấm vào 1 cuốn sách được                          Ͳ
  *  - Sửa lại tính năng quản lý đơn hàng                  
  *  - Bấm nút delete trong quản lý user thì phải hiện thông báo xác nhận                                                                         
  *  - Sửa để cho gửi email đẹp hơn
  *  - Phân trang cho quản lý user 
  *  - Sửa lại phần recommend là dùng dropdown 
  *  - Sửa để fix cứng giá trị của VN trong phần thanh toán 
+ *  - Icon số lượng ở giỏ hàng sẽ nhảy khi thêm 1 sản phẩm vào giỏ hàng 
  */
