@@ -64,5 +64,5 @@ export default Home;
  *  - Phân trang cho quản lý user 
  *  - Sửa lại phần recommend là dùng dropdown 
  *  - Sửa để fix cứng giá trị của VN trong phần thanh toán 
- *  - Icon số lượng ở giỏ hàng sẽ nhảy khi thêm 1 sản phẩm vào giỏ hàng 
+ *  - Icon số lượng ở giỏ hàng sẽ nhảy khi thêm 1 sản phẩm vào giỏ hàng
  */

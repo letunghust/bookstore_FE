@@ -7,18 +7,29 @@ import BookCard from "../components/BookCard";
 const FavBook = () => {
   const [bookRecommend, setBookRecommend] = useState([]);
   const [User_ID, setUser_ID] = useState();
+  const [userID, setUserID] = useState();
 
-  const token = localStorage.getItem("token");
-  const decodedToken = jwtDecode(token);
-  const userID = decodedToken._id;
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      try {
+        const decodedToken = jwtDecode(token);
+        const userID = decodedToken._id;
+        setUserID(userID);
+        // setUser_ID(userID);
+      } catch (error) {
+        console.error("Invalid token", error);
+      }
+    } else {
+      console.warn("No token found");
+    }
+  }, []);
 
-  const fetchUserData = async () => {
+  const fetchUserData = async (userID) => {
     try {
       const response = await axios.get(
         `${import.meta.env.VITE_BACKEND_URL}/user/${userID}`
       );
-      // console.log(response.data)
-      // console.log(response.data.User_ID)
       setUser_ID(response.data.User_ID);
     } catch (error) {
       console.log(error);
@@ -35,23 +46,21 @@ const FavBook = () => {
       console.log(data.recommendations);
       // setBookRecommend(data.recommendations);
 
-      const mappedBooks = data.recommendations.map((book) => (
-        {
-          _id: book[0],
-          imageURL: book[1],
-          bookTitle: book[0],
-        }
-      ));
-      setBookRecommend(mappedBooks); 
+      const mappedBooks = data.recommendations.map((book) => ({
+        _id: book[0],
+        imageURL: book[1],
+        bookTitle: book[0],
+      }));
+      setBookRecommend(mappedBooks);
     } catch (error) {
       console.log(error);
     }
   };
 
   useEffect(() => {
-    fetchUserData();
+    fetchUserData(userID);
     // fetchRatedBook();
-  }, []);
+  }, [userID]);
 
   useEffect(() => {
     if (User_ID) {
@@ -61,20 +70,8 @@ const FavBook = () => {
 
   return (
     <div className="p-4">
-      {/* <h1 className="text-2xl font-bold mb-4 text-center">Top rated book</h1> */}
-      {/* <div className="flex flex-wrap gap-4">
-        {bookRecommend?.map((book, index) => (
-          <div key={index} className="w-40">
-            <img
-              src={book[1]}
-              alt={book[0]}
-              className="w-full h-auto object-cover"
-            />
-            <p className="text-center">{book[0]}</p>
-          </div>
-        ))}
-      </div> */}
-      <BookCard books={bookRecommend} headline="Top recommend book"/>
+      
+      <BookCard books={bookRecommend} headline="Top recommend book" />
     </div>
   );
 };
